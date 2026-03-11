@@ -1,0 +1,591 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The StoryBrand Website Wireframe for Car Washes &mdash; The Five Funnels to Freedom&trade;</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: 'Inter', sans-serif; color: #1a1a2e; line-height: 1.7; background: #fff; }
+  .page { max-width: 750px; margin: 0 auto; padding: 60px 40px; }
+  .header { text-align: center; margin-bottom: 50px; border-bottom: 3px solid #1a1a2e; padding-bottom: 40px; }
+  .header .badge { display: inline-block; background: #1a1a2e; color: #fff; font-size: 11px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; padding: 6px 16px; border-radius: 4px; margin-bottom: 16px; }
+  .header h1 { font-size: 30px; font-weight: 800; line-height: 1.2; margin-bottom: 12px; }
+  .header p { font-size: 16px; color: #555; max-width: 580px; margin: 0 auto; }
+  h2 { font-size: 22px; font-weight: 700; margin: 40px 0 16px; color: #1a1a2e; border-left: 4px solid #2563eb; padding-left: 16px; }
+  h3 { font-size: 17px; font-weight: 700; margin: 24px 0 10px; color: #333; }
+  h4 { font-size: 15px; font-weight: 700; margin: 20px 0 8px; color: #444; text-transform: uppercase; letter-spacing: 0.5px; }
+  p { margin-bottom: 14px; font-size: 15px; }
+  .intro-box { background: #f0f4ff; border: 1px solid #c7d6ff; border-radius: 8px; padding: 24px 28px; margin: 30px 0; }
+  .intro-box p { margin-bottom: 8px; font-size: 14px; }
+  .intro-box p:last-child { margin-bottom: 0; }
+  .tip { background: #fffbeb; border-left: 4px solid #f59e0b; padding: 16px 20px; margin: 24px 0; border-radius: 0 8px 8px 0; }
+  .tip .tip-label { font-size: 11px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; color: #b45309; margin-bottom: 6px; }
+  .tip p { font-size: 14px; margin-bottom: 0; }
+  .warning { background: #fef2f2; border-left: 4px solid #ef4444; padding: 16px 20px; margin: 24px 0; border-radius: 0 8px 8px 0; }
+  .warning .warning-label { font-size: 11px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; color: #dc2626; margin-bottom: 6px; }
+  .warning p { font-size: 14px; margin-bottom: 0; }
+  .section-divider { border: none; border-top: 2px dashed #e2e2e2; margin: 50px 0; }
+
+  /* WIREFRAME MOCKUPS */
+  .wireframe { background: #f8fafc; border: 2px solid #e2e8f0; border-radius: 12px; margin: 24px 0 32px; overflow: hidden; }
+  .wireframe-label { background: #1a1a2e; color: #fff; font-size: 11px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; padding: 10px 20px; }
+  .wireframe-content { padding: 28px 24px; }
+  .wireframe-section { border: 2px dashed #cbd5e1; border-radius: 8px; padding: 20px; margin-bottom: 16px; position: relative; }
+  .wireframe-section:last-child { margin-bottom: 0; }
+  .wireframe-section .ws-label { position: absolute; top: -10px; left: 12px; background: #f8fafc; padding: 0 8px; font-size: 10px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; color: #2563eb; }
+  .wireframe-section .ws-placeholder { background: #e2e8f0; border-radius: 6px; height: 60px; display: flex; align-items: center; justify-content: center; font-size: 12px; color: #64748b; margin-bottom: 12px; }
+  .wireframe-section .ws-placeholder:last-child { margin-bottom: 0; }
+  .wireframe-section .ws-placeholder.hero-img { height: 100px; }
+  .wireframe-section .ws-placeholder.btn-primary { background: #2563eb; color: #fff; height: 44px; border-radius: 8px; font-weight: 700; max-width: 240px; }
+  .wireframe-section .ws-placeholder.btn-secondary { background: transparent; border: 2px solid #cbd5e1; color: #64748b; height: 44px; border-radius: 8px; font-weight: 600; max-width: 200px; }
+  .wireframe-section .ws-text { font-size: 13px; color: #64748b; margin-bottom: 8px; line-height: 1.5; }
+  .wireframe-section .ws-text:last-child { margin-bottom: 0; }
+  .wireframe-section .ws-heading { font-size: 18px; font-weight: 800; color: #1a1a2e; margin-bottom: 8px; }
+  .wireframe-section .ws-subheading { font-size: 14px; color: #64748b; margin-bottom: 12px; }
+  .ws-columns { display: flex; gap: 12px; margin: 12px 0; }
+  .ws-column { flex: 1; background: #e2e8f0; border-radius: 6px; padding: 16px; text-align: center; }
+  .ws-column .col-icon { font-size: 24px; margin-bottom: 6px; }
+  .ws-column .col-title { font-size: 12px; font-weight: 700; color: #334155; margin-bottom: 4px; }
+  .ws-column .col-text { font-size: 11px; color: #64748b; }
+  .btn-row { display: flex; gap: 12px; margin-top: 12px; align-items: center; }
+
+  /* COPY BLOCKS */
+  .copy-block { background: #fafafa; border: 1px solid #e2e2e2; border-radius: 8px; padding: 24px 28px; margin: 16px 0 24px; }
+  .copy-block .label { font-size: 11px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; color: #2563eb; margin-bottom: 12px; }
+  .copy-block .headline { font-size: 22px; font-weight: 800; color: #1a1a2e; margin-bottom: 8px; line-height: 1.3; }
+  .copy-block .subhead { font-size: 15px; color: #555; margin-bottom: 12px; }
+  .copy-block .cta-text { display: inline-block; background: #2563eb; color: #fff; font-size: 14px; font-weight: 700; padding: 10px 24px; border-radius: 8px; }
+  .copy-block .cta-secondary { font-size: 13px; color: #64748b; margin-top: 8px; }
+  .copy-block p { font-size: 14px; margin-bottom: 10px; }
+  .copy-block p:last-child { margin-bottom: 0; }
+  .copy-block ul { margin: 8px 0 12px 20px; font-size: 14px; }
+  .copy-block ul li { margin-bottom: 4px; }
+
+  .checklist { list-style: none; margin: 16px 0 24px; }
+  .checklist li { padding: 8px 0 8px 28px; position: relative; font-size: 15px; }
+  .checklist li::before { content: "\2713"; position: absolute; left: 0; color: #2563eb; font-weight: 700; }
+  .dont-list { list-style: none; margin: 16px 0 24px; }
+  .dont-list li { padding: 8px 0 8px 28px; position: relative; font-size: 15px; }
+  .dont-list li::before { content: "\2717"; position: absolute; left: 0; color: #ef4444; font-weight: 700; }
+
+  .footer { text-align: center; margin-top: 50px; padding-top: 30px; border-top: 2px solid #1a1a2e; }
+  .footer p { font-size: 13px; color: #888; }
+  .footer .brand { font-weight: 700; color: #1a1a2e; }
+
+  /* NAV BAR */
+  .top-bar {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: #0f172a;
+    padding: 12px 24px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .top-bar a.back-link {
+    color: #94a3b8;
+    text-decoration: none;
+    font-size: 14px;
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    transition: color 0.2s;
+  }
+  .top-bar a.back-link:hover { color: #fff; }
+  .top-bar .pdf-btn {
+    background: #2563eb;
+    color: #fff;
+    border: none;
+    font-family: 'Inter', sans-serif;
+    font-size: 13px;
+    font-weight: 600;
+    padding: 8px 20px;
+    border-radius: 6px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    transition: background 0.2s;
+  }
+  .top-bar .pdf-btn:hover { background: #1d4ed8; }
+  @media print {
+    .top-bar { display: none !important; }
+    .page { padding: 20px !important; }
+    body { background: #fff !important; }
+  }
+  @media (max-width: 640px) {
+    .ws-columns { flex-direction: column; }
+    .btn-row { flex-direction: column; }
+  }
+</style>
+</head>
+<body>
+<div class="top-bar">
+  <a href="../index.html" class="back-link"><img src="optspot-logo-white.png" alt="OptSpot" style="height: 22px; margin-right: 12px;"> &larr; Back to All Resources</a>
+  <button class="pdf-btn" onclick="window.print()">&#128196; Download as PDF</button>
+</div>
+
+<div class="page">
+
+<div class="header">
+  <div class="badge">Exclusive Book Resource</div>
+  <h1>The StoryBrand Website Wireframe for Car Washes</h1>
+  <p>The exact structure, copy, and layout that turns your website from a digital brochure into a lead-generating machine for your text club &mdash; section by section.</p>
+</div>
+
+<div class="intro-box">
+  <p><strong>The big idea:</strong> Your website has one job. Not to sell memberships. Not to impress visitors. Not to showcase your equipment. <strong>Your website's job is to capture a phone number.</strong></p>
+  <p>Only about 5% of people who land on your site are ready to buy anything. If your primary focus is selling memberships, you're losing 95% of visitors before the relationship ever begins. The StoryBrand wireframe fixes that by leading with a simple curiosity offer that begins the relationship &mdash; so your text club and SMS system can do the real selling over time.</p>
+  <p>This guide gives you the exact section-by-section structure, ready-to-use copy, and the wireframe layout to build (or rebuild) your homepage.</p>
+</div>
+
+<div class="warning">
+  <div class="warning-label">The #1 Mistake Car Wash Websites Make</div>
+  <p>Leading with "Join Our Unlimited Club" or "Buy a Membership" as the main call to action. This asks for a long-term commitment from someone who may have never visited your wash. It's like proposing marriage on a first date. <strong>Lead with the free wash. Capture the number. Let the system build the relationship.</strong></p>
+</div>
+
+<hr class="section-divider">
+
+<h2>The Website Wireframe: Section by Section</h2>
+<p>Below is the complete homepage structure using StoryBrand principles, customized for car washes running the Five Funnels system. Build your site in this exact order.</p>
+
+<!-- ========== SECTION 1: HERO ========== -->
+<h2>Section 1: The Hero Header</h2>
+<p><strong>Goal:</strong> In 5 seconds or less, a visitor should know (1) what you offer, (2) how it makes their life better, and (3) what to do next. If they have to scroll to understand any of those three things, the header isn't doing its job.</p>
+
+<div class="wireframe">
+  <div class="wireframe-label">Hero Section &mdash; Above the Fold</div>
+  <div class="wireframe-content">
+    <div class="wireframe-section">
+      <div class="ws-label">Background</div>
+      <div class="ws-placeholder hero-img">Hero image: clean, shiny car exiting your tunnel</div>
+    </div>
+    <div class="wireframe-section">
+      <div class="ws-label">Headline + CTA</div>
+      <div class="ws-heading">Drive a Car You're Proud Of &mdash; Every Single Day</div>
+      <div class="ws-subheading">A fast, easy wash that fits your life. Your first one's free.</div>
+      <div class="btn-row">
+        <div class="ws-placeholder btn-primary">Get Your Free Wash</div>
+        <div class="ws-placeholder btn-secondary">See Our Wash Packages</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<h3>The Copy</h3>
+
+<div class="copy-block">
+  <div class="label">Headline (Choose One)</div>
+  <div class="headline">Drive a Car You're Proud Of &mdash; Every Single Day</div>
+  <p style="color: #888; font-size: 13px; margin-top: 8px;">or</p>
+  <div class="headline">You Deserve to Love the Car You Drive</div>
+  <p style="color: #888; font-size: 13px; margin-top: 8px;">or</p>
+  <div class="headline">Stop Settling for a Dirty Car. Start Pulling Up With Confidence.</div>
+</div>
+
+<div class="copy-block">
+  <div class="label">Sub-headline</div>
+  <p>A fast, easy wash that fits your life &mdash; not the other way around. Your first one's free.</p>
+  <p style="font-size: 13px; color: #888;">The sub-headline should reinforce the successful future the headline promises. It's about <em>their</em> life getting easier, not about your wash being great.</p>
+</div>
+
+<div class="copy-block">
+  <div class="label">Primary Call to Action (Big, Bold Button)</div>
+  <div class="cta-text">Get Your Free Wash</div>
+  <div class="cta-secondary">This is the ONLY primary CTA on the entire page. It appears in the header, in the middle, and at the bottom. Every instance links to the same opt-in: enter your phone number, receive your free wash code via text.</div>
+</div>
+
+<div class="copy-block">
+  <div class="label">Secondary Call to Action (Text Link or Outlined Button)</div>
+  <p><strong>See Our Wash Packages</strong></p>
+  <p style="font-size: 13px; color: #888;">This is for the 5% who are already ready. It scrolls down to your pricing section or links to a packages page. It should NEVER compete visually with "Get Your Free Wash."</p>
+</div>
+
+<div class="tip">
+  <div class="tip-label">The StoryBrand Rule</div>
+  <p>The headline should pass the "grunt test." If a caveman looked at your website, could he grunt what you offer, how it makes his life better, and what to do next? If the answer to any of those is no, simplify. But remember &mdash; the headline is about the customer's life, not your car wash. "We're the best wash in town" makes you the hero. "Drive a car you're proud of" makes <em>them</em> the hero. That's the difference between a website that converts and one that doesn't.</p>
+</div>
+
+<hr class="section-divider">
+
+<!-- ========== SECTION 2: STAKES ========== -->
+<h2>Section 2: The Stakes</h2>
+<p><strong>Goal:</strong> Name the problem your customer is facing. This creates emotional resonance and makes the visitor feel understood. In StoryBrand, this is where you agitate the pain &mdash; not to manipulate, but to show you understand their world.</p>
+
+<div class="wireframe">
+  <div class="wireframe-label">Stakes Section</div>
+  <div class="wireframe-content">
+    <div class="wireframe-section">
+      <div class="ws-label">Problem Statement</div>
+      <div class="ws-heading" style="text-align: center;">You Shouldn't Have to Think This Hard About Keeping Your Car Clean</div>
+      <div class="ws-text" style="text-align: center;">Short paragraph naming the frustration</div>
+    </div>
+  </div>
+</div>
+
+<div class="copy-block">
+  <div class="label">Headline</div>
+  <div class="headline">You Shouldn't Have to Think This Hard About Keeping Your Car Clean</div>
+</div>
+
+<div class="copy-block">
+  <div class="label">Supporting Copy (Choose the Lines That Fit)</div>
+  <p>Between work, kids, errands, and everything else on your plate &mdash; figuring out when to wash your car shouldn't feel like another chore.</p>
+  <p>Maybe you've been meaning to wash it for a week. Maybe the pollen is driving you crazy. Maybe you just want your car to look good without having to plan around it.</p>
+  <p>You deserve a wash that's fast, easy, and always there when you need it.</p>
+</div>
+
+<div class="tip">
+  <div class="tip-label">Why This Works</div>
+  <p>Most car wash websites skip this entirely. They go straight to pricing or features. But StoryBrand teaches us that people don't buy until they feel understood. This section earns the right to present your solution by first naming what the customer is dealing with.</p>
+</div>
+
+<hr class="section-divider">
+
+<!-- ========== SECTION 3: VALUE PROPOSITION ========== -->
+<h2>Section 3: The Value Proposition</h2>
+<p><strong>Goal:</strong> Show the value of what you offer in three simple, visual "buckets." StoryBrand calls these the three benefits. They should be scannable, visual, and immediate.</p>
+
+<div class="wireframe">
+  <div class="wireframe-label">Value Proposition &mdash; Three Columns</div>
+  <div class="wireframe-content">
+    <div class="ws-columns">
+      <div class="ws-column">
+        <div class="col-icon">&#9889;</div>
+        <div class="col-title">Fast &amp; Convenient</div>
+        <div class="col-text">In and out in minutes. Open 7 days a week.</div>
+      </div>
+      <div class="ws-column">
+        <div class="col-icon">&#10024;</div>
+        <div class="col-title">Spotless Every Time</div>
+        <div class="col-text">Premium equipment. Consistently great results.</div>
+      </div>
+      <div class="ws-column">
+        <div class="col-icon">&#128176;</div>
+        <div class="col-title">Affordable Plans</div>
+        <div class="col-text">Unlimited washes from $X/mo. Pay per visit available.</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="copy-block">
+  <div class="label">Option A: The Experience Buckets</div>
+  <ul>
+    <li><strong>Fast &amp; Convenient</strong> &mdash; In and out in minutes. No appointment needed. Open 7 days a week.</li>
+    <li><strong>Spotless Every Time</strong> &mdash; State-of-the-art equipment that delivers a showroom-quality clean, every visit.</li>
+    <li><strong>Affordable Plans</strong> &mdash; Unlimited washes starting at $[X]/month. Single washes always available.</li>
+  </ul>
+</div>
+
+<div class="copy-block">
+  <div class="label">Option B: The Outcome Buckets</div>
+  <ul>
+    <li><strong>A Car You're Proud to Drive</strong> &mdash; No more apologizing for the mess. Pull up looking sharp every time.</li>
+    <li><strong>No More Guesswork</strong> &mdash; Unlimited members wash whenever they want. One flat price. No surprises.</li>
+    <li><strong>Time Back in Your Day</strong> &mdash; Our express wash takes minutes, not hours. Your schedule stays yours.</li>
+  </ul>
+</div>
+
+<hr class="section-divider">
+
+<!-- ========== SECTION 4: GUIDE ========== -->
+<h2>Section 4: The Guide</h2>
+<p><strong>Goal:</strong> Position your wash as the trusted guide, not the hero. The customer is the hero. You're the guide who helps them win. In StoryBrand terms, this is where you show <strong>empathy</strong> (we understand you) and <strong>authority</strong> (we know what we're doing).</p>
+
+<div class="wireframe">
+  <div class="wireframe-label">Guide Section</div>
+  <div class="wireframe-content">
+    <div class="wireframe-section">
+      <div class="ws-label">Empathy + Authority</div>
+      <div class="ws-heading" style="text-align: center;">Trusted by [X]+ Drivers in [City]</div>
+      <div class="ws-text" style="text-align: center;">Short empathy statement + proof</div>
+      <div class="ws-columns">
+        <div class="ws-column">
+          <div class="col-title">&#11088; 4.8 Stars</div>
+          <div class="col-text">[X]+ Google Reviews</div>
+        </div>
+        <div class="ws-column">
+          <div class="col-title">[X]+ Members</div>
+          <div class="col-text">Wash with us monthly</div>
+        </div>
+        <div class="ws-column">
+          <div class="col-title">[X] Years</div>
+          <div class="col-text">Serving [City]</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="copy-block">
+  <div class="label">Empathy Statement</div>
+  <p>We know how busy life gets. That's why we built a wash that works around your schedule, not the other way around. Whether you wash once a month or once a week, we're here to make it easy.</p>
+</div>
+
+<div class="copy-block">
+  <div class="label">Authority Proof</div>
+  <p>Use real numbers. Pick 2&ndash;3 of these:</p>
+  <ul>
+    <li>Google star rating + review count</li>
+    <li>Number of active members</li>
+    <li>Years in business</li>
+    <li>Cars washed per month or total</li>
+    <li>A short testimonial quote from a real customer</li>
+  </ul>
+</div>
+
+<div class="tip">
+  <div class="tip-label">StoryBrand Principle</div>
+  <p>The customer is the hero. You are the guide. Never position your wash as the main character of the story. Position the customer's clean car, easy routine, and saved time as the win &mdash; and your wash as the thing that makes it possible.</p>
+</div>
+
+<hr class="section-divider">
+
+<!-- ========== SECTION 5: THE PLAN ========== -->
+<h2>Section 5: The Plan</h2>
+<p><strong>Goal:</strong> Give customers a simple 3-step plan that shows how easy it is to get started. This reduces confusion and eliminates the feeling of "I don't know what to do next." StoryBrand calls this the Plan section &mdash; it creates clarity and lowers the barrier to action.</p>
+
+<div class="wireframe">
+  <div class="wireframe-label">The 3-Step Plan</div>
+  <div class="wireframe-content">
+    <div class="ws-columns">
+      <div class="ws-column">
+        <div class="col-icon" style="font-size: 28px; font-weight: 800; color: #2563eb;">1</div>
+        <div class="col-title">Claim Your Free Wash</div>
+        <div class="col-text">Enter your number. Get your code instantly.</div>
+      </div>
+      <div class="ws-column">
+        <div class="col-icon" style="font-size: 28px; font-weight: 800; color: #2563eb;">2</div>
+        <div class="col-title">Visit the Wash</div>
+        <div class="col-text">Show your code at the pay station. In and out in minutes.</div>
+      </div>
+      <div class="ws-column">
+        <div class="col-icon" style="font-size: 28px; font-weight: 800; color: #2563eb;">3</div>
+        <div class="col-title">Enjoy a Clean Car</div>
+        <div class="col-text">Drive away looking great. Come back anytime.</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="copy-block">
+  <div class="label">The Plan Copy</div>
+  <h3 style="margin-top: 0;">Getting a great wash is simple.</h3>
+  <p><strong>Step 1: Claim your free wash.</strong> Enter your phone number and we'll text you a code for a free wash.</p>
+  <p><strong>Step 2: Visit the wash.</strong> Show your code at the pay station. You'll be in and out in minutes.</p>
+  <p><strong>Step 3: Enjoy a clean car.</strong> Drive away looking brand new. Come back whenever you need us.</p>
+</div>
+
+<div class="tip">
+  <div class="tip-label">Why This Matters</div>
+  <p>Notice how every step is simple and action-oriented. Step 1 captures their phone number (they join your text club). Steps 2 and 3 describe a successful outcome. The plan reduces anxiety and makes the path clear. And the entire sequence feeds directly into your Online Funnel.</p>
+</div>
+
+<hr class="section-divider">
+
+<!-- ========== SECTION 6: EXPLANATORY PARAGRAPH ========== -->
+<h2>Section 6: The Explanatory Paragraph</h2>
+<p><strong>Goal:</strong> For visitors who want more detail before taking action, this section provides a brief overview of your wash, your services, and what makes you different. Keep it short. Two to three sentences max.</p>
+
+<div class="wireframe">
+  <div class="wireframe-label">Explanatory Paragraph</div>
+  <div class="wireframe-content">
+    <div class="wireframe-section">
+      <div class="ws-label">About Your Wash</div>
+      <div class="ws-text" style="text-align: center;">2&ndash;3 sentence paragraph about who you are and what you do</div>
+    </div>
+  </div>
+</div>
+
+<div class="copy-block">
+  <div class="label">Example Copy</div>
+  <p>[Your Wash Name] is [City]'s locally owned express car wash, built for people who want a clean car without the hassle. We offer single washes, wash packages, and unlimited membership plans that let you wash as often as you want for one flat monthly price. Whether it's your daily driver or the family SUV, we'll keep it looking great.</p>
+</div>
+
+<hr class="section-divider">
+
+<!-- ========== SECTION 7: PRICING / PACKAGES ========== -->
+<h2>Section 7: Wash Packages (Optional Section)</h2>
+<p><strong>Goal:</strong> Show your pricing simply and clearly. This is for the 5% who are ready to buy now. Keep it clean. Highlight your most popular option. But remember &mdash; this section is secondary to the free wash CTA.</p>
+
+<div class="wireframe">
+  <div class="wireframe-label">Pricing Section</div>
+  <div class="wireframe-content">
+    <div class="ws-columns">
+      <div class="ws-column">
+        <div class="col-title">Basic Wash</div>
+        <div class="col-text">$[X]</div>
+      </div>
+      <div class="ws-column" style="border: 2px solid #2563eb;">
+        <div class="col-title" style="color: #2563eb;">Most Popular</div>
+        <div class="col-text">$[X]</div>
+      </div>
+      <div class="ws-column">
+        <div class="col-title">Premium Wash</div>
+        <div class="col-text">$[X]</div>
+      </div>
+    </div>
+    <div style="text-align: center; margin-top: 16px;">
+      <div class="ws-placeholder btn-primary" style="margin: 0 auto;">Get Your Free Wash</div>
+    </div>
+  </div>
+</div>
+
+<div class="tip">
+  <div class="tip-label">Key Detail</div>
+  <p>Even on the pricing section, the primary CTA is still "Get Your Free Wash" &mdash; not "Buy Now" or "Join Today." The free wash gets them into your text club. Your SMS system handles the rest. You can include a secondary "View Membership Options" link for people who are ready, but it should never overpower the primary CTA.</p>
+</div>
+
+<hr class="section-divider">
+
+<!-- ========== SECTION 8: SUCCESS & FAILURE ========== -->
+<h2>Section 8: The Success &amp; Failure Stakes</h2>
+<p><strong>Goal:</strong> StoryBrand teaches that every story has two possible endings: success and failure. Paint a picture of what life looks like when they wash with you (success) and what they're settling for if they don't (failure). This creates urgency without being pushy.</p>
+
+<div class="copy-block">
+  <div class="label">The Success Picture</div>
+  <div class="headline">Imagine this.</div>
+  <p>Your car looks great every week without thinking about it. You drive up, get a spotless wash in minutes, and get back to your day. No appointments. No hassle. No more putting it off until the weekend.</p>
+  <p>That's what our members experience. A clean car whenever they want it &mdash; and more time for the things that actually matter.</p>
+</div>
+
+<div class="copy-block">
+  <div class="label">The Failure Picture (Subtle)</div>
+  <p>Don't let another month go by driving a car you're embarrassed to park. The pollen, the grime, the salt &mdash; it's not just ugly. It's slowly damaging your paint and lowering your car's value.</p>
+</div>
+
+<div class="tip">
+  <div class="tip-label">StoryBrand Principle</div>
+  <p>You don't need to be dramatic about the failure. Just name it. People are more motivated to avoid pain than to pursue pleasure. A subtle reminder of what they're losing by doing nothing is often enough to tip the decision.</p>
+</div>
+
+<hr class="section-divider">
+
+<!-- ========== SECTION 9: FINAL CTA ========== -->
+<h2>Section 9: The Final CTA</h2>
+<p><strong>Goal:</strong> Repeat the primary call to action one more time. By this point, the visitor has seen your offer, understood the value, felt the stakes, and seen the plan. Now make it dead simple to take the next step.</p>
+
+<div class="wireframe">
+  <div class="wireframe-label">Final Call to Action</div>
+  <div class="wireframe-content">
+    <div class="wireframe-section" style="text-align: center;">
+      <div class="ws-heading">Ready for a Free Wash?</div>
+      <div class="ws-subheading">Enter your phone number and we'll text you a code right now.</div>
+      <div class="ws-placeholder" style="max-width: 320px; margin: 12px auto; height: 44px;">Phone number input field</div>
+      <div class="ws-placeholder btn-primary" style="margin: 0 auto;">Get Your Free Wash</div>
+    </div>
+  </div>
+</div>
+
+<div class="copy-block">
+  <div class="label">Final CTA Copy Options</div>
+  <div class="headline">Ready for a Free Wash?</div>
+  <p>Enter your number below. We'll text you a code for a free wash you can use on your next visit.</p>
+  <p style="color: #888; font-size: 13px; margin-top: 12px;">or</p>
+  <div class="headline">Your First Wash Is On Us</div>
+  <p>Claim your free wash code right now. Just enter your phone number.</p>
+</div>
+
+<hr class="section-divider">
+
+<!-- ========== SECTION 10: FOOTER ========== -->
+<h2>Section 10: The Footer</h2>
+<p><strong>Goal:</strong> Keep it clean. Location, hours, contact info, social links. Nothing that competes with the primary CTA.</p>
+
+<div class="copy-block">
+  <div class="label">Footer Should Include</div>
+  <ul>
+    <li>Address and a link to Google Maps</li>
+    <li>Hours of operation</li>
+    <li>Phone number</li>
+    <li>Social media icons (not feeds &mdash; icons that link out)</li>
+    <li>A small text link: "Unlimited Membership Info" (for the 5%)</li>
+  </ul>
+</div>
+
+<hr class="section-divider">
+
+<!-- ========== THE OPT-IN ========== -->
+<h2>The Opt-In: How "Get Your Free Wash" Actually Works</h2>
+<p>Every time someone clicks "Get Your Free Wash," here's what should happen:</p>
+
+<div class="copy-block">
+  <div class="label">The Flow</div>
+  <p><strong>1. They click the button.</strong> A simple form appears (modal, inline, or new page). One field: phone number.</p>
+  <p><strong>2. They enter their number.</strong> No name. No email. No address. Just the phone number. Every extra field kills conversions.</p>
+  <p><strong>3. They receive an instant text.</strong> "[Your Wash Name]: Welcome! Here's your FREE wash code: [CODE]. Show this at the pay station on your next visit. We'll text you deals you won't find anywhere else."</p>
+  <p><strong>4. They're now in your text club.</strong> Your SMS nurture sequence takes over. Free wash redemption &rarr; bounce-back offer &rarr; habit-building &rarr; membership warm-up. The Online Funnel is now running.</p>
+</div>
+
+<div class="warning">
+  <div class="warning-label">Critical</div>
+  <p>The free wash code must be delivered <strong>instantly</strong> via text. If there's a delay, the moment is gone. Automation is non-negotiable here. If someone opts in and hears nothing for hours, you've lost them.</p>
+</div>
+
+<hr class="section-divider">
+
+<h2>The Full-Page Checklist</h2>
+<p>Before you launch (or relaunch) your homepage, run through this checklist.</p>
+
+<h3>Do This:</h3>
+<ul class="checklist">
+  <li>"Get Your Free Wash" is the primary CTA and appears at least 3 times on the page (header, mid-page, bottom)</li>
+  <li>The headline passes the grunt test: what you offer, how it helps, what to do next</li>
+  <li>The opt-in requires only a phone number &mdash; nothing else</li>
+  <li>The free wash code is delivered instantly via automated text</li>
+  <li>There's a 3-step plan that makes the process feel easy</li>
+  <li>Social proof is visible (reviews, member count, star rating)</li>
+  <li>The page works perfectly on mobile (most visitors will be on their phone)</li>
+  <li>Membership options are available but secondary &mdash; never competing with the free wash CTA</li>
+  <li>The page loads fast and has no unnecessary animations, pop-ups, or sliders</li>
+</ul>
+
+<h3>Don't Do This:</h3>
+<ul class="dont-list">
+  <li>Lead with "Join Our Unlimited Club" as the primary CTA</li>
+  <li>Require name, email, and phone number on the opt-in form</li>
+  <li>Use a rotating image slider in the hero (they kill conversions)</li>
+  <li>Write paragraphs about your equipment, chemicals, or tunnel specs</li>
+  <li>Bury the CTA below the fold</li>
+  <li>Use stock photos of cars that aren't at your wash</li>
+  <li>Link to social media feeds that pull visitors away from the page</li>
+  <li>Add a chatbot, pop-up, or interstitial that blocks the free wash CTA</li>
+</ul>
+
+<hr class="section-divider">
+
+<h2>Why This Structure Outperforms Every Other Approach</h2>
+
+<p>Most car wash websites are digital brochures. They list services, show hours, and hope someone clicks "Join." That approach captures the 5% who were already ready. It ignores the 95% who needed a reason to start the relationship.</p>
+
+<p>This wireframe captures both.</p>
+
+<p>The 5% who are ready can scroll to pricing or click the secondary CTA. The 95% who aren't ready yet still enter your world through the free wash. They join your text club. They receive their code. They visit your wash. And from that moment on, your SMS system guides them through curiosity, enlightenment, and commitment.</p>
+
+<p>Your website doesn't need to close the sale. It needs to open the relationship. The Five Funnels system handles everything after that.</p>
+
+<div class="intro-box">
+  <p><strong>One page. One primary CTA. One phone number field.</strong> That's the website that feeds your text club, fills your lanes, and builds predictable revenue. Everything else is noise.</p>
+</div>
+
+<div style="background: #0f172a; color: #fff; border-radius: 12px; padding: 40px 32px; margin: 40px 0; text-align: center;">
+  <img src="optspot-logo-white.png" alt="OptSpot" style="height: 32px; margin-bottom: 20px;">
+  <h3 style="font-size: 22px; font-weight: 800; margin-bottom: 12px; color: #fff;">Want OptSpot to Build Your Website for You?</h3>
+  <p style="font-size: 15px; color: #94a3b8; max-width: 480px; margin: 0 auto 20px; line-height: 1.6;">We build custom car wash websites designed to do one thing: make your wash money. Every site follows this exact framework, feeds your text club automatically, and is built to convert visitors into customers.</p>
+  <a href="https://optspot.com" style="display: inline-block; background: #2563eb; color: #fff; font-size: 14px; font-weight: 700; padding: 12px 32px; border-radius: 8px; text-decoration: none;">Learn More at OptSpot.com</a>
+</div>
+
+<div class="footer">
+  <img src="optspot-logo.png" alt="OptSpot" style="height: 28px; margin-bottom: 12px;">
+  <p>The Five Funnels to Freedom&trade;</p>
+  <p>optspot.com/fivefunnelsbook</p>
+</div>
+
+</div>
+</body>
+</html>

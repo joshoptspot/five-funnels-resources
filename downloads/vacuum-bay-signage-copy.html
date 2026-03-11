@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Vacuum Bay Signage &amp; Copy Guide &mdash; The Five Funnels to Freedom&trade;</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: 'Inter', sans-serif; color: #1a1a2e; line-height: 1.7; background: #fff; }
+  .page { max-width: 750px; margin: 0 auto; padding: 60px 40px; }
+  .header { text-align: center; margin-bottom: 50px; border-bottom: 3px solid #1a1a2e; padding-bottom: 40px; }
+  .header .badge { display: inline-block; background: #1a1a2e; color: #fff; font-size: 11px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; padding: 6px 16px; border-radius: 4px; margin-bottom: 16px; }
+  .header h1 { font-size: 30px; font-weight: 800; line-height: 1.2; margin-bottom: 12px; }
+  .header p { font-size: 16px; color: #555; max-width: 580px; margin: 0 auto; }
+  h2 { font-size: 22px; font-weight: 700; margin: 40px 0 16px; color: #1a1a2e; border-left: 4px solid #2563eb; padding-left: 16px; }
+  h3 { font-size: 17px; font-weight: 700; margin: 24px 0 10px; color: #333; }
+  p { margin-bottom: 14px; font-size: 15px; }
+  .intro-box { background: #f0f4ff; border: 1px solid #c7d6ff; border-radius: 8px; padding: 24px 28px; margin: 30px 0; }
+  .intro-box p { margin-bottom: 8px; font-size: 14px; }
+  .intro-box p:last-child { margin-bottom: 0; }
+  .sign-mockup { border: 3px solid #1a1a2e; border-radius: 12px; padding: 40px 32px; margin: 24px 0; text-align: center; background: #fff; }
+  .sign-mockup .headline { font-size: 32px; font-weight: 800; line-height: 1.2; margin-bottom: 12px; color: #1a1a2e; }
+  .sign-mockup .subhead { font-size: 16px; color: #555; margin-bottom: 20px; }
+  .sign-mockup .cta { font-size: 18px; font-weight: 700; color: #2563eb; }
+  .sign-mockup .qr-placeholder { display: inline-block; width: 80px; height: 80px; border: 2px dashed #ccc; border-radius: 8px; margin: 16px auto; line-height: 80px; font-size: 11px; color: #999; }
+  .sign-variation { background: #fafafa; border: 1px solid #e2e2e2; border-radius: 8px; padding: 24px; margin: 16px 0; }
+  .sign-variation .label { font-size: 11px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; color: #2563eb; margin-bottom: 8px; }
+  .sign-variation .copy { font-size: 20px; font-weight: 700; text-align: center; padding: 12px 0; }
+  .sign-variation .sub-copy { font-size: 14px; text-align: center; color: #555; }
+  .sign-variation .context { font-size: 13px; color: #888; margin-top: 12px; font-style: italic; }
+  .tip { background: #fffbeb; border-left: 4px solid #f59e0b; padding: 16px 20px; margin: 24px 0; border-radius: 0 8px 8px 0; }
+  .tip .tip-label { font-size: 11px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; color: #b45309; margin-bottom: 6px; }
+  .tip p { font-size: 14px; margin-bottom: 0; }
+  .placement-list { list-style: none; margin: 16px 0 24px; }
+  .placement-list li { padding: 10px 0 10px 28px; position: relative; font-size: 15px; border-bottom: 1px solid #f0f0f0; }
+  .placement-list li:last-child { border-bottom: none; }
+  .placement-list li::before { content: "\2794"; position: absolute; left: 0; color: #2563eb; }
+  .dont-list { list-style: none; margin: 16px 0 24px; }
+  .dont-list li { padding: 8px 0 8px 28px; position: relative; font-size: 15px; }
+  .dont-list li::before { content: "\2717"; position: absolute; left: 0; color: #ef4444; font-weight: 700; }
+  .do-list { list-style: none; margin: 16px 0 24px; }
+  .do-list li { padding: 8px 0 8px 28px; position: relative; font-size: 15px; }
+  .do-list li::before { content: "\2713"; position: absolute; left: 0; color: #22c55e; font-weight: 700; }
+  .section-divider { border: none; border-top: 2px dashed #e2e2e2; margin: 50px 0; }
+  .footer { text-align: center; margin-top: 50px; padding-top: 30px; border-top: 2px solid #1a1a2e; }
+  .footer p { font-size: 13px; color: #888; }
+  .footer .brand { font-weight: 700; color: #1a1a2e; }
+  @media print { .page { padding: 30px 20px; } }
+
+  /* NAV BAR */
+  .top-bar {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: #0f172a;
+    padding: 12px 24px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .top-bar a.back-link {
+    color: #94a3b8;
+    text-decoration: none;
+    font-size: 14px;
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    transition: color 0.2s;
+  }
+  .top-bar a.back-link:hover { color: #fff; }
+  .top-bar .pdf-btn {
+    background: #2563eb;
+    color: #fff;
+    border: none;
+    font-family: 'Inter', sans-serif;
+    font-size: 13px;
+    font-weight: 600;
+    padding: 8px 20px;
+    border-radius: 6px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    transition: background 0.2s;
+  }
+  .top-bar .pdf-btn:hover { background: #1d4ed8; }
+  @media print {
+    .top-bar { display: none !important; }
+    .page { padding: 20px !important; }
+    body { background: #fff !important; }
+  }
+</style>
+</head>
+<body>
+<div class="top-bar">
+  <a href="../index.html" class="back-link"><img src="optspot-logo-white.png" alt="OptSpot" style="height: 22px; margin-right: 12px;"> &larr; Back to All Resources</a>
+  <button class="pdf-btn" onclick="window.print()">&#128196; Download as PDF</button>
+</div>
+
+<div class="page">
+
+<div class="header">
+  <div class="badge">Exclusive Book Resource</div>
+  <h1>The Vacuum Bay Signage &amp; Copy Guide</h1>
+  <p>Proven sign copy, placement strategy, and design principles that turn your most overlooked space into your highest-converting marketing asset.</p>
+</div>
+
+<div class="intro-box">
+  <p><strong>Why the vacuum bay?</strong> After the wash, your customer's guard is down. They're not being sold to. They're not rushed. They feel good about their clean car. They have time. Their phone is in their pocket. This is the moment curiosity peaks &mdash; and a well-placed sign converts better than anything on your building, at your pay station, or on social media.</p>
+  <p>A small magnet placed near the vacuum head often outperforms every other marketing asset on your entire property.</p>
+</div>
+
+<h2>The Primary Sign: Your Highest-Converting Offer</h2>
+
+<div class="sign-mockup">
+  <div class="headline">Get Your Next Wash FREE</div>
+  <div class="subhead">Text [KEYWORD] to [NUMBER] to claim your code</div>
+  <div class="qr-placeholder">QR Code</div>
+  <div class="cta">Scan or text. Takes 5 seconds.</div>
+</div>
+
+<p>This is the sign that builds your list. Every other sign in this guide is secondary. If you install one sign today, make it this one.</p>
+
+<div class="tip">
+  <div class="tip-label">Why "Next Wash FREE" Works</div>
+  <p>Behavioral studies show people exchange their phone number for something worth $20&ndash;$30. A free wash hits that threshold perfectly. It's not a coupon. It's not a discount. It's a meaningful value exchange that turns a one-time visitor into someone you can follow up with forever.</p>
+</div>
+
+<hr class="section-divider">
+
+<h2>Sign Copy Variations</h2>
+<p>Test these variations to find what resonates best with your customers. Rotate monthly and track opt-in rates by keyword.</p>
+
+<div class="sign-variation">
+  <div class="label">Variation A &mdash; The Gift</div>
+  <div class="copy">Your Next Wash Is On Us</div>
+  <div class="sub-copy">Text [KEYWORD] to [NUMBER] to get your free wash code.</div>
+  <div class="context">Best for: Premium washes where customers expect a generous experience.</div>
+</div>
+
+<div class="sign-variation">
+  <div class="label">Variation B &mdash; The Reward</div>
+  <div class="copy">Thanks For Washing With Us.<br>Here's a Free One.</div>
+  <div class="sub-copy">Scan the QR code to claim your free wash.</div>
+  <div class="context">Best for: Washes with high first-time visitor traffic. Makes the customer feel appreciated immediately.</div>
+</div>
+
+<div class="sign-variation">
+  <div class="label">Variation C &mdash; The Curiosity Hook</div>
+  <div class="copy">Want a Free Wash?</div>
+  <div class="sub-copy">Text [KEYWORD] to [NUMBER]. We'll send you the code right now.</div>
+  <div class="context">Best for: Direct, no-frills operations. Simple question. Simple answer. High conversion.</div>
+</div>
+
+<div class="sign-variation">
+  <div class="label">Variation D &mdash; The Contest</div>
+  <div class="copy">Enter to Win!</div>
+  <div class="sub-copy">[Prize description &mdash; e.g., "A Year of Free Washes"]<br>Scan the QR code to enter. Winner drawn [date].</div>
+  <div class="context">Best for: Seasonal campaigns, grand openings, and high-traffic events. Drives massive short-term opt-ins.</div>
+</div>
+
+<div class="sign-variation">
+  <div class="label">Variation E &mdash; The Loyalty Hook</div>
+  <div class="copy">Your 5th Wash Is Free</div>
+  <div class="sub-copy">Pay for four, get your fifth on us. Every time.<br>Text [KEYWORD] to [NUMBER] to start earning.</div>
+  <div class="context">Best for: Loyalty-first strategy. Leads with the free wash they'll receive, not the program they're joining. Connects the text club to the loyalty program for double data capture.</div>
+</div>
+
+<hr class="section-divider">
+
+<h2>Placement Strategy: Where to Put Your Signs</h2>
+<p>Location matters as much as copy. Put your sign where the customer's eyes naturally go &mdash; not where it's convenient for you.</p>
+
+<h3>Tier 1: Highest Conversion Spots</h3>
+<ul class="placement-list">
+  <li><strong>On or next to the vacuum hose handle.</strong> A small magnet here gets seen by every single person who vacuums. This is your #1 spot.</li>
+  <li><strong>On the vacuum post at eye level.</strong> While they're waiting for the vacuum to start, they're looking right at it.</li>
+  <li><strong>Near the mat-washing station.</strong> Customers standing here have nothing to do but look around.</li>
+</ul>
+
+<h3>Tier 2: Strong Secondary Spots</h3>
+<ul class="placement-list">
+  <li><strong>On the towel tray / paper towel dispenser.</strong> Anyone drying their car sees this sign.</li>
+  <li><strong>On trash can lids.</strong> Every customer walks to the trash can at least once.</li>
+  <li><strong>A-frame or yard sign</strong> placed between the vacuum bays. Visible from multiple angles.</li>
+</ul>
+
+<h3>Tier 3: Supporting Spots</h3>
+<ul class="placement-list">
+  <li><strong>Exit of the tunnel.</strong> As the car pulls out, a sign visible through the windshield reinforces the offer.</li>
+  <li><strong>Waiting area / lobby.</strong> If you have a seating area, place a small table tent or poster.</li>
+</ul>
+
+<div class="tip">
+  <div class="tip-label">The Test That Proves It</div>
+  <p>Track opt-ins by keyword. Assign a different keyword to each sign location (e.g., VAC1, VAC2, TOWEL, MAT). After 30 days, you'll know exactly which placement converts best. Double down on the winners.</p>
+</div>
+
+<hr class="section-divider">
+
+<h2>Design Principles That Convert</h2>
+
+<h3>Do This:</h3>
+<ul class="do-list">
+  <li><strong>One message per sign.</strong> One headline. One action. One result.</li>
+  <li><strong>Large, bold text.</strong> Readable from 6+ feet away. If they can't read it while holding the vacuum hose, it's too small.</li>
+  <li><strong>High contrast.</strong> Dark text on light background or white text on dark background. Skip subtle color combinations.</li>
+  <li><strong>QR code AND text option.</strong> Some people prefer scanning. Some prefer texting. Give both.</li>
+  <li><strong>Weatherproof materials.</strong> Outdoor magnets, aluminum signs, or laminated posters. Your sign needs to survive.</li>
+  <li><strong>Clean design.</strong> White space is your friend. A cluttered sign is an invisible sign.</li>
+</ul>
+
+<h3>Don't Do This:</h3>
+<ul class="dont-list">
+  <li>Put multiple offers on one sign. One sign = one action.</li>
+  <li>Use small fonts. If it's not readable from 6 feet, redesign it.</li>
+  <li>Include your logo in a way that competes with the headline. Your logo should be small and secondary.</li>
+  <li>Use light colors on light backgrounds. Contrast drives readability.</li>
+  <li>Place signs where they're blocked by equipment, cars, or people.</li>
+  <li>Skip the QR code. It removes friction and makes opt-in instant.</li>
+</ul>
+
+<hr class="section-divider">
+
+<h2>The Loyalty Script for Pay Station Attendants</h2>
+<p>The pay station isn't the place for membership pitches. But it is the perfect place for a fast, frictionless loyalty program that captures data and builds habits.</p>
+
+<div class="sign-variation">
+  <div class="label">The Script</div>
+  <div class="copy" style="font-size: 16px; text-align: left; padding: 0;">"Earn points for your purchase today. After your fifth wash, you get one free."</div>
+  <div class="context">That's it. No selling. No pressure. No slowing down the line. The customer says yes or no, and the line keeps moving. This captures their phone number, enrolls them in your loyalty program, and adds them to your text club &mdash; all in under 10 seconds.</div>
+</div>
+
+<div class="tip">
+  <div class="tip-label">Key Insight</div>
+  <p>Your loyalty program should run through your text club. When every loyalty participant is in your text club, you're not just giving points &mdash; you're gaining a direct communication channel with the most active segment of your customer base. These are the warmest contacts you can build.</p>
+</div>
+
+<hr class="section-divider">
+
+<h2>Sign Sizing Recommendations</h2>
+
+<table style="width: 100%; border-collapse: collapse; margin: 20px 0; font-size: 14px;">
+  <tr style="background: #1a1a2e; color: #fff;">
+    <th style="padding: 12px 16px; text-align: left;">Placement</th>
+    <th style="padding: 12px 16px; text-align: left;">Recommended Format</th>
+    <th style="padding: 12px 16px; text-align: left;">Size</th>
+  </tr>
+  <tr style="background: #f9f9f9;">
+    <td style="padding: 12px 16px;">Vacuum hose / post</td>
+    <td style="padding: 12px 16px;">Magnet or sticker</td>
+    <td style="padding: 12px 16px;">4" x 6" or 5" x 7"</td>
+  </tr>
+  <tr>
+    <td style="padding: 12px 16px;">Vacuum bay A-frame</td>
+    <td style="padding: 12px 16px;">A-frame yard sign</td>
+    <td style="padding: 12px 16px;">24" x 36"</td>
+  </tr>
+  <tr style="background: #f9f9f9;">
+    <td style="padding: 12px 16px;">Mat station / towel tray</td>
+    <td style="padding: 12px 16px;">Aluminum sign or poster</td>
+    <td style="padding: 12px 16px;">12" x 18"</td>
+  </tr>
+  <tr>
+    <td style="padding: 12px 16px;">Trash can lid</td>
+    <td style="padding: 12px 16px;">Vinyl sticker</td>
+    <td style="padding: 12px 16px;">6" x 6" or 8" x 8"</td>
+  </tr>
+  <tr style="background: #f9f9f9;">
+    <td style="padding: 12px 16px;">Tunnel exit</td>
+    <td style="padding: 12px 16px;">Banner or large sign</td>
+    <td style="padding: 12px 16px;">3' x 6' or larger</td>
+  </tr>
+</table>
+
+<div class="footer">
+  <img src="optspot-logo.png" alt="OptSpot" style="height: 28px; margin-bottom: 12px;">
+  <p>The Five Funnels to Freedom&trade;</p>
+  <p>optspot.com/fivefunnelsbook</p>
+</div>
+
+</div>
+</body>
+</html>

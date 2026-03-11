@@ -1,0 +1,620 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Free Resources &mdash; The Five Funnels to Freedom&trade; | OptSpot</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap');
+
+  :root {
+    --navy: #0f172a;
+    --blue: #2563eb;
+    --blue-light: #3b82f6;
+    --blue-bg: #eff6ff;
+    --green: #16a34a;
+    --amber: #f59e0b;
+    --red: #dc2626;
+    --gray-50: #f8fafc;
+    --gray-100: #f1f5f9;
+    --gray-200: #e2e8f0;
+    --gray-300: #cbd5e1;
+    --gray-500: #64748b;
+    --gray-700: #334155;
+    --gray-900: #0f172a;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    color: var(--gray-900);
+    line-height: 1.6;
+    background: #fff;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* ========== HERO ========== */
+  .hero {
+    background: var(--navy);
+    color: #fff;
+    padding: 80px 24px 100px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero::before {
+    content: "";
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: radial-gradient(circle at 30% 70%, rgba(37, 99, 235, 0.15) 0%, transparent 50%),
+                radial-gradient(circle at 70% 30%, rgba(37, 99, 235, 0.1) 0%, transparent 50%);
+    pointer-events: none;
+  }
+  .hero-inner { max-width: 760px; margin: 0 auto; position: relative; z-index: 1; }
+  .hero-badge {
+    display: inline-block;
+    background: rgba(37, 99, 235, 0.2);
+    border: 1px solid rgba(37, 99, 235, 0.4);
+    color: #93c5fd;
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    padding: 8px 20px;
+    border-radius: 100px;
+    margin-bottom: 28px;
+  }
+  .hero h1 {
+    font-size: clamp(32px, 5vw, 52px);
+    font-weight: 900;
+    line-height: 1.1;
+    margin-bottom: 20px;
+    letter-spacing: -1px;
+  }
+  .hero h1 span { color: #60a5fa; }
+  .hero p {
+    font-size: 18px;
+    color: #94a3b8;
+    max-width: 600px;
+    margin: 0 auto 32px;
+    line-height: 1.7;
+  }
+  .hero-quote {
+    max-width: 520px;
+    margin: 0 auto;
+    padding: 20px 24px;
+    background: rgba(255,255,255,0.05);
+    border-left: 3px solid var(--blue);
+    border-radius: 0 8px 8px 0;
+    text-align: left;
+  }
+  .hero-quote p {
+    font-size: 15px;
+    color: #cbd5e1;
+    font-style: italic;
+    margin-bottom: 8px;
+  }
+  .hero-quote .attribution {
+    font-size: 13px;
+    color: #64748b;
+    font-style: normal;
+  }
+
+  /* ========== PROBLEM/AGITATION ========== */
+  .problem {
+    padding: 80px 24px;
+    background: var(--gray-50);
+    text-align: center;
+  }
+  .problem-inner { max-width: 680px; margin: 0 auto; }
+  .problem h2 {
+    font-size: 28px;
+    font-weight: 800;
+    margin-bottom: 20px;
+    line-height: 1.3;
+  }
+  .problem p { font-size: 16px; color: var(--gray-700); margin-bottom: 16px; }
+  .problem-list {
+    list-style: none;
+    text-align: left;
+    max-width: 520px;
+    margin: 28px auto 0;
+  }
+  .problem-list li {
+    padding: 12px 0 12px 32px;
+    position: relative;
+    font-size: 16px;
+    color: var(--gray-700);
+    border-bottom: 1px solid var(--gray-200);
+  }
+  .problem-list li:last-child { border-bottom: none; }
+  .problem-list li::before {
+    content: "\2717";
+    position: absolute;
+    left: 0;
+    color: var(--red);
+    font-weight: 700;
+    font-size: 14px;
+    top: 14px;
+  }
+
+  /* ========== GUIDE SECTION ========== */
+  .guide {
+    padding: 60px 24px;
+    text-align: center;
+    background: #fff;
+  }
+  .guide-inner { max-width: 680px; margin: 0 auto; }
+  .guide h2 {
+    font-size: 28px;
+    font-weight: 800;
+    margin-bottom: 16px;
+  }
+  .guide p { font-size: 16px; color: var(--gray-700); margin-bottom: 12px; }
+  .guide .emphasis {
+    font-size: 18px;
+    font-weight: 700;
+    color: var(--gray-900);
+    margin-top: 20px;
+  }
+
+  /* ========== RESOURCES GRID ========== */
+  .resources {
+    padding: 80px 24px;
+    background: var(--gray-50);
+  }
+  .resources-inner { max-width: 960px; margin: 0 auto; }
+  .resources-header {
+    text-align: center;
+    margin-bottom: 48px;
+  }
+  .resources-header .section-badge {
+    display: inline-block;
+    background: var(--blue-bg);
+    color: var(--blue);
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    padding: 6px 16px;
+    border-radius: 100px;
+    margin-bottom: 16px;
+  }
+  .resources-header h2 {
+    font-size: 32px;
+    font-weight: 800;
+    margin-bottom: 12px;
+  }
+  .resources-header p {
+    font-size: 16px;
+    color: var(--gray-500);
+    max-width: 560px;
+    margin: 0 auto;
+  }
+
+  .resource-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 24px;
+  }
+
+  .resource-card {
+    background: #fff;
+    border: 1px solid var(--gray-200);
+    border-radius: 16px;
+    padding: 32px 28px;
+    transition: all 0.2s ease;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    overflow: hidden;
+  }
+  .resource-card:hover {
+    border-color: var(--blue);
+    box-shadow: 0 4px 24px rgba(37, 99, 235, 0.1);
+    transform: translateY(-2px);
+  }
+  .resource-card .card-icon {
+    width: 48px;
+    height: 48px;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 24px;
+    margin-bottom: 20px;
+  }
+  .resource-card .card-icon.blue { background: #dbeafe; }
+  .resource-card .card-icon.green { background: #dcfce7; }
+  .resource-card .card-icon.amber { background: #fef3c7; }
+  .resource-card .card-icon.red { background: #fee2e2; }
+  .resource-card .card-icon.purple { background: #f3e8ff; }
+  .resource-card .card-icon.teal { background: #ccfbf1; }
+
+  .resource-card .card-label {
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    color: var(--gray-500);
+    margin-bottom: 8px;
+  }
+  .resource-card h3 {
+    font-size: 20px;
+    font-weight: 700;
+    line-height: 1.3;
+    margin-bottom: 12px;
+  }
+  .resource-card p {
+    font-size: 14px;
+    color: var(--gray-500);
+    line-height: 1.6;
+    margin-bottom: 20px;
+    flex: 1;
+  }
+  .resource-card .card-features {
+    list-style: none;
+    margin-bottom: 24px;
+  }
+  .resource-card .card-features li {
+    font-size: 13px;
+    color: var(--gray-700);
+    padding: 6px 0 6px 20px;
+    position: relative;
+  }
+  .resource-card .card-features li::before {
+    content: "\2713";
+    position: absolute;
+    left: 0;
+    color: var(--green);
+    font-weight: 700;
+    font-size: 12px;
+  }
+  .resource-card .btn {
+    display: inline-block;
+    background: var(--blue);
+    color: #fff;
+    font-size: 14px;
+    font-weight: 600;
+    padding: 12px 24px;
+    border-radius: 8px;
+    text-decoration: none;
+    text-align: center;
+    transition: background 0.2s;
+    cursor: pointer;
+    border: none;
+    width: 100%;
+  }
+  .resource-card .btn:hover { background: #1d4ed8; }
+  .resource-card.featured { border: 2px solid var(--blue); }
+  .resource-card.featured::before {
+    content: "MOST POPULAR";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    background: var(--blue);
+    color: #fff;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 1.5px;
+    text-align: center;
+    padding: 6px;
+  }
+  .resource-card.featured { padding-top: 52px; }
+
+  /* ========== SOCIAL PROOF ========== */
+  .proof {
+    padding: 80px 24px;
+    background: #fff;
+  }
+  .proof-inner { max-width: 800px; margin: 0 auto; text-align: center; }
+  .proof h2 { font-size: 28px; font-weight: 800; margin-bottom: 40px; }
+  .stat-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 24px;
+    margin-bottom: 48px;
+  }
+  .stat-item { text-align: center; }
+  .stat-item .stat-number { font-size: 42px; font-weight: 900; color: var(--blue); }
+  .stat-item .stat-label { font-size: 14px; color: var(--gray-500); margin-top: 4px; }
+
+  .testimonial-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 24px;
+    text-align: left;
+  }
+  .testimonial {
+    background: var(--gray-50);
+    border-radius: 12px;
+    padding: 28px;
+  }
+  .testimonial p {
+    font-size: 15px;
+    color: var(--gray-700);
+    font-style: italic;
+    margin-bottom: 16px;
+    line-height: 1.7;
+  }
+  .testimonial .attribution {
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--gray-900);
+    font-style: normal;
+  }
+  .testimonial .role {
+    font-size: 12px;
+    color: var(--gray-500);
+  }
+
+  /* ========== CTA ========== */
+  .cta-section {
+    padding: 80px 24px;
+    background: var(--navy);
+    color: #fff;
+    text-align: center;
+  }
+  .cta-inner { max-width: 600px; margin: 0 auto; }
+  .cta-section h2 {
+    font-size: 32px;
+    font-weight: 800;
+    margin-bottom: 16px;
+    line-height: 1.2;
+  }
+  .cta-section p {
+    font-size: 16px;
+    color: #94a3b8;
+    margin-bottom: 32px;
+    line-height: 1.7;
+  }
+  .cta-section .btn-cta {
+    display: inline-block;
+    background: var(--blue);
+    color: #fff;
+    font-size: 16px;
+    font-weight: 700;
+    padding: 16px 40px;
+    border-radius: 8px;
+    text-decoration: none;
+    transition: background 0.2s;
+  }
+  .cta-section .btn-cta:hover { background: #1d4ed8; }
+  .cta-section .sub-cta {
+    font-size: 13px;
+    color: #64748b;
+    margin-top: 16px;
+  }
+
+  /* ========== FOOTER ========== */
+  footer {
+    padding: 40px 24px;
+    background: #0a0f1a;
+    text-align: center;
+  }
+  footer p { font-size: 13px; color: #475569; }
+  footer a { color: #64748b; text-decoration: none; }
+
+  /* ========== RESPONSIVE ========== */
+  @media (max-width: 640px) {
+    .hero { padding: 60px 20px 80px; }
+    .resource-grid { grid-template-columns: 1fr; }
+    .stat-grid { grid-template-columns: repeat(2, 1fr); }
+    .testimonial-grid { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ========== HERO ========== -->
+<section class="hero">
+  <div class="hero-inner">
+    <img src="optspot-logo-white.png" alt="OptSpot" style="height: 40px; margin-bottom: 28px; display: block; margin-left: auto; margin-right: auto;">
+    <div class="hero-badge">Free Book Resources</div>
+    <h1>The Toolkit That Turns<br><span>Five Funnels</span> Into Revenue</h1>
+    <p>You read the book. Now install the system. These free resources give you the exact scripts, templates, and tools to put every funnel to work inside your car wash &mdash; starting today.</p>
+    <div class="hero-quote">
+      <p>"Josh and Levi have been in the trenches with real operators, solving real problems, inside an industry that doesn't offer easy wins."</p>
+      <div class="attribution">&mdash; Donald Miller, Author of <em>Building a StoryBrand</em></div>
+    </div>
+  </div>
+</section>
+
+<!-- ========== PROBLEM ========== -->
+<section class="problem">
+  <div class="problem-inner">
+    <h2>You know the system works.<br>But knowing isn't the same as doing.</h2>
+    <p>Most operators finish a great book, feel inspired for a week, and then go right back to the same cycle of guessing, hoping, and reacting. Not because they don't care &mdash; but because they don't have the tools to execute.</p>
+    <ul class="problem-list">
+      <li>You know you should partner with local businesses, but you don't have a pitch ready</li>
+      <li>You know SMS works, but you're staring at a blank screen wondering what to say</li>
+      <li>You know retention matters, but you haven't built the sequences</li>
+      <li>You know involuntary churn is costing you, but you don't know how much</li>
+      <li>You know what to do &mdash; you just need the tools to actually do it</li>
+    </ul>
+  </div>
+</section>
+
+<!-- ========== GUIDE ========== -->
+<section class="guide">
+  <div class="guide-inner">
+    <h2>That's why we built these resources.</h2>
+    <p>We took everything from <em>The Five Funnels to Freedom</em> and turned it into ready-to-use tools you can deploy this week. No guesswork. No writing from scratch. No figuring it out alone.</p>
+    <p>Every script has been tested. Every message has been proven. Every template comes from years of working with real operators across hundreds of car wash locations.</p>
+    <p class="emphasis">Download them. Customize them. Put them to work.</p>
+  </div>
+</section>
+
+<!-- ========== RESOURCES ========== -->
+<section class="resources">
+  <div class="resources-inner">
+    <div class="resources-header">
+      <div class="section-badge">Free Downloads</div>
+      <h2>Your Five Funnels Toolkit</h2>
+      <p>Six ready-to-use resources that cover every funnel in the book. Grab what you need or download them all.</p>
+    </div>
+
+    <div class="resource-grid">
+
+      <!-- Card 1: Partnership Scripts -->
+      <div class="resource-card featured">
+        <div class="card-icon blue">&#129309;</div>
+        <div class="card-label">Offsite Funnel</div>
+        <h3>The Partnership Pitch Scripts</h3>
+        <p>Word-for-word scripts to land local partnerships with service businesses, restaurants, gyms, schools, and nonprofits &mdash; the exact words that have generated 30,000+ contacts for operators like Tyler at Fast Freddy's.</p>
+        <ul class="card-features">
+          <li>5 complete pitch scripts (walk-in, email, follow-up)</li>
+          <li>Service business, retail, and nonprofit variations</li>
+          <li>The employee sweetener script that seals the deal</li>
+          <li>Re-engagement script for partners who go quiet</li>
+          <li>Partnership launch checklist</li>
+        </ul>
+        <a href="downloads/partnership-pitch-scripts.html" class="btn">Download Free</a>
+      </div>
+
+      <!-- Card 2: SMS Swipe File -->
+      <div class="resource-card">
+        <div class="card-icon green">&#128172;</div>
+        <div class="card-label">All Five Funnels</div>
+        <h3>The Ultimate SMS Swipe File</h3>
+        <p>47 proven text messages for every funnel, every season, and every situation. Copy, customize, and send. Stop staring at a blank screen and start communicating like the top-performing washes in the country.</p>
+        <ul class="card-features">
+          <li>Welcome sequences for every funnel</li>
+          <li>Seasonal &amp; weather-based campaigns</li>
+          <li>Membership enrollment campaign series</li>
+          <li>Retention &amp; win-back messages</li>
+          <li>Payment recovery sequences</li>
+        </ul>
+        <a href="downloads/sms-swipe-file.html" class="btn">Download Free</a>
+      </div>
+
+      <!-- Card 3: Website Wireframe -->
+      <div class="resource-card">
+        <div class="card-icon purple">&#127760;</div>
+        <div class="card-label">Online Funnel</div>
+        <h3>The StoryBrand Website Wireframe for Car Washes</h3>
+        <p>The exact section-by-section structure that turns your website from a digital brochure into a lead-generating machine for your text club. Built on StoryBrand principles, customized for the Five Funnels system.</p>
+        <ul class="card-features">
+          <li>Complete 10-section homepage wireframe</li>
+          <li>Ready-to-use copy for every section</li>
+          <li>Visual layout mockups</li>
+          <li>The opt-in flow that feeds your text club</li>
+          <li>Full-page launch checklist</li>
+        </ul>
+        <a href="downloads/website-wireframe-guide.html" class="btn">Download Free</a>
+      </div>
+
+      <!-- Card 4: 90-Day Retention -->
+      <div class="resource-card">
+        <div class="card-icon amber">&#128170;</div>
+        <div class="card-label">Retention Funnel</div>
+        <h3>The 90-Day Member Retention Playbook</h3>
+        <p>The exact timeline, messages, and actions to guide every new member through the critical first 90 days. Includes the cancellation save system that routinely saves 20&ndash;30% of attempted cancellations.</p>
+        <ul class="card-features">
+          <li>Complete 90-day automated timeline</li>
+          <li>Inactivity response system (14, 21, 30-day triggers)</li>
+          <li>Cancellation save scripts (4 scenarios)</li>
+          <li>Staff playbook for in-person retention</li>
+          <li>Revenue math table showing ROI</li>
+        </ul>
+        <a href="downloads/90-day-retention-playbook.html" class="btn">Download Free</a>
+      </div>
+
+      <!-- Card 5: Quick-Start Guide -->
+      <div class="resource-card">
+        <div class="card-icon blue">&#9889;</div>
+        <div class="card-label">Implementation</div>
+        <h3>The Five Funnels Quick-Start Guide</h3>
+        <p>Your week-by-week action plan to install each funnel. Includes the bottleneck diagnostic that tells you exactly which funnel to prioritize first &mdash; plus the Growth Season vs. Harvest Season framework.</p>
+        <ul class="card-features">
+          <li>5-question bottleneck diagnostic</li>
+          <li>Week-by-week plan for all 5 funnels</li>
+          <li>Growth Season vs. Harvest Season check</li>
+          <li>This week's 3-step action plan</li>
+        </ul>
+        <a href="downloads/five-funnels-quick-start-guide.html" class="btn">Download Free</a>
+      </div>
+
+      <!-- Card 6: Vacuum Bay Signage -->
+      <div class="resource-card">
+        <div class="card-icon teal">&#128204;</div>
+        <div class="card-label">Onsite Funnel</div>
+        <h3>The Vacuum Bay Signage &amp; Copy Guide</h3>
+        <p>Proven sign copy, placement strategy, and design principles for the most overlooked revenue space on your property. Includes 6 copy variations, a 3-tier placement map, and the loyalty script for pay station attendants.</p>
+        <ul class="card-features">
+          <li>6 tested sign copy variations</li>
+          <li>3-tier placement strategy (ranked by conversion)</li>
+          <li>Design principles that convert</li>
+          <li>Sign sizing recommendations</li>
+          <li>The pay station loyalty script</li>
+        </ul>
+        <a href="downloads/vacuum-bay-signage-copy.html" class="btn">Download Free</a>
+      </div>
+
+
+    </div>
+  </div>
+</section>
+
+<!-- ========== SOCIAL PROOF ========== -->
+<section class="proof">
+  <div class="proof-inner">
+    <h2>These systems produce real results for real operators.</h2>
+    <div class="stat-grid">
+      <div class="stat-item">
+        <div class="stat-number">20%+</div>
+        <div class="stat-label">Membership conversion rate<br>(up from 5&ndash;8%)</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-number">17 mo</div>
+        <div class="stat-label">Average member duration<br>(vs. 7 mo industry avg)</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-number">$203K</div>
+        <div class="stat-label">Projected LTV from<br>one 3-month partnership</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-number">600</div>
+        <div class="stat-label">New contacts in 3 days<br>from one vacuum bay sign</div>
+      </div>
+    </div>
+    <div class="testimonial-grid">
+      <div class="testimonial">
+        <p>"There's not a day we don't have at least a hundred opportunities to pitch memberships. Almost all of them came from building the text club first."</p>
+        <div class="attribution">Blake</div>
+        <div class="role">The Chemical Guys Car Wash, California</div>
+      </div>
+      <div class="testimonial">
+        <p>"The number of signups I get from my website far outpaces every other channel. More than social media. More than anything else."</p>
+        <div class="attribution">Ali</div>
+        <div class="role">Elite Express Car Wash, California</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ========== CTA ========== -->
+<section class="cta-section">
+  <div class="cta-inner">
+    <img src="optspot-logo-white.png" alt="OptSpot" style="height: 36px; margin-bottom: 24px; opacity: 0.8;">
+    <h2>Ready to stop guessing and start building predictable revenue?</h2>
+    <p>You have the book. You have the tools. The only thing left is execution. If you want a team standing behind you to make sure every funnel runs &mdash; consistently, reliably, in the background &mdash; we'd love to show you how OptSpot can help.</p>
+    <a href="https://optspot.com" class="btn-cta">See How OptSpot Works</a>
+    <p class="sub-cta">No pressure. No pitch. Just a conversation about your wash.</p>
+  </div>
+</section>
+
+<!-- ========== FOOTER ========== -->
+<footer>
+  <img src="optspot-logo-white.png" alt="OptSpot" style="height: 30px; margin-bottom: 16px; opacity: 0.5;">
+  <p>&copy; 2026 OptSpot. The Five Funnels to Freedom&trade; is a trademark of OptSpot.</p>
+  <p style="margin-top: 8px;"><a href="https://optspot.com">optspot.com</a> &middot; <a href="https://optspot.com/fivefunnelsbook">optspot.com/fivefunnelsbook</a></p>
+</footer>
+
+</body>
+</html>

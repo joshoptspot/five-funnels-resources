@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Five Funnels Quick-Start Implementation Guide &mdash; The Five Funnels to Freedom&trade;</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: 'Inter', sans-serif; color: #1a1a2e; line-height: 1.7; background: #fff; }
+  .page { max-width: 750px; margin: 0 auto; padding: 60px 40px; }
+  .header { text-align: center; margin-bottom: 50px; border-bottom: 3px solid #1a1a2e; padding-bottom: 40px; }
+  .header .badge { display: inline-block; background: #1a1a2e; color: #fff; font-size: 11px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; padding: 6px 16px; border-radius: 4px; margin-bottom: 16px; }
+  .header h1 { font-size: 30px; font-weight: 800; line-height: 1.2; margin-bottom: 12px; }
+  .header p { font-size: 16px; color: #555; max-width: 580px; margin: 0 auto; }
+  h2 { font-size: 22px; font-weight: 700; margin: 40px 0 16px; color: #1a1a2e; border-left: 4px solid #2563eb; padding-left: 16px; }
+  h3 { font-size: 17px; font-weight: 700; margin: 24px 0 10px; color: #333; }
+  p { margin-bottom: 14px; font-size: 15px; }
+  .intro-box { background: #f0f4ff; border: 1px solid #c7d6ff; border-radius: 8px; padding: 24px 28px; margin: 30px 0; }
+  .intro-box p { margin-bottom: 8px; font-size: 14px; }
+  .intro-box p:last-child { margin-bottom: 0; }
+  .funnel-card { border: 2px solid #e2e2e2; border-radius: 12px; padding: 28px; margin: 24px 0; }
+  .funnel-card.active { border-color: #2563eb; }
+  .funnel-number { display: inline-block; background: #2563eb; color: #fff; font-size: 13px; font-weight: 700; width: 32px; height: 32px; line-height: 32px; text-align: center; border-radius: 50%; margin-bottom: 12px; }
+  .funnel-card h3 { margin-top: 0; font-size: 20px; }
+  .funnel-card .subtitle { font-size: 14px; color: #555; margin-bottom: 16px; font-style: italic; }
+  .action-list { list-style: none; margin: 16px 0; }
+  .action-list li { padding: 10px 0 10px 32px; position: relative; font-size: 14px; border-bottom: 1px solid #f0f0f0; }
+  .action-list li:last-child { border-bottom: none; }
+  .action-list li .step { position: absolute; left: 0; font-weight: 700; color: #2563eb; font-size: 13px; }
+  .week-badge { display: inline-block; background: #f0f4ff; color: #2563eb; font-size: 11px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; padding: 3px 10px; border-radius: 4px; margin-bottom: 12px; }
+  .tip { background: #fffbeb; border-left: 4px solid #f59e0b; padding: 16px 20px; margin: 20px 0; border-radius: 0 8px 8px 0; }
+  .tip .tip-label { font-size: 11px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; color: #b45309; margin-bottom: 6px; }
+  .tip p { font-size: 14px; margin-bottom: 0; }
+  .section-divider { border: none; border-top: 2px dashed #e2e2e2; margin: 50px 0; }
+  .diagnostic { background: #fafafa; border: 1px solid #e2e2e2; border-radius: 8px; padding: 20px 24px; margin: 16px 0; }
+  .diagnostic h4 { font-size: 14px; font-weight: 700; margin-bottom: 8px; color: #333; }
+  .diagnostic p { font-size: 14px; margin-bottom: 6px; }
+  .diagnostic p:last-child { margin-bottom: 0; }
+  .checklist { list-style: none; margin: 16px 0 24px; }
+  .checklist li { padding: 8px 0 8px 28px; position: relative; font-size: 15px; }
+  .checklist li::before { content: "\25A1"; position: absolute; left: 0; color: #2563eb; font-weight: 700; }
+  .footer { text-align: center; margin-top: 50px; padding-top: 30px; border-top: 2px solid #1a1a2e; }
+  .footer p { font-size: 13px; color: #888; }
+  .footer .brand { font-weight: 700; color: #1a1a2e; }
+  @media print { .page { padding: 30px 20px; } }
+
+  /* NAV BAR */
+  .top-bar {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: #0f172a;
+    padding: 12px 24px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .top-bar a.back-link {
+    color: #94a3b8;
+    text-decoration: none;
+    font-size: 14px;
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    transition: color 0.2s;
+  }
+  .top-bar a.back-link:hover { color: #fff; }
+  .top-bar .pdf-btn {
+    background: #2563eb;
+    color: #fff;
+    border: none;
+    font-family: 'Inter', sans-serif;
+    font-size: 13px;
+    font-weight: 600;
+    padding: 8px 20px;
+    border-radius: 6px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    transition: background 0.2s;
+  }
+  .top-bar .pdf-btn:hover { background: #1d4ed8; }
+  @media print {
+    .top-bar { display: none !important; }
+    .page { padding: 20px !important; }
+    body { background: #fff !important; }
+  }
+</style>
+</head>
+<body>
+<div class="top-bar">
+  <a href="../index.html" class="back-link"><img src="optspot-logo-white.png" alt="OptSpot" style="height: 22px; margin-right: 12px;"> &larr; Back to All Resources</a>
+  <button class="pdf-btn" onclick="window.print()">&#128196; Download as PDF</button>
+</div>
+
+<div class="page">
+
+<div class="header">
+  <div class="badge">Exclusive Book Resource</div>
+  <h1>The Five Funnels Quick-Start Implementation Guide</h1>
+  <p>Your week-by-week action plan to install all five funnels, diagnose your bottleneck, and start building predictable revenue &mdash; starting today.</p>
+</div>
+
+<div class="intro-box">
+  <p><strong>How to use this guide:</strong> Don't try to install everything at once. Start with the diagnostic below to find your biggest bottleneck, then follow the week-by-week plan for that funnel. One funnel at a time. One improvement at a time. One predictable win at a time.</p>
+</div>
+
+<h2>Step 1: Diagnose Your Bottleneck</h2>
+<p>Read each scenario below. Whichever one hits closest to home tells you which funnel to prioritize first.</p>
+
+<div class="diagnostic">
+  <h4>"My traffic is inconsistent. Some weeks are packed, others are dead."</h4>
+  <p><strong>Your bottleneck:</strong> The Onsite, Offsite, and/or Online Funnels. You need more people entering your system.</p>
+  <p><strong>Start with:</strong> Funnel 1 (Onsite) &mdash; it requires the least setup and uses traffic you already have.</p>
+</div>
+
+<div class="diagnostic">
+  <h4>"I add members but they cancel within a few months."</h4>
+  <p><strong>Your bottleneck:</strong> The Retention Funnel. You're acquiring customers but not building the habit that keeps them.</p>
+  <p><strong>Start with:</strong> Funnel 4 (Retention) &mdash; every member you keep is more valuable than every member you add.</p>
+</div>
+
+<div class="diagnostic">
+  <h4>"My member count keeps dropping and I don't know why."</h4>
+  <p><strong>Your bottleneck:</strong> The Involuntary Churn Funnel. Check your cancellation report &mdash; if 20%+ are "failed billing," your system is losing members for you.</p>
+  <p><strong>Start with:</strong> Funnel 5 (Involuntary Churn) &mdash; this is the fastest fix with the highest ROI.</p>
+</div>
+
+<div class="diagnostic">
+  <h4>"I have a big list but can't seem to grow memberships."</h4>
+  <p><strong>Your bottleneck:</strong> You're in Harvest Season but not leveraging properly. Your list is an asset &mdash; you need to use it with the right messages at the right time.</p>
+  <p><strong>Start with:</strong> The SMS Swipe File resource + Funnel 4 (Retention).</p>
+</div>
+
+<div class="diagnostic">
+  <h4>"I'm a new wash or about to open."</h4>
+  <p><strong>Your bottleneck:</strong> List size. You need contacts before you need anything else.</p>
+  <p><strong>Start with:</strong> Funnel 3 (Online) &mdash; run free wash ads to build your text club before day one.</p>
+</div>
+
+<hr class="section-divider">
+
+<h2>Step 2: Install Your Priority Funnel</h2>
+
+<div class="funnel-card">
+  <div class="funnel-number">1</div>
+  <h3>The Onsite Funnel</h3>
+  <p class="subtitle">Turn daily traffic into a growing list of future members</p>
+
+  <div class="week-badge">Week 1</div>
+  <ul class="action-list">
+    <li><span class="step">1.</span> Walk your vacuum bay. Look at it through a customer's eyes. Is there a clear offer visible?</li>
+    <li><span class="step">2.</span> Design and order signage: "Get Your Next Wash FREE. Text [KEYWORD] to [NUMBER]."</li>
+    <li><span class="step">3.</span> Set up your keyword and automated welcome text with free wash code.</li>
+    <li><span class="step">4.</span> Place a sign or magnet as close to the vacuum hose as possible.</li>
+  </ul>
+
+  <div class="week-badge">Week 2</div>
+  <ul class="action-list">
+    <li><span class="step">5.</span> Set up your loyalty program (if not already running). Points-based, connected to your text club.</li>
+    <li><span class="step">6.</span> Train attendants on the loyalty script: "Earn points on your purchase today. After your fifth wash, you get one free."</li>
+    <li><span class="step">7.</span> Add a second sign in a different vacuum bay location (near mats or towel tray).</li>
+    <li><span class="step">8.</span> Review your first week's opt-in data. How many new contacts?</li>
+  </ul>
+
+  <div class="week-badge">Week 3&ndash;4</div>
+  <ul class="action-list">
+    <li><span class="step">9.</span> Build your automated nurture sequence: Day 3 check-in, Day 14 bounce-back, Day 30 membership warm-up.</li>
+    <li><span class="step">10.</span> Test sign placement. Move signs to different spots and track which converts best.</li>
+    <li><span class="step">11.</span> Set your monthly target: 20% of car count should join the text club.</li>
+  </ul>
+</div>
+
+<div class="funnel-card">
+  <div class="funnel-number">2</div>
+  <h3>The Offsite Funnel</h3>
+  <p class="subtitle">Grow your list through local partnerships without ads</p>
+
+  <div class="week-badge">Week 1</div>
+  <ul class="action-list">
+    <li><span class="step">1.</span> List 10 businesses within 3 miles where your ideal customers already go.</li>
+    <li><span class="step">2.</span> Design free wash cards with unique QR codes or keywords for each partner.</li>
+    <li><span class="step">3.</span> Visit your first partner. Use the Partnership Pitch Scripts resource. Just one visit.</li>
+  </ul>
+
+  <div class="week-badge">Week 2&ndash;3</div>
+  <ul class="action-list">
+    <li><span class="step">4.</span> Visit one new business per day. Goal: 5&ndash;10 partnerships in two weeks.</li>
+    <li><span class="step">5.</span> Send follow-up emails to confirm partnerships and set expectations.</li>
+    <li><span class="step">6.</span> Reach out to one school or nonprofit for a fundraiser partnership.</li>
+  </ul>
+
+  <div class="week-badge">Week 4</div>
+  <ul class="action-list">
+    <li><span class="step">7.</span> Check in with partners. Restock cards. Share early results.</li>
+    <li><span class="step">8.</span> Review data: Which partners are producing the most contacts?</li>
+    <li><span class="step">9.</span> Double down on top performers. Replace underperformers.</li>
+  </ul>
+</div>
+
+<div class="funnel-card">
+  <div class="funnel-number">3</div>
+  <h3>The Online Funnel</h3>
+  <p class="subtitle">Turn your website and ads into a lead-capture machine</p>
+
+  <div class="week-badge">Week 1</div>
+  <ul class="action-list">
+    <li><span class="step">1.</span> Add a free wash opt-in to the top of your homepage: "Get your first wash free. Enter your number."</li>
+    <li><span class="step">2.</span> Set up the automated text response: delivers the free wash code instantly.</li>
+    <li><span class="step">3.</span> Remove or de-prioritize any "Join Our Membership" CTA for cold visitors.</li>
+  </ul>
+
+  <div class="week-badge">Week 2</div>
+  <ul class="action-list">
+    <li><span class="step">4.</span> Launch one Meta (Facebook/Instagram) ad with your free wash offer. Budget: $10&ndash;20/day.</li>
+    <li><span class="step">5.</span> Target: 5&ndash;15 mile radius around your location. Age 25&ndash;65.</li>
+    <li><span class="step">6.</span> Update your Google Business Profile: photos, hours, accurate info.</li>
+  </ul>
+
+  <div class="week-badge">Week 3&ndash;4</div>
+  <ul class="action-list">
+    <li><span class="step">7.</span> Review ad performance. Cost per lead should be under $5.</li>
+    <li><span class="step">8.</span> Set up Meta retargeting: show membership offers to people already in your text club.</li>
+    <li><span class="step">9.</span> Track redemption rates. Website leads should redeem at 70%+.</li>
+  </ul>
+</div>
+
+<div class="funnel-card">
+  <div class="funnel-number">4</div>
+  <h3>The Retention Funnel</h3>
+  <p class="subtitle">Keep the members you worked hard to win</p>
+
+  <div class="week-badge">Week 1</div>
+  <ul class="action-list">
+    <li><span class="step">1.</span> Build your automated new-member welcome sequence (see the 90-Day Retention Playbook).</li>
+    <li><span class="step">2.</span> Set up the Day 3 check-in text.</li>
+    <li><span class="step">3.</span> Train your team: greet new members by name on their first visit.</li>
+  </ul>
+
+  <div class="week-badge">Week 2</div>
+  <ul class="action-list">
+    <li><span class="step">4.</span> Build inactivity triggers: auto-text at 14, 21, and 30 days of no washes.</li>
+    <li><span class="step">5.</span> Set up the cancellation save sequence (acknowledge, ask, offer solutions &mdash; not discounts).</li>
+    <li><span class="step">6.</span> Reach out to 5 recently canceled members. Ask why they left. Listen.</li>
+  </ul>
+
+  <div class="week-badge">Week 3&ndash;4</div>
+  <ul class="action-list">
+    <li><span class="step">7.</span> Complete the 90-day automated sequence: milestones at Day 30, 45, 60, 75, 90.</li>
+    <li><span class="step">8.</span> Review your average membership duration. Set a target to increase it by 2 months.</li>
+    <li><span class="step">9.</span> Create a referral program for Day 60+ members.</li>
+  </ul>
+</div>
+
+<div class="funnel-card">
+  <div class="funnel-number">5</div>
+  <h3>The Involuntary Churn Funnel</h3>
+  <p class="subtitle">Stop the silent killer of memberships</p>
+
+  <div class="week-badge">Week 1</div>
+  <ul class="action-list">
+    <li><span class="step">1.</span> Pull your cancellation report. Separate voluntary from involuntary (failed billing, expired card, declined).</li>
+    <li><span class="step">2.</span> Calculate your involuntary churn percentage. If it's over 20%, this is urgent.</li>
+    <li><span class="step">3.</span> Set up an automated text that fires within minutes of a payment failure.</li>
+  </ul>
+
+  <div class="week-badge">Week 2</div>
+  <ul class="action-list">
+    <li><span class="step">4.</span> Build the full recovery sequence: immediate text, Day 1 reminder, Day 3 urgency, Day 5 final notice.</li>
+    <li><span class="step">5.</span> Send a one-time recovery message to ALL currently failed-billing members in your system.</li>
+    <li><span class="step">6.</span> Track recovery rate. Target: 50%+ of failed payments resolved.</li>
+  </ul>
+
+  <div class="week-badge">Week 3&ndash;4</div>
+  <ul class="action-list">
+    <li><span class="step">7.</span> Review monthly: How many members were saved by the system?</li>
+    <li><span class="step">8.</span> Calculate revenue protected: members saved &times; avg. monthly rate &times; avg. remaining duration.</li>
+    <li><span class="step">9.</span> Ensure the system runs automatically. No manual chasing.</li>
+  </ul>
+</div>
+
+<hr class="section-divider">
+
+<h2>Your Growth Season vs. Harvest Season Check</h2>
+
+<div class="diagnostic">
+  <h4>You're in Growth Season if:</h4>
+  <p>Your list is under 10,000 contacts per location. A single text doesn't noticeably shift your traffic. Focus on growing the list aggressively through all three acquisition funnels.</p>
+</div>
+
+<div class="diagnostic">
+  <h4>You're in Harvest Season if:</h4>
+  <p>Your list is 10,000+ contacts. A single text noticeably shifts traffic. Promotions feel consistent, not like a gamble. Continue growing the list while leveraging it for traffic, enrollments, and weather-based campaigns.</p>
+</div>
+
+<div class="tip">
+  <div class="tip-label">Remember</div>
+  <p>You never stop growing your list. Growth Season and Harvest Season aren't sequential &mdash; they overlap. Growth fills the pipeline. Harvest converts it. You need both, always.</p>
+</div>
+
+<hr class="section-divider">
+
+<h2>This Week's Action Plan</h2>
+<p>Don't overthink it. Pick one funnel. Complete these three actions before the week is over.</p>
+
+<ul class="checklist">
+  <li>Diagnose your bottleneck using the guide above</li>
+  <li>Complete Step 1 of your priority funnel's week-one action list</li>
+  <li>Schedule 30 minutes tomorrow to complete Steps 2 and 3</li>
+</ul>
+
+<p>Momentum builds from movement, not from planning. The operators who win aren't the ones who know the most. They're the ones who execute most consistently. Start today. One funnel. One step. One predictable win.</p>
+
+<div class="footer">
+  <img src="optspot-logo.png" alt="OptSpot" style="height: 28px; margin-bottom: 12px;">
+  <p>The Five Funnels to Freedom&trade;</p>
+  <p>optspot.com/fivefunnelsbook</p>
+</div>
+
+</div>
+</body>
+</html>

@@ -1,0 +1,506 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Revenue Leak Calculator &mdash; The Five Funnels to Freedom&trade;</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: 'Inter', sans-serif; color: #1a1a2e; line-height: 1.7; background: #fff; }
+  .page { max-width: 750px; margin: 0 auto; padding: 60px 40px; }
+  .header { text-align: center; margin-bottom: 50px; border-bottom: 3px solid #1a1a2e; padding-bottom: 40px; }
+  .header .badge { display: inline-block; background: #dc2626; color: #fff; font-size: 11px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; padding: 6px 16px; border-radius: 4px; margin-bottom: 16px; }
+  .header h1 { font-size: 30px; font-weight: 800; line-height: 1.2; margin-bottom: 12px; }
+  .header p { font-size: 16px; color: #555; max-width: 580px; margin: 0 auto; }
+  h2 { font-size: 22px; font-weight: 700; margin: 40px 0 16px; color: #1a1a2e; border-left: 4px solid #dc2626; padding-left: 16px; }
+  h3 { font-size: 17px; font-weight: 700; margin: 24px 0 10px; color: #333; }
+  p { margin-bottom: 14px; font-size: 15px; }
+  .intro-box { background: #fef2f2; border: 1px solid #fecaca; border-radius: 8px; padding: 24px 28px; margin: 30px 0; }
+  .intro-box p { margin-bottom: 8px; font-size: 14px; }
+  .intro-box p:last-child { margin-bottom: 0; }
+  .calc-section { background: #fafafa; border: 1px solid #e2e2e2; border-radius: 12px; padding: 28px; margin: 24px 0; }
+  .calc-row { display: flex; justify-content: space-between; align-items: center; padding: 14px 0; border-bottom: 1px solid #e8e8e8; gap: 16px; }
+  .calc-row:last-child { border-bottom: none; }
+  .calc-row .label { font-size: 14px; flex: 1; }
+  .calc-row .hint { font-size: 12px; color: #888; margin-top: 2px; }
+  .calc-divider { border: none; border-top: 2px solid #e2e2e2; margin: 16px 0; }
+
+  /* Input fields */
+  .input-wrap { flex: 0 0 160px; position: relative; }
+  .input-wrap input {
+    width: 100%;
+    height: 44px;
+    border: 2px solid #d1d5db;
+    border-radius: 8px;
+    text-align: center;
+    font-size: 16px;
+    font-weight: 700;
+    font-family: 'Inter', sans-serif;
+    background: #fff;
+    color: #1a1a2e;
+    outline: none;
+    transition: border-color 0.2s;
+  }
+  .input-wrap input:focus { border-color: #2563eb; box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1); }
+  .input-wrap .unit { position: absolute; right: 12px; top: 50%; transform: translateY(-50%); font-size: 12px; color: #94a3b8; font-weight: 600; pointer-events: none; }
+
+  /* Computed result fields */
+  .result-wrap { flex: 0 0 160px; text-align: center; }
+  .result-value {
+    height: 44px;
+    line-height: 44px;
+    font-size: 16px;
+    font-weight: 800;
+    color: #64748b;
+    background: #f1f5f9;
+    border: 2px solid #e2e8f0;
+    border-radius: 8px;
+    transition: all 0.3s;
+  }
+  .result-value.has-value { color: #1a1a2e; background: #fff; }
+  .result-value.red { color: #dc2626; background: #fef2f2; border-color: #fecaca; }
+  .result-value.green { color: #16a34a; background: #f0fdf4; border-color: #bbf7d0; }
+
+  /* Total row */
+  .total-row {
+    background: #1a1a2e;
+    margin: 16px -28px -28px;
+    padding: 20px 28px;
+    border-radius: 0 0 10px 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 16px;
+  }
+  .total-row .label { color: #fff; font-size: 14px; }
+  .total-row .result-value {
+    background: rgba(255,255,255,0.1);
+    border-color: rgba(255,255,255,0.2);
+    color: #fff;
+    font-size: 18px;
+    font-weight: 900;
+  }
+  .total-row .result-value.has-value { background: rgba(255,255,255,0.15); color: #fff; }
+
+  .highlight-row { background: #fef2f2; margin: 0 -28px; padding: 14px 28px; border-radius: 8px; }
+  .highlight-row-green { background: #f0fdf4; margin: 0 -28px; padding: 14px 28px; border-radius: 8px; }
+
+  .tip { background: #fffbeb; border-left: 4px solid #f59e0b; padding: 16px 20px; margin: 24px 0; border-radius: 0 8px 8px 0; }
+  .tip .tip-label { font-size: 11px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; color: #b45309; margin-bottom: 6px; }
+  .tip p { font-size: 14px; margin-bottom: 0; }
+  .warning { background: #fef2f2; border-left: 4px solid #ef4444; padding: 16px 20px; margin: 24px 0; border-radius: 0 8px 8px 0; }
+  .warning .warning-label { font-size: 11px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; color: #dc2626; margin-bottom: 6px; }
+  .warning p { font-size: 14px; margin-bottom: 0; }
+  .section-divider { border: none; border-top: 2px dashed #e2e2e2; margin: 50px 0; }
+  .footer { text-align: center; margin-top: 50px; padding-top: 30px; border-top: 2px solid #1a1a2e; }
+  .footer p { font-size: 13px; color: #888; }
+
+  /* NAV BAR */
+  .top-bar {
+    position: sticky; top: 0; z-index: 100; background: #0f172a;
+    padding: 12px 24px; display: flex; justify-content: space-between; align-items: center;
+  }
+  .top-bar a.back-link {
+    color: #94a3b8; text-decoration: none; font-size: 14px; font-weight: 500;
+    display: flex; align-items: center; gap: 6px; transition: color 0.2s;
+  }
+  .top-bar a.back-link:hover { color: #fff; }
+  .top-bar .pdf-btn {
+    background: #2563eb; color: #fff; border: none; font-family: 'Inter', sans-serif;
+    font-size: 13px; font-weight: 600; padding: 8px 20px; border-radius: 6px;
+    cursor: pointer; display: flex; align-items: center; gap: 6px; transition: background 0.2s;
+  }
+  .top-bar .pdf-btn:hover { background: #1d4ed8; }
+  @media print {
+    .top-bar { display: none !important; }
+    .page { padding: 20px !important; }
+    body { background: #fff !important; }
+    .input-wrap input { border: 2px solid #999; }
+  }
+  @media (max-width: 640px) {
+    .calc-row { flex-direction: column; align-items: stretch; }
+    .input-wrap, .result-wrap { flex: none; }
+  }
+</style>
+</head>
+<body>
+<div class="top-bar">
+  <a href="../index.html" class="back-link"><img src="optspot-logo-white.png" alt="OptSpot" style="height: 22px; margin-right: 12px;"> &larr; Back to All Resources</a>
+  <button class="pdf-btn" onclick="window.print()">&#128196; Download as PDF</button>
+</div>
+
+<div class="page">
+
+<div class="header">
+  <div class="badge">Revenue Diagnostic Tool</div>
+  <h1>The Revenue Leak Calculator</h1>
+  <p>Find out exactly how much money your car wash is losing to involuntary churn, poor retention, and missed list growth &mdash; then see what fixing each one is worth.</p>
+</div>
+
+<div class="intro-box">
+  <p><strong>The uncomfortable truth:</strong> Across thousands of car washes, 40&ndash;60% of canceled memberships were never meant to cancel. They left because a payment failed and nobody told them. This calculator shows you exactly how much that silence is costing you &mdash; and what you'd gain by fixing it.</p>
+  <p>Enter your numbers below. The math updates instantly.</p>
+</div>
+
+<!-- ==================== PART 1 ==================== -->
+<h2>Part 1: Your Involuntary Churn Leak</h2>
+<p>Pull your cancellation report from the last 90 days. Separate voluntary cancellations from involuntary ones (failed billing, expired card, payment declined, aged out).</p>
+
+<div class="calc-section">
+  <div class="calc-row">
+    <div class="label">
+      <strong>A.</strong> Total cancellations (last 90 days)
+      <div class="hint">All members who left, for any reason</div>
+    </div>
+    <div class="input-wrap">
+      <input type="number" id="a" placeholder="0" oninput="calc()">
+    </div>
+  </div>
+  <div class="calc-row">
+    <div class="label">
+      <strong>B.</strong> Involuntary cancellations (failed billing, expired card, declined)
+      <div class="hint">Members who didn't choose to leave</div>
+    </div>
+    <div class="input-wrap">
+      <input type="number" id="b" placeholder="0" oninput="calc()">
+    </div>
+  </div>
+  <div class="calc-row">
+    <div class="label">
+      <strong>C.</strong> Involuntary churn rate
+      <div class="hint">B &divide; A &times; 100</div>
+    </div>
+    <div class="result-wrap">
+      <div class="result-value" id="c">&mdash;</div>
+    </div>
+  </div>
+</div>
+
+<div class="warning">
+  <div class="warning-label">How to Read Your Score</div>
+  <p><strong>Under 20%:</strong> You're in decent shape, but there's still money to recover.<br>
+  <strong>20&ndash;30%:</strong> You're losing significant revenue. A recovery system pays for itself immediately.<br>
+  <strong>30&ndash;40%:</strong> This is urgent. You're bleeding members who want to stay.<br>
+  <strong>40&ndash;60%:</strong> Critical. This is likely your single largest source of lost revenue.</p>
+</div>
+
+<h3>Calculate Your Annual Revenue Leak</h3>
+<div class="calc-section">
+  <div class="calc-row">
+    <div class="label">
+      <strong>D.</strong> Your average monthly membership rate
+    </div>
+    <div class="input-wrap">
+      <input type="number" id="d" placeholder="25" oninput="calc()">
+      <span class="unit">$/mo</span>
+    </div>
+  </div>
+  <div class="calc-row">
+    <div class="label">
+      <strong>E.</strong> Average remaining months when involuntary churn occurs
+      <div class="hint">Use 6 if unsure</div>
+    </div>
+    <div class="input-wrap">
+      <input type="number" id="e" placeholder="6" oninput="calc()">
+      <span class="unit">mo</span>
+    </div>
+  </div>
+  <div class="calc-row">
+    <div class="label">
+      <strong>F.</strong> Lost revenue per involuntary cancellation
+      <div class="hint">D &times; E</div>
+    </div>
+    <div class="result-wrap">
+      <div class="result-value" id="f">&mdash;</div>
+    </div>
+  </div>
+  <div class="calc-row">
+    <div class="label">
+      <strong>G.</strong> Estimated involuntary cancellations per year
+      <div class="hint">B &times; 4</div>
+    </div>
+    <div class="result-wrap">
+      <div class="result-value" id="g">&mdash;</div>
+    </div>
+  </div>
+  <div class="calc-row highlight-row">
+    <div class="label">
+      <strong style="color: #dc2626;">H. TOTAL ANNUAL REVENUE LEAK</strong>
+      <div class="hint">F &times; G</div>
+    </div>
+    <div class="result-wrap">
+      <div class="result-value" id="h">&mdash;</div>
+    </div>
+  </div>
+</div>
+
+<div class="tip">
+  <div class="tip-label">Example</div>
+  <p>A wash with 3,000 members, $25/mo rate, and 40% involuntary churn rate losing ~30 members/month involuntarily: 30 &times; $25 &times; 6 months remaining = $4,500/month leaked. That's <strong>$54,000/year</strong> in revenue walking out the door silently. A simple text sequence recovers 50%+ of that.</p>
+</div>
+
+<hr class="section-divider">
+
+<!-- ==================== PART 2 ==================== -->
+<h2>Part 2: Your Retention Revenue Opportunity</h2>
+<p>Small improvements in how long members stay produce massive revenue gains.</p>
+
+<div class="calc-section">
+  <div class="calc-row">
+    <div class="label">
+      <strong>I.</strong> Your current total active members
+    </div>
+    <div class="input-wrap">
+      <input type="number" id="i" placeholder="0" oninput="calc()">
+    </div>
+  </div>
+  <div class="calc-row">
+    <div class="label">
+      <strong>J.</strong> Your average membership duration
+      <div class="hint">Industry average is 7&ndash;8 months. Check your POS data.</div>
+    </div>
+    <div class="input-wrap">
+      <input type="number" id="j" placeholder="7" oninput="calc()">
+      <span class="unit">mo</span>
+    </div>
+  </div>
+  <div class="calc-row">
+    <div class="label">
+      <strong>K.</strong> Current lifetime value per member
+      <div class="hint">D &times; J</div>
+    </div>
+    <div class="result-wrap">
+      <div class="result-value" id="k">&mdash;</div>
+    </div>
+  </div>
+  <hr class="calc-divider">
+  <div class="calc-row">
+    <div class="label">
+      <strong>L.</strong> New LTV if you add just 2 months
+      <div class="hint">D &times; (J + 2)</div>
+    </div>
+    <div class="result-wrap">
+      <div class="result-value" id="l">&mdash;</div>
+    </div>
+  </div>
+  <div class="calc-row">
+    <div class="label">
+      <strong>M.</strong> Additional value per member
+      <div class="hint">L &minus; K</div>
+    </div>
+    <div class="result-wrap">
+      <div class="result-value" id="m">&mdash;</div>
+    </div>
+  </div>
+  <div class="calc-row highlight-row-green">
+    <div class="label">
+      <strong style="color: #16a34a;">N. TOTAL REVENUE GAINED</strong>
+      <div class="hint">M &times; I &mdash; without acquiring a single new customer</div>
+    </div>
+    <div class="result-wrap">
+      <div class="result-value" id="n">&mdash;</div>
+    </div>
+  </div>
+</div>
+
+<hr class="section-divider">
+
+<!-- ==================== PART 3 ==================== -->
+<h2>Part 3: Your List Growth Opportunity</h2>
+<p>Every phone number your car wash collects is worth approximately $15 in future revenue.</p>
+
+<div class="calc-section">
+  <div class="calc-row">
+    <div class="label">
+      <strong>O.</strong> Your current monthly car count
+    </div>
+    <div class="input-wrap">
+      <input type="number" id="o" placeholder="0" oninput="calc()">
+    </div>
+  </div>
+  <div class="calc-row">
+    <div class="label">
+      <strong>P.</strong> Current text club opt-in rate
+      <div class="hint">If unknown, most washes without a system are at 2&ndash;5%</div>
+    </div>
+    <div class="input-wrap">
+      <input type="number" id="p" placeholder="3" step="0.1" oninput="calc()">
+      <span class="unit">%</span>
+    </div>
+  </div>
+  <div class="calc-row">
+    <div class="label">
+      <strong>Q.</strong> Current monthly new contacts
+      <div class="hint">O &times; P &divide; 100</div>
+    </div>
+    <div class="result-wrap">
+      <div class="result-value" id="q">&mdash;</div>
+    </div>
+  </div>
+  <hr class="calc-divider">
+  <div class="calc-row">
+    <div class="label">
+      <strong>R.</strong> With the Onsite Funnel at 20% opt-in
+      <div class="hint">O &times; 0.20</div>
+    </div>
+    <div class="result-wrap">
+      <div class="result-value" id="r">&mdash;</div>
+    </div>
+  </div>
+  <div class="calc-row">
+    <div class="label">
+      <strong>S.</strong> Additional contacts per month
+      <div class="hint">R &minus; Q</div>
+    </div>
+    <div class="result-wrap">
+      <div class="result-value" id="s">&mdash;</div>
+    </div>
+  </div>
+  <div class="calc-row highlight-row-green">
+    <div class="label">
+      <strong style="color: #16a34a;">T. VALUE OF ADDITIONAL CONTACTS</strong>
+      <div class="hint">S &times; $15 &times; 12 months</div>
+    </div>
+    <div class="result-wrap">
+      <div class="result-value" id="t">&mdash;</div>
+    </div>
+  </div>
+</div>
+
+<hr class="section-divider">
+
+<!-- ==================== TOTAL ==================== -->
+<h2>Your Total Opportunity</h2>
+<p>The three numbers above, added together, reveal what's possible.</p>
+
+<div class="calc-section" style="border: 2px solid #1a1a2e;">
+  <div class="calc-row">
+    <div class="label"><strong>H.</strong> Revenue recovered from involuntary churn</div>
+    <div class="result-wrap">
+      <div class="result-value" id="h2">&mdash;</div>
+    </div>
+  </div>
+  <div class="calc-row">
+    <div class="label"><strong>N.</strong> Revenue gained from better retention</div>
+    <div class="result-wrap">
+      <div class="result-value" id="n2">&mdash;</div>
+    </div>
+  </div>
+  <div class="calc-row">
+    <div class="label"><strong>T.</strong> Revenue from improved list growth</div>
+    <div class="result-wrap">
+      <div class="result-value" id="t2">&mdash;</div>
+    </div>
+  </div>
+  <div class="total-row">
+    <div class="label">
+      <strong>YOUR TOTAL ANNUAL OPPORTUNITY</strong>
+    </div>
+    <div class="result-wrap" style="flex: 0 0 180px;">
+      <div class="result-value" id="total">&mdash;</div>
+    </div>
+  </div>
+</div>
+
+<p style="margin-top: 24px; text-align: center; font-style: italic; color: #555;">This is what the Five Funnels system is designed to capture. Not through more ads, more discounts, or more effort &mdash; but through better systems running consistently in the background.</p>
+
+<div class="intro-box" style="background: #f0f4ff; border-color: #c7d6ff;">
+  <p><strong>What to do with this number:</strong> If your total opportunity is significant (and for most operators, it is), pick the largest leak first. That's your priority funnel. Fix it. Then move to the next. One funnel at a time. One improvement at a time. One predictable win at a time.</p>
+</div>
+
+<div class="footer">
+  <img src="optspot-logo.png" alt="OptSpot" style="height: 28px; margin-bottom: 12px;">
+  <p>The Five Funnels to Freedom&trade;</p>
+  <p>optspot.com/fivefunnelsbook</p>
+</div>
+
+</div>
+
+<script>
+function v(id) {
+  var el = document.getElementById(id);
+  var val = parseFloat(el.value);
+  return isNaN(val) ? null : val;
+}
+
+function fmt(n) {
+  if (n === null || isNaN(n)) return '\u2014';
+  return '$' + Math.round(n).toLocaleString();
+}
+
+function fmtNum(n) {
+  if (n === null || isNaN(n)) return '\u2014';
+  return Math.round(n).toLocaleString();
+}
+
+function fmtPct(n) {
+  if (n === null || isNaN(n)) return '\u2014';
+  return n.toFixed(1) + '%';
+}
+
+function setResult(id, text, cls) {
+  var el = document.getElementById(id);
+  el.textContent = text;
+  el.className = 'result-value';
+  if (text !== '\u2014') el.classList.add('has-value');
+  if (cls) el.classList.add(cls);
+}
+
+function calc() {
+  var a = v('a'), b = v('b'), d = v('d'), e = v('e');
+  var iVal = v('i'), j = v('j'), o = v('o'), p = v('p');
+
+  // Part 1
+  var c = (a && b !== null && a > 0) ? (b / a * 100) : null;
+  var cCls = c !== null ? (c >= 40 ? 'red' : c >= 20 ? 'red' : '') : '';
+  setResult('c', c !== null ? fmtPct(c) : '\u2014', cCls);
+
+  var f = (d !== null && e !== null) ? d * e : null;
+  setResult('f', f !== null ? fmt(f) : '\u2014');
+
+  var g = (b !== null) ? b * 4 : null;
+  setResult('g', g !== null ? fmtNum(g) : '\u2014');
+
+  var h = (f !== null && g !== null) ? f * g : null;
+  setResult('h', h !== null ? fmt(h) : '\u2014', h !== null ? 'red' : '');
+  setResult('h2', h !== null ? fmt(h) : '\u2014', h !== null ? 'red' : '');
+
+  // Part 2
+  var k = (d !== null && j !== null) ? d * j : null;
+  setResult('k', k !== null ? fmt(k) : '\u2014');
+
+  var l = (d !== null && j !== null) ? d * (j + 2) : null;
+  setResult('l', l !== null ? fmt(l) : '\u2014');
+
+  var m = (l !== null && k !== null) ? l - k : null;
+  setResult('m', m !== null ? fmt(m) : '\u2014');
+
+  var n = (m !== null && iVal !== null) ? m * iVal : null;
+  setResult('n', n !== null ? fmt(n) : '\u2014', n !== null ? 'green' : '');
+  setResult('n2', n !== null ? fmt(n) : '\u2014', n !== null ? 'green' : '');
+
+  // Part 3
+  var q = (o !== null && p !== null) ? o * p / 100 : null;
+  setResult('q', q !== null ? fmtNum(q) : '\u2014');
+
+  var r = (o !== null) ? o * 0.20 : null;
+  setResult('r', r !== null ? fmtNum(r) : '\u2014');
+
+  var s = (r !== null && q !== null) ? r - q : null;
+  setResult('s', s !== null ? fmtNum(s) : '\u2014');
+
+  var t = (s !== null) ? s * 15 * 12 : null;
+  setResult('t', t !== null ? fmt(t) : '\u2014', t !== null ? 'green' : '');
+  setResult('t2', t !== null ? fmt(t) : '\u2014', t !== null ? 'green' : '');
+
+  // Total
+  var totalVal = null;
+  if (h !== null || n !== null || t !== null) {
+    totalVal = (h || 0) + (n || 0) + (t || 0);
+  }
+  setResult('total', totalVal !== null ? fmt(totalVal) : '\u2014', totalVal !== null ? 'has-value' : '');
+}
+</script>
+</body>
+</html>
