@@ -400,12 +400,144 @@
   footer p { font-size: 13px; color: #475569; }
   footer a { color: #64748b; text-decoration: none; }
 
+  /* ========== SCROLL ANIMATIONS ========== */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(30px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  @keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }
+  @keyframes scaleIn {
+    from { opacity: 0; transform: scale(0.95); }
+    to { opacity: 1; transform: scale(1); }
+  }
+  @keyframes slideInLeft {
+    from { opacity: 0; transform: translateX(-20px); }
+    to { opacity: 1; transform: translateX(0); }
+  }
+  @keyframes countPulse {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.05); }
+    100% { transform: scale(1); }
+  }
+
+  .animate { opacity: 0; }
+  .animate.visible { animation-fill-mode: both; }
+  .animate.fade-up.visible { animation: fadeUp 0.6s ease-out both; }
+  .animate.fade-in.visible { animation: fadeIn 0.5s ease-out both; }
+  .animate.scale-in.visible { animation: scaleIn 0.5s ease-out both; }
+  .animate.slide-left.visible { animation: slideInLeft 0.5s ease-out both; }
+
+  /* Staggered card animations */
+  .resource-card.animate.visible:nth-child(1) { animation-delay: 0s; }
+  .resource-card.animate.visible:nth-child(2) { animation-delay: 0.1s; }
+  .resource-card.animate.visible:nth-child(3) { animation-delay: 0.2s; }
+  .resource-card.animate.visible:nth-child(4) { animation-delay: 0.3s; }
+  .resource-card.animate.visible:nth-child(5) { animation-delay: 0.4s; }
+  .resource-card.animate.visible:nth-child(6) { animation-delay: 0.5s; }
+
+  .stat-item.animate.visible:nth-child(1) { animation-delay: 0s; }
+  .stat-item.animate.visible:nth-child(2) { animation-delay: 0.1s; }
+  .stat-item.animate.visible:nth-child(3) { animation-delay: 0.15s; }
+  .stat-item.animate.visible:nth-child(4) { animation-delay: 0.2s; }
+
+  .problem-list li.animate.visible:nth-child(1) { animation-delay: 0s; }
+  .problem-list li.animate.visible:nth-child(2) { animation-delay: 0.08s; }
+  .problem-list li.animate.visible:nth-child(3) { animation-delay: 0.16s; }
+  .problem-list li.animate.visible:nth-child(4) { animation-delay: 0.24s; }
+  .problem-list li.animate.visible:nth-child(5) { animation-delay: 0.32s; }
+
+  /* Hero entrance (no scroll trigger needed) */
+  .hero-inner > * {
+    animation: fadeUp 0.7s ease-out both;
+  }
+  .hero-inner > *:nth-child(1) { animation-delay: 0.1s; }
+  .hero-inner > *:nth-child(2) { animation-delay: 0.2s; }
+  .hero-inner > *:nth-child(3) { animation-delay: 0.35s; }
+  .hero-inner > *:nth-child(4) { animation-delay: 0.5s; }
+  .hero-inner > *:nth-child(5) { animation-delay: 0.65s; }
+
+  /* Button hover lift */
+  .resource-card .btn {
+    transition: background 0.2s, transform 0.2s, box-shadow 0.2s;
+  }
+  .resource-card .btn:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(37, 99, 235, 0.3);
+  }
+  .cta-section .btn-cta {
+    transition: background 0.2s, transform 0.2s, box-shadow 0.2s;
+  }
+  .cta-section .btn-cta:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 4px 16px rgba(37, 99, 235, 0.4);
+  }
+
+  /* Stat number animation */
+  .stat-item .stat-number { transition: transform 0.3s; }
+  .stat-item:hover .stat-number { animation: countPulse 0.4s ease; }
+
   /* ========== RESPONSIVE ========== */
-  @media (max-width: 640px) {
-    .hero { padding: 60px 20px 80px; }
-    .resource-grid { grid-template-columns: 1fr; }
-    .stat-grid { grid-template-columns: repeat(2, 1fr); }
-    .testimonial-grid { grid-template-columns: 1fr; }
+  @media (max-width: 768px) {
+    .hero { padding: 48px 20px 64px; }
+    .hero h1 { font-size: 28px; letter-spacing: -0.5px; }
+    .hero p { font-size: 16px; margin-bottom: 24px; }
+    .hero-badge { font-size: 11px; padding: 6px 16px; margin-bottom: 20px; }
+    .hero-quote { padding: 16px 18px; }
+    .hero-quote p { font-size: 14px; }
+
+    .problem { padding: 56px 20px; }
+    .problem h2 { font-size: 22px; }
+    .problem p { font-size: 15px; }
+    .problem-list li { font-size: 15px; padding: 10px 0 10px 28px; }
+
+    .guide { padding: 48px 20px; }
+    .guide h2 { font-size: 22px; }
+    .guide p { font-size: 15px; }
+
+    .resources { padding: 56px 16px; }
+    .resources-header { margin-bottom: 32px; }
+    .resources-header h2 { font-size: 26px; }
+    .resource-grid { grid-template-columns: 1fr; gap: 16px; }
+    .resource-card { padding: 24px 20px; }
+    .resource-card.featured { padding-top: 44px; }
+    .resource-card h3 { font-size: 18px; }
+    .resource-card p { font-size: 13px; }
+    .resource-card .card-features li { font-size: 12px; }
+
+    .proof { padding: 56px 20px; }
+    .proof h2 { font-size: 22px; margin-bottom: 28px; }
+    .stat-grid { grid-template-columns: repeat(2, 1fr); gap: 16px; }
+    .stat-item .stat-number { font-size: 32px; }
+    .stat-item .stat-label { font-size: 12px; }
+    .testimonial-grid { grid-template-columns: 1fr; gap: 16px; }
+    .testimonial { padding: 20px; }
+    .testimonial p { font-size: 14px; }
+
+    .cta-section { padding: 56px 20px; }
+    .cta-section h2 { font-size: 24px; }
+    .cta-section p { font-size: 15px; }
+    .cta-section .btn-cta { padding: 14px 32px; font-size: 15px; width: 100%; text-align: center; }
+
+    footer { padding: 32px 20px; }
+  }
+
+  @media (max-width: 380px) {
+    .hero h1 { font-size: 24px; }
+    .stat-grid { grid-template-columns: 1fr 1fr; gap: 12px; }
+    .stat-item .stat-number { font-size: 28px; }
+    .resources-header h2 { font-size: 22px; }
+  }
+
+  /* Reduce motion for accessibility */
+  @media (prefers-reduced-motion: reduce) {
+    .animate { opacity: 1; }
+    .hero-inner > * { animation: none; opacity: 1; }
+    .resource-card:hover { transform: none; }
+    .resource-card .btn:hover { transform: none; }
+    .cta-section .btn-cta:hover { transform: none; }
   }
 </style>
 </head>
@@ -428,14 +560,14 @@
 <!-- ========== PROBLEM ========== -->
 <section class="problem">
   <div class="problem-inner">
-    <h2>You know the system works.<br>But knowing isn't the same as doing.</h2>
-    <p>Most operators finish a great book, feel inspired for a week, and then go right back to the same cycle of guessing, hoping, and reacting. Not because they don't care &mdash; but because they don't have the tools to execute.</p>
+    <h2 class="animate fade-up">You know the system works.<br>But knowing isn't the same as doing.</h2>
+    <p class="animate fade-up">Most operators finish a great book, feel inspired for a week, and then go right back to the same cycle of guessing, hoping, and reacting. Not because they don't care &mdash; but because they don't have the tools to execute.</p>
     <ul class="problem-list">
-      <li>You know you should partner with local businesses, but you don't have a pitch ready</li>
-      <li>You know SMS works, but you're staring at a blank screen wondering what to say</li>
-      <li>You know retention matters, but you haven't built the sequences</li>
-      <li>You know involuntary churn is costing you, but you don't know how much</li>
-      <li>You know what to do &mdash; you just need the tools to actually do it</li>
+      <li class="animate slide-left">You know you should partner with local businesses, but you don't have a pitch ready</li>
+      <li class="animate slide-left">You know SMS works, but you're staring at a blank screen wondering what to say</li>
+      <li class="animate slide-left">You know retention matters, but you haven't built the sequences</li>
+      <li class="animate slide-left">You know involuntary churn is costing you, but you don't know how much</li>
+      <li class="animate slide-left">You know what to do &mdash; you just need the tools to actually do it</li>
     </ul>
   </div>
 </section>
@@ -443,10 +575,10 @@
 <!-- ========== GUIDE ========== -->
 <section class="guide">
   <div class="guide-inner">
-    <h2>That's why we built these resources.</h2>
-    <p>We took everything from <em>The Five Funnels to Freedom</em> and turned it into ready-to-use tools you can deploy this week. No guesswork. No writing from scratch. No figuring it out alone.</p>
-    <p>Every script has been tested. Every message has been proven. Every template comes from years of working with real operators across hundreds of car wash locations.</p>
-    <p class="emphasis">Download them. Customize them. Put them to work.</p>
+    <h2 class="animate fade-up">That's why we built these resources.</h2>
+    <p class="animate fade-up">We took everything from <em>The Five Funnels to Freedom</em> and turned it into ready-to-use tools you can deploy this week. No guesswork. No writing from scratch. No figuring it out alone.</p>
+    <p class="animate fade-up">Every script has been tested. Every message has been proven. Every template comes from years of working with real operators across hundreds of car wash locations.</p>
+    <p class="emphasis animate fade-up">Download them. Customize them. Put them to work.</p>
   </div>
 </section>
 
@@ -454,15 +586,15 @@
 <section class="resources">
   <div class="resources-inner">
     <div class="resources-header">
-      <div class="section-badge">Free Downloads</div>
-      <h2>Your Five Funnels Toolkit</h2>
-      <p>Six ready-to-use resources that cover every funnel in the book. Grab what you need or download them all.</p>
+      <div class="section-badge animate fade-in">Free Downloads</div>
+      <h2 class="animate fade-up">Your Five Funnels Toolkit</h2>
+      <p class="animate fade-up">Six ready-to-use resources that cover every funnel in the book. Grab what you need or download them all.</p>
     </div>
 
     <div class="resource-grid">
 
       <!-- Card 1: Partnership Scripts -->
-      <div class="resource-card featured">
+      <div class="resource-card featured animate scale-in">
         <div class="card-icon blue">&#129309;</div>
         <div class="card-label">Offsite Funnel</div>
         <h3>The Partnership Pitch Scripts</h3>
@@ -478,7 +610,7 @@
       </div>
 
       <!-- Card 2: SMS Swipe File -->
-      <div class="resource-card">
+      <div class="resource-card animate scale-in">
         <div class="card-icon green">&#128172;</div>
         <div class="card-label">All Five Funnels</div>
         <h3>The Ultimate SMS Swipe File</h3>
@@ -494,7 +626,7 @@
       </div>
 
       <!-- Card 3: Website Wireframe -->
-      <div class="resource-card">
+      <div class="resource-card animate scale-in">
         <div class="card-icon purple">&#127760;</div>
         <div class="card-label">Online Funnel</div>
         <h3>The StoryBrand Website Wireframe for Car Washes</h3>
@@ -510,7 +642,7 @@
       </div>
 
       <!-- Card 4: 90-Day Retention -->
-      <div class="resource-card">
+      <div class="resource-card animate scale-in">
         <div class="card-icon amber">&#128170;</div>
         <div class="card-label">Retention Funnel</div>
         <h3>The 90-Day Member Retention Playbook</h3>
@@ -526,7 +658,7 @@
       </div>
 
       <!-- Card 5: Quick-Start Guide -->
-      <div class="resource-card">
+      <div class="resource-card animate scale-in">
         <div class="card-icon blue">&#9889;</div>
         <div class="card-label">Implementation</div>
         <h3>The Five Funnels Quick-Start Guide</h3>
@@ -541,7 +673,7 @@
       </div>
 
       <!-- Card 6: Vacuum Bay Signage -->
-      <div class="resource-card">
+      <div class="resource-card animate scale-in">
         <div class="card-icon teal">&#128204;</div>
         <div class="card-label">Onsite Funnel</div>
         <h3>The Vacuum Bay Signage &amp; Copy Guide</h3>
@@ -564,32 +696,32 @@
 <!-- ========== SOCIAL PROOF ========== -->
 <section class="proof">
   <div class="proof-inner">
-    <h2>These systems produce real results for real operators.</h2>
+    <h2 class="animate fade-up">These systems produce real results for real operators.</h2>
     <div class="stat-grid">
-      <div class="stat-item">
+      <div class="stat-item animate fade-up">
         <div class="stat-number">20%+</div>
         <div class="stat-label">Membership conversion rate<br>(up from 5&ndash;8%)</div>
       </div>
-      <div class="stat-item">
+      <div class="stat-item animate fade-up">
         <div class="stat-number">17 mo</div>
         <div class="stat-label">Average member duration<br>(vs. 7 mo industry avg)</div>
       </div>
-      <div class="stat-item">
+      <div class="stat-item animate fade-up">
         <div class="stat-number">$203K</div>
         <div class="stat-label">Projected LTV from<br>one 3-month partnership</div>
       </div>
-      <div class="stat-item">
+      <div class="stat-item animate fade-up">
         <div class="stat-number">600</div>
         <div class="stat-label">New contacts in 3 days<br>from one vacuum bay sign</div>
       </div>
     </div>
     <div class="testimonial-grid">
-      <div class="testimonial">
+      <div class="testimonial animate fade-up">
         <p>"There's not a day we don't have at least a hundred opportunities to pitch memberships. Almost all of them came from building the text club first."</p>
         <div class="attribution">Blake</div>
         <div class="role">The Chemical Guys Car Wash, California</div>
       </div>
-      <div class="testimonial">
+      <div class="testimonial animate fade-up">
         <p>"The number of signups I get from my website far outpaces every other channel. More than social media. More than anything else."</p>
         <div class="attribution">Ali</div>
         <div class="role">Elite Express Car Wash, California</div>
@@ -602,9 +734,9 @@
 <section class="cta-section">
   <div class="cta-inner">
     <img src="optspot-logo-white.png" alt="OptSpot" style="height: 36px; margin-bottom: 24px; opacity: 0.8;">
-    <h2>Ready to stop guessing and start building predictable revenue?</h2>
-    <p>You have the book. You have the tools. The only thing left is execution. If you want a team standing behind you to make sure every funnel runs &mdash; consistently, reliably, in the background &mdash; we'd love to show you how OptSpot can help.</p>
-    <a href="https://optspot.com" class="btn-cta">See How OptSpot Works</a>
+    <h2 class="animate fade-up">Ready to stop guessing and start building predictable revenue?</h2>
+    <p class="animate fade-up">You have the book. You have the tools. The only thing left is execution. If you want a team standing behind you to make sure every funnel runs &mdash; consistently, reliably, in the background &mdash; we'd love to show you how OptSpot can help.</p>
+    <a href="https://optspot.com" class="btn-cta animate fade-up">See How OptSpot Works</a>
     <p class="sub-cta">No pressure. No pitch. Just a conversation about your wash.</p>
   </div>
 </section>
@@ -616,5 +748,22 @@
   <p style="margin-top: 8px;"><a href="https://optspot.com">optspot.com</a> &middot; <a href="https://optspot.com/fivefunnelsbook">optspot.com/fivefunnelsbook</a></p>
 </footer>
 
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    var animateEls = document.querySelectorAll('.animate');
+    if (!animateEls.length) return;
+
+    var observer = new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry) {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.15 });
+
+    animateEls.forEach(function (el) { observer.observe(el); });
+  });
+</script>
 </body>
 </html>
