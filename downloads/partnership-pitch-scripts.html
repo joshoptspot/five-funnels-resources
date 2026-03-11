@@ -84,7 +84,7 @@
 <body>
 <div class="top-bar">
   <a href="../index.html" class="back-link"><img src="optspot-logo-white.png" alt="OptSpot" style="height: 22px; margin-right: 12px;"> &larr; Back to All Resources</a>
-  <button class="pdf-btn" onclick="window.print()">&#128196; Download as PDF</button>
+  <button class="pdf-btn" onclick="downloadPDF()">&#128196; Download as PDF</button>
 </div>
 
 <div class="page">
@@ -251,5 +251,26 @@
 </div>
 
 </div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.2/html2pdf.bundle.min.js"></script>
+<script>
+function downloadPDF() {
+  var btn = document.querySelector('.pdf-btn');
+  var originalText = btn.textContent;
+  btn.textContent = 'Generating PDF\u2026';
+  btn.disabled = true;
+  var el = document.querySelector('.page');
+  html2pdf().set({
+    margin: [10, 10, 10, 10],
+    filename: 'Partnership-Pitch-Scripts.pdf',
+    image: { type: 'jpeg', quality: 0.98 },
+    html2canvas: { scale: 2, useCORS: true },
+    jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' },
+    pagebreak: { mode: ['avoid-all', 'css', 'legacy'] }
+  }).from(el).save().then(function() {
+    btn.textContent = '\uD83D\uDCC4 Download as PDF';
+    btn.disabled = false;
+  });
+}
+</script>
 </body>
 </html>
