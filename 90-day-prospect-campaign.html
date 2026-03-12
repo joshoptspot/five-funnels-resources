@@ -331,7 +331,7 @@
 
 <div class="note-box">
   <div class="note-label">Character Limits</div>
-  <p><strong>SMS:</strong> 160 characters max. <strong>MMS:</strong> 500 characters max. Both include the wash name and all merge tags. <strong>~redeem~</strong> = 21 chars. <strong>~share~</strong> = 21 chars. <strong>~date14~</strong> = 10 chars. <strong>~mycoupon~</strong> = 21 chars. Counts below use a 20-character wash name as baseline.</p>
+  <p><strong>SMS:</strong> 160 characters max. <strong>MMS:</strong> 500 characters max. Both include the wash name and all merge tags. <strong>~redeem~</strong> = 22 chars. <strong>~share~</strong> = 22 chars. <strong>~date14~</strong> = 10 chars. <strong>~mycoupon~</strong> = 22 chars. Counts below use a 20-character wash name as baseline.</p>
 </div>
 
 <!-- ==================== PHASE 1 ==================== -->
@@ -957,10 +957,10 @@ function shortenText(text, limit) {
 
 function countSentChars(text) {
   return text
-    .replace(/~redeem~/g, 'x'.repeat(21))
-    .replace(/~share~/g, 'x'.repeat(21))
+    .replace(/~redeem~/g, 'x'.repeat(22))
+    .replace(/~share~/g, 'x'.repeat(22))
     .replace(/~date14~/g, 'x'.repeat(10))
-    .replace(/~mycoupon~/g, 'x'.repeat(21))
+    .replace(/~mycoupon~/g, 'x'.repeat(22))
     .length;
 }
 
