@@ -5,6 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <link rel="icon" type="image/png" href="optspot-logo-mark.png">
 <title>First 90 Days | Prospect Campaign Template | OptSpot Internal</title>
+<script src="https://accounts.google.com/gsi/client" async defer></script>
 <style>
   @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap');
   * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -193,11 +194,43 @@
     background: #f8fafc;
   }
   .footer p { font-size: 13px; color: #94a3b8; }
+  .msg-text { white-space: pre-line; }
+
+  .customizer { background: #1e293b; padding: 32px 40px; }
+  .customizer-inner { max-width: 900px; margin: 0 auto; }
+  .customizer h2 { color: #fff; font-size: 18px; font-weight: 800; margin: 0 0 4px; border: none; padding: 0; }
+  .customizer .customizer-sub { color: #94a3b8; font-size: 14px; margin-bottom: 24px; }
+  .form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+  .form-group label { display: block; color: #cbd5e1; font-size: 13px; font-weight: 600; margin-bottom: 6px; }
+  .form-group .req { color: #f59e0b; }
+  .form-group input, .form-group select {
+    width: 100%; padding: 10px 14px; border: 1px solid #334155; border-radius: 8px;
+    background: #0f172a; color: #fff; font-size: 14px; font-family: 'Inter', sans-serif;
+    outline: none; transition: border-color 0.2s;
+  }
+  .form-group input:focus, .form-group select:focus { border-color: #3b82f6; }
+  .form-group input::placeholder { color: #475569; }
+  .form-group select option { background: #0f172a; color: #fff; }
+  .field-hint { font-size: 11px; color: #64748b; margin-top: 4px; }
+  .char-count.char-ok { color: #22c55e; }
+  .char-count.char-warn { color: #f59e0b; }
+  .char-count.char-over { color: #ef4444; font-weight: 700; }
+  .char-warning { background: #fef2f2; border: 1px solid #fecaca; color: #dc2626; padding: 12px 16px; border-radius: 8px; margin-top: 16px; font-size: 13px; font-weight: 600; }
+  .export-row { margin-top: 20px; display: flex; align-items: center; gap: 12px; }
+  .btn-export {
+    background: #2563eb; color: #fff; border: none; padding: 12px 24px; border-radius: 8px;
+    font-size: 14px; font-weight: 700; font-family: 'Inter', sans-serif; cursor: pointer;
+    transition: background 0.2s;
+  }
+  .btn-export:hover { background: #1d4ed8; }
+  .btn-export:disabled { background: #334155; color: #64748b; cursor: not-allowed; }
+  .export-hint { font-size: 12px; color: #64748b; }
 
   @media print {
     body { background: #fff; }
     .page { padding: 20px; box-shadow: none; }
     .doc-header { padding: 30px 20px; }
+    .customizer { display: none; }
   }
   @media (max-width: 768px) {
     .doc-header { padding: 32px 20px; }
@@ -205,6 +238,8 @@
     .page { padding: 24px 16px; }
     .drip { padding: 16px; }
     .msg-versions { grid-template-columns: 1fr; }
+    .customizer { padding: 24px 16px; }
+    .form-grid { grid-template-columns: 1fr; }
   }
 </style>
 </head>
@@ -215,6 +250,67 @@
   <div class="internal-badge">Internal | Account Template</div>
   <h1>First 90 Days: Prospect Campaign</h1>
   <p>Universal drip sequence for new text club opt-ins who entered through a free wash offer. Build the wash habit. Speed up the membership conversion.</p>
+</div>
+
+<div class="customizer" id="customizer">
+  <div class="customizer-inner">
+    <h2>Customize This Campaign</h2>
+    <p class="customizer-sub">Fill in your client's details. Messages update live below.</p>
+    <div class="form-grid">
+      <div class="form-group">
+        <label for="washName">Car Wash Name <span class="req">*</span></label>
+        <input type="text" id="washName" placeholder="e.g. Sparkle Express">
+      </div>
+      <div class="form-group">
+        <label for="topWash">Top Wash Package Name</label>
+        <input type="text" id="topWash" placeholder="e.g. The Works (default: top wash)">
+      </div>
+      <div class="form-group">
+        <label for="brandVoice">Brand Voice</label>
+        <select id="brandVoice">
+          <option value="friendly">Friendly</option>
+          <option value="professional">Professional</option>
+          <option value="fun">Fun</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label for="washType">Wash Type</label>
+        <select id="washType">
+          <option value="express">Express Tunnel</option>
+          <option value="fullservice">Full Service</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label for="zipCode">Zip Code</label>
+        <input type="text" id="zipCode" maxlength="5" placeholder="e.g. 30301">
+        <div class="field-hint" id="regionDisplay">Region: General</div>
+      </div>
+      <div class="form-group">
+        <label for="membershipLink">Membership Link</label>
+        <input type="text" id="membershipLink" placeholder="https://crwsh.co/xxxxxx">
+      </div>
+      <div class="form-group">
+        <label for="topWashPrice">Top Wash Price ($)</label>
+        <input type="text" id="topWashPrice" placeholder="e.g. 18">
+      </div>
+      <div class="form-group">
+        <label for="membershipPrice">Membership Price ($/mo)</label>
+        <input type="text" id="membershipPrice" placeholder="e.g. 30">
+      </div>
+    </div>
+    <div id="charWarning" class="char-warning" style="display:none;">One or more messages exceed character limits. Check red counters below.</div>
+    <div class="export-row">
+      <div class="form-group" style="margin:0;">
+        <select id="exportFormat" style="padding:10px 14px;">
+          <option value="both">Export SMS + MMS</option>
+          <option value="sms">Export SMS Only</option>
+          <option value="mms">Export MMS Only</option>
+        </select>
+      </div>
+      <button class="btn-export" id="exportBtn" onclick="exportForClient()">Export to Google Docs</button>
+      <span class="export-hint" id="exportHint">Creates a Google Doc in your Drive and opens it</span>
+    </div>
+  </div>
 </div>
 
 <div class="page">
@@ -247,7 +343,7 @@
 </div>
 
 <!-- Day 0 -->
-<div class="drip">
+<div class="drip" data-day="day0">
   <div class="drip-header">
     <div class="drip-day">Day 0 | Immediate</div>
     <div class="drip-purpose">Visit 1 Setup</div>
@@ -268,7 +364,7 @@
 </div>
 
 <!-- Day 3 -->
-<div class="drip">
+<div class="drip" data-day="day3">
   <div class="drip-header">
     <div class="drip-day">Day 3</div>
     <div class="drip-purpose">Visit 1 | Free Top Wash</div>
@@ -289,7 +385,7 @@
 </div>
 
 <!-- Day 7 System -->
-<div class="drip system-msg">
+<div class="drip system-msg" data-day="day7_system">
   <div class="drip-header">
     <div class="drip-day">Day 7 | System Auto</div>
     <div class="drip-purpose">Coupon Reminder</div>
@@ -305,7 +401,7 @@
 </div>
 
 <!-- Day 10 -->
-<div class="drip">
+<div class="drip" data-day="day10">
   <div class="drip-header">
     <div class="drip-day">Day 10</div>
     <div class="drip-purpose">Education</div>
@@ -334,7 +430,7 @@
 </div>
 
 <!-- Day 21 -->
-<div class="drip">
+<div class="drip" data-day="day21">
   <div class="drip-header">
     <div class="drip-day">Day 21</div>
     <div class="drip-purpose">Visit 2 | 50% Off Top Wash</div>
@@ -355,7 +451,7 @@
 </div>
 
 <!-- Day 35 -->
-<div class="drip">
+<div class="drip" data-day="day35">
   <div class="drip-header">
     <div class="drip-day">Day 35</div>
     <div class="drip-purpose">Visit 3 | Outcome + Membership Seed</div>
@@ -378,7 +474,7 @@ P.S. If you're loving the clean car life, ask us about unlimited membership. Mig
 </div>
 
 <!-- Day 42 -->
-<div class="drip">
+<div class="drip" data-day="day42">
   <div class="drip-header">
     <div class="drip-day">Day 42</div>
     <div class="drip-purpose">Referral</div>
@@ -399,7 +495,7 @@ P.S. If you're loving the clean car life, ask us about unlimited membership. Mig
 </div>
 
 <!-- Day 45 -->
-<div class="drip">
+<div class="drip" data-day="day45">
   <div class="drip-header">
     <div class="drip-day">Day 45</div>
     <div class="drip-purpose">Data Collection</div>
@@ -420,7 +516,7 @@ P.S. If you're loving the clean car life, ask us about unlimited membership. Mig
 </div>
 
 <!-- Birthday Response -->
-<div class="drip system-msg">
+<div class="drip system-msg" data-day="birthday_system">
   <div class="drip-header">
     <div class="drip-day">Birthday | System Auto</div>
     <div class="drip-purpose">Birthday Reward</div>
@@ -444,7 +540,7 @@ P.S. If you're loving the clean car life, ask us about unlimited membership. Mig
 </div>
 
 <!-- Day 55 -->
-<div class="drip">
+<div class="drip" data-day="day55">
   <div class="drip-header">
     <div class="drip-day">Day 55</div>
     <div class="drip-purpose">Social Proof</div>
@@ -465,7 +561,7 @@ P.S. If you're loving the clean car life, ask us about unlimited membership. Mig
 </div>
 
 <!-- Day 65 -->
-<div class="drip">
+<div class="drip" data-day="day65">
   <div class="drip-header">
     <div class="drip-day">Day 65</div>
     <div class="drip-purpose">Soft Membership Introduction</div>
@@ -486,7 +582,7 @@ P.S. If you're loving the clean car life, ask us about unlimited membership. Mig
 </div>
 
 <!-- Day 75 -->
-<div class="drip">
+<div class="drip" data-day="day75">
   <div class="drip-header">
     <div class="drip-day">Day 75</div>
     <div class="drip-purpose">Membership Value</div>
@@ -507,7 +603,7 @@ P.S. If you're loving the clean car life, ask us about unlimited membership. Mig
 </div>
 
 <!-- Day 90 -->
-<div class="drip">
+<div class="drip" data-day="day90">
   <div class="drip-header">
     <div class="drip-day">Day 90</div>
     <div class="drip-purpose">Membership Conversion</div>
@@ -531,7 +627,7 @@ P.S. If you're loving the clean car life, ask us about unlimited membership. Mig
 
 <h2>Post&ndash;90 Day</h2>
 
-<div class="drip system-msg">
+<div class="drip system-msg" data-day="day260">
   <div class="drip-header">
     <div class="drip-day">Day 260</div>
     <div class="drip-purpose">List Hygiene</div>
@@ -551,7 +647,7 @@ P.S. If you're loving the clean car life, ask us about unlimited membership. Mig
 <h2>System Messages</h2>
 <p class="subtitle">These messages are triggered by customer actions, not by the drip timeline.</p>
 
-<div class="drip system-msg">
+<div class="drip system-msg" data-day="doi_system">
   <div class="drip-header">
     <div class="drip-day">Online Double Opt-In</div>
     <div class="drip-purpose">Compliance</div>
@@ -566,7 +662,7 @@ P.S. If you're loving the clean car life, ask us about unlimited membership. Mig
   <div class="drip-note"><strong>System note:</strong> Required for any opt-in from an online form (website, Facebook, etc.). Customer must reply YES before entering the campaign. SMS only.</div>
 </div>
 
-<div class="drip system-msg">
+<div class="drip system-msg" data-day="afteryes_system">
   <div class="drip-header">
     <div class="drip-day">After YES Reply</div>
     <div class="drip-purpose">Online Free Wash Delivery</div>
@@ -581,7 +677,7 @@ P.S. If you're loving the clean car life, ask us about unlimited membership. Mig
   <div class="drip-note"><strong>System note:</strong> Delivered immediately after YES reply. Online opt-ins get their free wash right away since they already waited through the double opt-in process.</div>
 </div>
 
-<div class="drip system-msg">
+<div class="drip system-msg" data-day="duplicate_system">
   <div class="drip-header">
     <div class="drip-day">Duplicate Opt-In</div>
     <div class="drip-purpose">Already Subscribed</div>
@@ -625,7 +721,7 @@ P.S. If you're loving the clean car life, ask us about unlimited membership. Mig
 </div>
 
 <div class="strategy-box">
-  <p><strong>Replace [membership link] with the customer's actual enrollment URL.</strong> This is typically a short URL like https://crwsh.co/xxxxx (~25 characters). Factor this into your character count for Day 75 and Day 90 messages.</p>
+  <p><strong>Membership link format:</strong> The enrollment URL follows the format https://crwsh.co/xxxxxx (23 characters). Enter it in the customizer above and it will be inserted into all relevant messages with accurate character counts.</p>
 </div>
 
 <div class="strategy-box">
@@ -639,6 +735,607 @@ P.S. If you're loving the clean car life, ask us about unlimited membership. Mig
   <p><strong>OptSpot Internal</strong> | Prospect Campaign Template</p>
   <p>The Five Funnels to Freedom&trade;</p>
 </div>
+
+<script>
+var REGIONAL_DATA = {
+  southeast: { name: 'Southeast', contaminants: 'Pollen, love bugs & road grime', buildup: 'road film, pollen, love bugs' },
+  northeast: { name: 'Northeast', contaminants: 'Road salt, sand & ice melt', buildup: 'road salt, sand, brine' },
+  southwest: { name: 'Southwest', contaminants: 'Dust, sand & UV rays', buildup: 'dust, sand, road grime' },
+  northwest: { name: 'Northwest', contaminants: 'Rain, tree sap & road film', buildup: 'rain spots, tree sap, road film' },
+  midwest: { name: 'Midwest', contaminants: 'Road salt, mud & gravel dust', buildup: 'road salt, mud, road film' },
+  default: { name: 'General', contaminants: 'Brake dust, tree sap & bird droppings', buildup: 'road film, brake dust, pollen' }
+};
+
+function getRegion(zip) {
+  if (!zip || zip.length < 2) return 'default';
+  var d = parseInt(zip.charAt(0));
+  if (d <= 1) return 'northeast';
+  if (d <= 3) return 'southeast';
+  if (d <= 6) return 'midwest';
+  var p2 = parseInt(zip.substring(0, 2));
+  if ([59, 82, 83, 97, 98, 99].indexOf(p2) !== -1) return 'northwest';
+  return 'southwest';
+}
+
+var MESSAGES = {
+  day0: {
+    sms: {
+      friendly: "Welcome to {{washName}}'s text club! Your FREE {{topWash}} coupon is on its way. Stay tuned! Rply Stop2Stop,Help4Help,Msg&DataRateMayApply",
+      professional: "Welcome to {{washName}}. Your complimentary {{topWash}} will arrive shortly. Watch for it. Rply Stop2Stop,Help4Help,Msg&DataRateMayApply",
+      fun: "You're in! {{washName}} text club! FREE {{topWash}} headed your way real soon. Stay tuned! Rply Stop2Stop,Help4Help,Msg&DataRateMayApply"
+    },
+    mms: {
+      friendly: "Welcome to the {{washName}} text club! You've got a FREE {{topWash}} headed your way in a few days. It's our best wash, the full treatment, and it's on us. Keep an eye on your texts. Rply Stop2Stop,Help4Help,Msg&DataRateMayApply",
+      professional: "Thank you for joining {{washName}}. Your complimentary {{topWash}} will arrive in a few days. It's our premium wash, the full treatment, compliments of us. Watch your texts for details. Rply Stop2Stop,Help4Help,Msg&DataRateMayApply",
+      fun: "Welcome to the {{washName}} crew! We're sending you a FREE {{topWash}} in just a few days. The full treatment, our best wash, all on us. Keep your eyes peeled! Rply Stop2Stop,Help4Help,Msg&DataRateMayApply"
+    }
+  },
+  day3: {
+    sms: {
+      friendly: "Your FREE {{topWash}} at {{washName}} is here! This is our best wash, the full treatment, on us. ~redeem~ Exp ~date14~",
+      professional: "Your complimentary {{topWash}} at {{washName}} is ready. Our premium wash experience, on us. ~redeem~ Exp ~date14~",
+      fun: "It's here! Your FREE {{topWash}} at {{washName}}! Our best wash, all yours. Let's go! ~redeem~ Exp ~date14~"
+    },
+    mms: {
+      friendly: "Your FREE {{topWash}} at {{washName}} is ready! This is our best wash. The full treatment, top to bottom, on us. We want you to see what a real clean feels like. Come through anytime before it expires and enjoy the ride home. ~redeem~ Exp ~date14~",
+      professional: "Your complimentary {{topWash}} at {{washName}} is ready. This is our premium experience, a thorough clean from top to bottom. We want you to see the difference a proper wash makes. Visit at your convenience before expiration. ~redeem~ Exp ~date14~",
+      fun: "Your FREE {{topWash}} at {{washName}} is good to go! Our best wash, top to bottom, the works, all on us. We want you to see what a seriously clean car feels like. Come through and enjoy the ride home! ~redeem~ Exp ~date14~"
+    }
+  },
+  day7_system: {
+    sms: {
+      default: "It looks like you still have a coupon to use at {{washName}}! Click here for details & come see us soon! ~mycoupon~"
+    }
+  },
+  day10: {
+    sms: {
+      friendly: "{{contaminants}} eat through your clear coat over time. The longer they sit, the worse the damage. Stop by {{washName}} before they set in.",
+      professional: "{{contaminants}} damage your clear coat over time. The longer they remain, the more costly the repair. Protect your finish at {{washName}}.",
+      fun: "{{contaminants}} are wrecking your paint right now. Seriously. The longer they sit, the worse it gets. Swing by {{washName}} and wash it off!"
+    },
+    mms: {
+      friendly: "Here's something most people don't realize. {{contaminants}} don't just sit on your paint. They eat into your clear coat over time. The longer they sit, the more damage they do. A quick wash at {{washName}} takes about {{washTime}} and washes all of that off before it has a chance to set in. Your paint will thank you.",
+      professional: "Worth knowing: {{contaminants}} actively break down your clear coat the longer they remain. Regular washing isn't cosmetic, it's preventive maintenance that protects your investment. A wash at {{washName}} takes about {{washTime}} and removes it all before lasting damage occurs.",
+      fun: "Real talk. {{contaminants}} aren't just sitting on your car looking gross. They're actually eating into your paint. The longer they hang out, the worse it gets. A quick wash at {{washName}} takes about {{washTime}} and wipes all that stuff away. Your car will look brand new."
+    }
+  },
+  day21: {
+    sms: {
+      friendly: "Your car picks up more than you think between washes. Enjoy 50% off our {{topWash}} at {{washName}} this week! ~redeem~ Exp ~date14~",
+      professional: "Your vehicle collects more than you'd expect between washes. Enjoy 50% off our {{topWash}} at {{washName}}. ~redeem~ Exp ~date14~",
+      fun: "Your car is dirtier than you think right now. Trust us. Here's 50% off our {{topWash}} at {{washName}}! ~redeem~ Exp ~date14~"
+    },
+    mms: {
+      friendly: "Your car picks up more than you think between washes. {{buildup}}, all kinds of stuff you can't always see. We'd love to get you back in. Here's 50% off our {{topWash}} at {{washName}}. Same great wash you got the first time, just half the price this time. ~redeem~ Exp ~date14~",
+      professional: "Between washes, your vehicle collects {{buildup}} and other contaminants that are difficult to see. We'd like to welcome you back. Here's 50% off our {{topWash}} at {{washName}}. The same premium wash you experienced before, at half the price. ~redeem~ Exp ~date14~",
+      fun: "Your car picks up way more than you realize between washes. {{buildup}}, you name it. Time for round two! Here's 50% off our {{topWash}} at {{washName}}. Same awesome wash, half the price. ~redeem~ Exp ~date14~"
+    }
+  },
+  day35: {
+    sms: {
+      friendly: "Love that fresh wash feeling? {{washName}} members wash whenever they want for one flat price. No contracts. {{membershipLink}}",
+      professional: "{{washName}} offers unlimited wash memberships. One monthly price, wash as often as you'd like. No contracts. {{membershipLink}}",
+      fun: "Obsessed with that clean car life? {{washName}} members wash whenever they want. One price. No contracts. Check it out: {{membershipLink}}"
+    },
+    mms: {
+      friendly: "You know that feeling when you get in a freshly washed car? Windows are clear. Paint is shining. Everything just feels right. You feel better driving it. You feel better pulling up to work, picking up the kids, or just running errands. That feeling is about {{washTime}} away at {{washName}}. No coupon needed. Just come through.\n\nP.S. If you're loving the clean car life, ask us about unlimited membership. Might be a perfect fit. {{membershipLink}}",
+      professional: "There's something about getting into a freshly washed car. The clarity of the windows. The shine on the paint. Everything feels right. You feel better driving it, whether it's to work, to a meeting, or just running errands. That experience is about {{washTime}} away at {{washName}}. No coupon necessary.\n\nP.S. If you value a consistently clean car, our unlimited membership may be worth a look. {{membershipLink}}",
+      fun: "You know what's underrated? That feeling when you hop in a freshly washed car. Windows spotless. Paint popping. Everything just hits different. You pull up anywhere feeling good. That feeling is about {{washTime}} away at {{washName}}. No coupon needed.\n\nP.S. Loving the clean car life? Ask us about unlimited membership. {{membershipLink}}"
+    }
+  },
+  day42: {
+    sms: {
+      friendly: "Know someone who'd love a free wash? Send them one from {{washName}}. It's on us, and it's our way of saying thanks! ~share~",
+      professional: "Know someone who would appreciate a complimentary wash? Share one from {{washName}} as our thanks for your loyalty. ~share~",
+      fun: "Got a friend who needs a wash? Send them a free one from {{washName}}! On us. You get to be the hero. ~share~"
+    },
+    mms: {
+      friendly: "Got a friend, coworker, or family member who could use a good wash? Send them a free one from {{washName}}. It's our way of saying thanks for being part of the crew. Just tap the link below and pick who you want to send it to. They get a free wash, you get to be the hero. ~share~",
+      professional: "Would you like to share the {{washName}} experience with someone? We'd love to offer a friend or colleague a complimentary wash as our way of thanking you. Tap the link below to send it. They enjoy a great wash, and you share something you trust. ~share~",
+      fun: "Got someone who needs a wash? A friend, coworker, that neighbor with the dusty car? Send them a free one from {{washName}}! Tap the link, pick your person, done. They get a free wash. You look like a legend. ~share~"
+    }
+  },
+  day45: {
+    sms: {
+      friendly: "Got a birthday coming up? Reply with your birthday (mm/dd/yyyy) and {{washName}} will send you a FREE surprise when the big day rolls around!",
+      professional: "We'd like to celebrate your birthday. Reply with your date of birth (mm/dd/yyyy) and {{washName}} will send you a complimentary gift when the day arrives.",
+      fun: "When's your birthday? Reply with the date (mm/dd/yyyy) and {{washName}} will hook you up with a FREE surprise when it rolls around!"
+    },
+    mms: {
+      friendly: "Got a birthday coming up? We want to celebrate with you. Reply with your birthday (mm/dd/yyyy) and {{washName}} will send you a FREE surprise when the big day rolls around. We do this for all our text club members because, honestly, it's fun and you deserve it.",
+      professional: "We'd like to help you celebrate your birthday. Reply with your date of birth (mm/dd/yyyy) and {{washName}} will send you a complimentary gift when the day arrives. It's a small gesture we extend to all of our valued text club members.",
+      fun: "When's your birthday? Tell us! Reply with the date (mm/dd/yyyy) and {{washName}} will send you a FREE surprise on the big day. We do this for all our text club fam because birthdays should be celebrated!"
+    }
+  },
+  birthday_system: {
+    sms: {
+      default: "Happy Birthday from {{washName}}! Celebrate with a FREE {{topWash}} on us. Have an amazing day! ~redeem~ Exp ~date14~"
+    }
+  },
+  day55: {
+    sms: {
+      friendly: "When's the last time you looked at your car and thought \"that looks great\"? If it's been a while, we're here for you. Stop by {{washName}} anytime.",
+      professional: "When did you last look at your vehicle and feel satisfied with its appearance? If it's been a while, {{washName}} is here when you're ready.",
+      fun: "Be honest. When's the last time you looked at your car and thought \"wow\"? If you can't remember, it's time. {{washName}} is right here."
+    },
+    mms: {
+      friendly: "Our members wash once a week to keep their car looking and feeling new. Not because they have to. Because once you get into the habit, you realize how good it feels to always be driving a clean car. It just becomes part of your week. When's the last time you looked at your car and thought \"that looks great\"? If it's been a while, we're here for you. {{washName}}",
+      professional: "Our members wash weekly to maintain that fresh, clean look. Not out of obligation, but because the habit brings real satisfaction. It becomes part of their routine. When did you last feel truly satisfied with your vehicle's appearance? If it's been a while, {{washName}} is here for you.",
+      fun: "Our members wash once a week. Not because someone told them to. Because once you start, you can't go back to driving a dirty car. It becomes part of your week and honestly, it feels amazing. When's the last time you looked at your ride and thought \"that looks great\"? {{washName}} has you covered."
+    }
+  },
+  day65: {
+    sms: {
+      friendly: "Tired of thinking about when to wash? {{washName}} members wash whenever they want. Unlimited, no contracts. Just drive through!",
+      professional: "Imagine never scheduling a car wash again. {{washName}} members wash on their own time. Unlimited, no contracts, cancel anytime.",
+      fun: "What if you never had to think about washing your car again? {{washName}} members just show up whenever. Unlimited. No contracts. Done."
+    },
+    mms: {
+      friendly: "What if you never had to think about when to wash your car again? That's what our members tell us they love most. They don't plan it. They don't budget for it. They just drive through {{washName}} whenever they feel like it. Unlimited washes, no contracts, cancel anytime. It's not for everyone, but if you've been coming in regularly, it might make a lot of sense for you.",
+      professional: "What if washing your car required no planning at all? That's what our members appreciate most. No scheduling, no individual transactions. Just drive through {{washName}} whenever the moment strikes. Unlimited washes, no contracts, cancel anytime. If you've been visiting regularly, it may be the natural next step.",
+      fun: "What if you just never had to think about it? That's the thing our members love. No planning. No \"should I wash it this week?\" Just roll through {{washName}} whenever you feel like it. Unlimited, no contracts, cancel whenever. If you're already coming in regularly, this might be exactly what you need."
+    }
+  },
+  day75: {
+    sms: {
+      friendly: "Go unlimited at {{washName}}! Wash all month for about the price of 2 washes. No contracts, cancel anytime. Check it out: {{membershipLink}}",
+      professional: "Unlimited washes at {{washName}} for {{membershipPrice}}. Two washes and the membership pays for itself. No contracts. Details: {{membershipLink}}",
+      fun: "Unlimited washes at {{washName}}! All month for about the price of 2. No contracts. Cancel whenever. Check it: {{membershipLink}}"
+    },
+    mms: {
+      friendly: "Here's the math. A single {{topWash}} at {{washName}} costs about {{topWashPrice}}. An unlimited membership is {{membershipPrice}}. That means if you wash just twice, the membership has already paid for itself. Everything after that is free. Wash 5 times, 10 times, every single day if you want. No contracts. Cancel anytime. If you're already washing regularly, this is a no-brainer. Check it out: {{membershipLink}}",
+      professional: "Consider the value. A single {{topWash}} at {{washName}} is {{topWashPrice}}. An unlimited membership is {{membershipPrice}}. Wash just twice and the membership has paid for itself. Every wash after that is included. No contracts. Cancel anytime. If you're already washing regularly, the numbers speak for themselves. Learn more: {{membershipLink}}",
+      fun: "Let's do some quick math. One {{topWash}} at {{washName}} costs {{topWashPrice}}. Unlimited membership? {{membershipPrice}}. Wash twice and you've already saved money. After that, every wash is free. Go 5 times. 10 times. Every day if you want. No contracts. Cancel whenever. If you're already coming in, this is a no-brainer. {{membershipLink}}"
+    }
+  },
+  day90: {
+    sms: {
+      friendly: "You already love a clean car. Why not make it easy? Go unlimited at {{washName}} and wash whenever you want. No contracts. {{membershipLink}}",
+      professional: "You've made car care a priority. Take the next step with unlimited washes at {{washName}}. No contracts, cancel anytime. {{membershipLink}}",
+      fun: "You love a clean car. We love that about you. Go unlimited at {{washName}} and never think about it again. No contracts. {{membershipLink}}"
+    },
+    mms: {
+      friendly: "You've been taking care of your car and it shows. If you're ready to stop thinking about it and just have a clean car all the time, unlimited membership at {{washName}} might be the move. Wash whenever you want, as often as you want. No contracts, cancel anytime. A lot of our members say they wish they'd done it sooner. {{membershipLink}}",
+      professional: "You've shown real commitment to keeping your vehicle in great shape. If you're ready for the convenience of always having a clean car, unlimited membership at {{washName}} is the logical next step. Wash as often as you'd like. No contracts, cancel anytime. Many members tell us they wish they'd started sooner. {{membershipLink}}",
+      fun: "You've been keeping your car looking great and we notice. If you're ready to just always have a clean car without thinking about it, unlimited membership at {{washName}} is the move. Wash whenever, as often as you want. No contracts, cancel anytime. Most members say one thing: \"I wish I'd done this sooner.\" {{membershipLink}}"
+    }
+  },
+  day260: {
+    sms: {
+      default: "{{washName}} wants to make sure you're good with getting our messages. If you've moved or don't want these anymore, just reply STOP."
+    }
+  },
+  doi_system: {
+    sms: {
+      default: "Reply YES to confirm your opt-in and receive your offer, recurring messages & alerts from {{washName}}. Consent not req'd to buy."
+    }
+  },
+  afteryes_system: {
+    sms: {
+      default: "{{washName}} Text Club rewards our VIPs! Click to claim your FREE {{topWash}}. Exp ~date14~. ~redeem~ Rply STOP2Cancel HELP4Help Msg&DataRateMayApply"
+    }
+  },
+  duplicate_system: {
+    sms: {
+      default: "You've already joined the {{washName}} Text Club & received your FREE wash offer! Watch for more great offers coming your way!"
+    }
+  }
+};
+
+var SHORTEN_RULES = [
+  // Tier 1: barely noticeable
+  [/\band\b/gi, '&'],
+  [/\bthrough\b/gi, 'thru'],
+  // Tier 2: common abbreviations
+  [/\babout\b/gi, 'abt'],
+  [/\bbefore\b/gi, 'b4'],
+  [/\bwith\b/gi, 'w/'],
+  [/\bnumber\b/gi, '#'],
+  // Tier 3: SMS shorthand
+  [/\byour\b/gi, 'ur'],
+  [/\byou\b/gi, 'u'],
+  [/\bfor\b/gi, '4'],
+  [/\bare\b/gi, 'r'],
+  [/\bto\b/gi, '2']
+];
+
+function shortenText(text, limit) {
+  if (countSentChars(text) <= limit) return text;
+  for (var i = 0; i < SHORTEN_RULES.length; i++) {
+    text = text.replace(SHORTEN_RULES[i][0], function(match) {
+      // Preserve original capitalization for first letter
+      var replacement = SHORTEN_RULES[i][1];
+      if (match.charAt(0) === match.charAt(0).toUpperCase() && replacement.length > 1) {
+        return replacement.charAt(0).toUpperCase() + replacement.slice(1);
+      }
+      return replacement;
+    });
+    if (countSentChars(text) <= limit) return text;
+  }
+  return text;
+}
+
+function countSentChars(text) {
+  return text
+    .replace(/~redeem~/g, 'x'.repeat(21))
+    .replace(/~share~/g, 'x'.repeat(21))
+    .replace(/~date14~/g, 'x'.repeat(10))
+    .replace(/~mycoupon~/g, 'x'.repeat(21))
+    .length;
+}
+
+function renderMessages() {
+  var washName = document.getElementById('washName').value || '[Wash Name]';
+  var topWash = document.getElementById('topWash').value || 'top wash';
+  var washType = document.getElementById('washType').value;
+  var voice = document.getElementById('brandVoice').value;
+  var zip = document.getElementById('zipCode').value;
+  var topWashPrice = document.getElementById('topWashPrice').value;
+  var membershipPrice = document.getElementById('membershipPrice').value;
+  var membershipLink = document.getElementById('membershipLink').value || 'https://crwsh.co/xxxxxx';
+
+  var region = getRegion(zip);
+  var rd = REGIONAL_DATA[region] || REGIONAL_DATA['default'];
+  var washTime = washType === 'fullservice' ? '15 minutes' : '3 minutes';
+  var priceDisplay = topWashPrice ? ('$' + topWashPrice) : '$[X]';
+  var memPriceDisplay = membershipPrice ? ('$' + membershipPrice + '/mo') : '$[X]/mo';
+
+  document.getElementById('regionDisplay').textContent = 'Region: ' + rd.name;
+
+  var hasOver = false;
+  document.querySelectorAll('.drip[data-day]').forEach(function(drip) {
+    var dayKey = drip.dataset.day;
+    var msgData = MESSAGES[dayKey];
+    if (!msgData) return;
+
+    drip.querySelectorAll('.msg-version').forEach(function(mv) {
+      var type = mv.classList.contains('sms') ? 'sms' : 'mms';
+      var typeData = msgData[type];
+      if (!typeData) return;
+
+      var template = typeData[voice] || typeData['default'];
+      if (!template) return;
+
+      var text = template
+        .replace(/\{\{washName\}\}/g, washName)
+        .replace(/\{\{topWash\}\}/g, topWash)
+        .replace(/\{\{washTime\}\}/g, washTime)
+        .replace(/\{\{topWashPrice\}\}/g, priceDisplay)
+        .replace(/\{\{membershipPrice\}\}/g, memPriceDisplay)
+        .replace(/\{\{membershipLink\}\}/g, membershipLink)
+        .replace(/\{\{contaminants\}\}/g, rd.contaminants)
+        .replace(/\{\{buildup\}\}/g, rd.buildup);
+
+      var limit = type === 'sms' ? 160 : 500;
+      text = shortenText(text, limit);
+
+      var msgTextEl = mv.querySelector('.msg-text');
+      if (msgTextEl) msgTextEl.textContent = text;
+
+      var charEl = mv.querySelector('.char-count');
+      if (charEl) {
+        var count = countSentChars(text);
+        charEl.textContent = count + '/' + limit;
+        charEl.className = 'char-count';
+        if (count > limit) { charEl.classList.add('char-over'); hasOver = true; }
+        else if (count > limit - 10) charEl.classList.add('char-warn');
+        else charEl.classList.add('char-ok');
+      }
+    });
+  });
+
+  document.getElementById('charWarning').style.display = hasOver ? 'block' : 'none';
+}
+
+var debounceTimer;
+function debouncedRender() {
+  clearTimeout(debounceTimer);
+  debounceTimer = setTimeout(renderMessages, 150);
+}
+
+var EXPORT_SEQUENCE = [
+  { phase: 'Phase 1: Curiosity (Days 0\u201314)', phaseDesc: 'Deliver on the promise. Make a great first impression. Start educating.' },
+  { day: 'day0', label: 'Day 0', purpose: 'Welcome Text', system: false },
+  { day: 'day3', label: 'Day 3', purpose: 'Free Top Wash Delivery', system: false },
+  { day: 'day7_system', label: 'Day 7', purpose: 'Coupon Reminder (Auto)', system: true, smsOnly: true },
+  { day: 'day10', label: 'Day 10', purpose: 'Education', system: false },
+  { phase: 'Phase 2: Enlightenment (Days 14\u201345)', phaseDesc: 'Build the habit. Get them back 3 more times. Wean off discounts.' },
+  { day: 'day21', label: 'Day 21', purpose: '50% Off Top Wash', system: false },
+  { day: 'day35', label: 'Day 35', purpose: 'Outcome + Membership Seed', system: false },
+  { day: 'day42', label: 'Day 42', purpose: 'Referral', system: false },
+  { day: 'day45', label: 'Day 45', purpose: 'Birthday Club', system: false },
+  { day: 'birthday_system', label: 'Birthday', purpose: 'Birthday Free Wash (Auto)', system: true, smsOnly: true },
+  { phase: 'Phase 3: Commitment (Days 45\u201390)', phaseDesc: 'Introduce membership as the natural next step.' },
+  { day: 'day55', label: 'Day 55', purpose: 'Social Proof', system: false },
+  { day: 'day65', label: 'Day 65', purpose: 'Soft Membership Introduction', system: false },
+  { day: 'day75', label: 'Day 75', purpose: 'Membership Value + Link', system: false },
+  { day: 'day90', label: 'Day 90', purpose: 'Membership Conversion', system: false },
+  { phase: 'Post-90 Day', phaseDesc: '' },
+  { day: 'day260', label: 'Day 260', purpose: 'List Hygiene (Auto)', system: true, smsOnly: true },
+  { phase: 'System Messages', phaseDesc: 'Triggered by customer actions, not by the drip timeline.' },
+  { day: 'doi_system', label: 'Online Double Opt-In', purpose: 'Compliance', system: true, smsOnly: true },
+  { day: 'afteryes_system', label: 'After YES Reply', purpose: 'Free Wash Delivery', system: true, smsOnly: true },
+  { day: 'duplicate_system', label: 'Duplicate Opt-In', purpose: 'Already Subscribed', system: true, smsOnly: true }
+];
+
+function getRenderedText(dayKey, type) {
+  var washName = document.getElementById('washName').value || '[Wash Name]';
+  var topWash = document.getElementById('topWash').value || 'top wash';
+  var washType = document.getElementById('washType').value;
+  var voice = document.getElementById('brandVoice').value;
+  var zip = document.getElementById('zipCode').value;
+  var topWashPrice = document.getElementById('topWashPrice').value;
+  var membershipPrice = document.getElementById('membershipPrice').value;
+  var membershipLink = document.getElementById('membershipLink').value || 'https://crwsh.co/xxxxxx';
+  var region = getRegion(zip);
+  var rd = REGIONAL_DATA[region] || REGIONAL_DATA['default'];
+  var washTime = washType === 'fullservice' ? '15 minutes' : '3 minutes';
+  var priceDisplay = topWashPrice ? ('$' + topWashPrice) : '$[X]';
+  var memPriceDisplay = membershipPrice ? ('$' + membershipPrice + '/mo') : '$[X]/mo';
+
+  var msgData = MESSAGES[dayKey];
+  if (!msgData || !msgData[type]) return null;
+  var template = msgData[type][voice] || msgData[type]['default'];
+  if (!template) return null;
+  var text = template
+    .replace(/\{\{washName\}\}/g, washName)
+    .replace(/\{\{topWash\}\}/g, topWash)
+    .replace(/\{\{washTime\}\}/g, washTime)
+    .replace(/\{\{topWashPrice\}\}/g, priceDisplay)
+    .replace(/\{\{membershipPrice\}\}/g, memPriceDisplay)
+    .replace(/\{\{membershipLink\}\}/g, membershipLink)
+    .replace(/\{\{contaminants\}\}/g, rd.contaminants)
+    .replace(/\{\{buildup\}\}/g, rd.buildup);
+  var limit = type === 'sms' ? 160 : 500;
+  return shortenText(text, limit);
+}
+
+var GOOGLE_CLIENT_ID = '925625108091-8616kjk7vealr792a40d5vsa2b9apfuu.apps.googleusercontent.com';
+var googleAccessToken = null;
+var tokenClient = null;
+
+function initTokenClient() {
+  if (tokenClient) return;
+  tokenClient = google.accounts.oauth2.initTokenClient({
+    client_id: GOOGLE_CLIENT_ID,
+    scope: 'https://www.googleapis.com/auth/drive.file',
+    callback: function(response) {
+      if (response.error) {
+        document.getElementById('exportHint').textContent = 'Sign-in failed. Try again.';
+        document.getElementById('exportBtn').disabled = false;
+        document.getElementById('exportBtn').textContent = 'Export to Google Docs';
+        return;
+      }
+      googleAccessToken = response.access_token;
+      createGoogleDoc();
+    }
+  });
+}
+
+function buildExportHtml() {
+  var washName = document.getElementById('washName').value || '[Wash Name]';
+  var fmt = document.getElementById('exportFormat').value;
+  var showSms = fmt === 'both' || fmt === 'sms';
+  var showMms = fmt === 'both' || fmt === 'mms';
+
+  var h = '<html><head><meta charset="utf-8"><style>';
+  h += 'body{font-family:Calibri,Arial,sans-serif;color:#1a1a2e;line-height:1.15;margin:0;padding:0;}';
+  h += 'table{border-collapse:collapse;}';
+  h += '</style></head>';
+  h += '<body>';
+
+  // Header
+  h += '<table width="100%" cellpadding="0" cellspacing="0" border="0" style="background:#0f172a;"><tr><td style="padding:32px 36px;text-align:center;">';
+  h += '<p style="font-size:24pt;font-weight:bold;color:#ffffff;margin:0 0 4px;">' + esc(washName) + '</p>';
+  h += '<p style="font-size:11pt;color:#94a3b8;margin:0;">90-Day Text Campaign</p>';
+  h += '</td></tr></table>';
+
+  h += '<br>';
+
+  // Overview box
+  h += '<table width="100%" cellpadding="0" cellspacing="0" border="0" style="background:#f0f4ff;border:1px solid #c7d6ff;"><tr><td style="padding:16px 20px;">';
+  h += '<p style="font-size:10pt;margin:0 0 4px;"><b>Entry point:</b> Customer opted in through a free wash offer.</p>';
+  h += '<p style="font-size:10pt;margin:0 0 4px;"><b>Goal:</b> Get them in at least 3 more times in the first 45 days. Build the wash habit so membership becomes the obvious next step.</p>';
+  h += '<p style="font-size:10pt;margin:0 0 4px;"><b>Framework:</b> Curiosity &#8594; Enlightenment &#8594; Commitment.</p>';
+  h += '<p style="font-size:10pt;margin:0;"><b>Offer progression:</b> Free &#8594; Discount &#8594; Outcome (no discount). Wean them off incentives and toward the habit.</p>';
+  h += '</td></tr></table>';
+
+  h += '<br>';
+
+  // SMS vs MMS note
+  h += '<table width="100%" cellpadding="0" cellspacing="0" border="0" style="background:#fffbeb;border-left:4px solid #f59e0b;"><tr><td style="padding:12px 16px;">';
+  h += '<p style="font-size:8pt;font-weight:bold;letter-spacing:1px;color:#b45309;margin:0 0 4px;">SMS VS MMS</p>';
+  h += '<p style="font-size:9pt;margin:0;">Each message includes an <b>SMS version</b> (160-character limit, text only) and an <b>MMS version</b> (500-character limit, includes an image). Use one or the other per message, not both.</p>';
+  h += '</td></tr></table>';
+
+  for (var i = 0; i < EXPORT_SEQUENCE.length; i++) {
+    var item = EXPORT_SEQUENCE[i];
+
+    if (item.phase) {
+      h += '<br>';
+      h += '<table width="100%" cellpadding="0" cellspacing="0" border="0" style="background:#0f172a;"><tr><td style="padding:10px 16px;">';
+      h += '<p style="font-size:8pt;font-weight:bold;letter-spacing:1.5px;color:#60a5fa;margin:0;">' + esc(item.phase).toUpperCase() + '</p>';
+      if (item.phaseDesc) h += '<p style="font-size:9pt;color:#94a3b8;margin:2px 0 0;">' + esc(item.phaseDesc) + '</p>';
+      h += '</td></tr></table>';
+      continue;
+    }
+
+    var smsText = getRenderedText(item.day, 'sms');
+    var mmsText = getRenderedText(item.day, 'mms');
+    var hasSms = smsText && showSms;
+    var hasMms = mmsText && showMms && !item.smsOnly;
+    if (!hasSms && !hasMms) {
+      if (smsText && showMms && item.smsOnly) { hasSms = true; }
+      else continue;
+    }
+
+    var dripEl = document.querySelector('.drip[data-day="' + item.day + '"]');
+    var noteEl = dripEl ? dripEl.querySelector('.drip-note') : null;
+    var titleEl = dripEl ? dripEl.querySelector('.drip-title') : null;
+    var imageRecEls = dripEl ? dripEl.querySelectorAll('.image-rec') : [];
+
+    h += '<br>';
+
+    h += '<table width="100%" cellpadding="0" cellspacing="0" style="border:1px solid #e2e8f0;"><tr><td style="padding:16px 20px;">';
+
+    h += '<p style="margin:0 0 2px;">';
+    h += '<span style="font-size:9pt;font-weight:bold;letter-spacing:1px;color:#2563eb;">' + esc(item.label).toUpperCase() + '</span>';
+    h += '&nbsp;&nbsp;&nbsp;<span style="font-size:9pt;color:#64748b;">' + esc(item.purpose) + '</span>';
+    if (item.system) h += '&nbsp;&nbsp;<span style="font-size:8pt;font-weight:bold;color:#92400e;background:#fffbeb;border:1px solid #fde68a;padding:1px 6px;">System Auto</span>';
+    h += '</p>';
+
+    if (titleEl) {
+      h += '<p style="font-size:12pt;font-weight:bold;color:#0f172a;margin:4px 0 10px;">' + esc(titleEl.textContent) + '</p>';
+    }
+
+    if (hasSms && hasMms) {
+      h += '<table width="100%" cellpadding="0" cellspacing="0" border="0"><tr>';
+      h += '<td width="48%" valign="top">' + buildMsgBlockInline('sms', smsText, null) + '</td>';
+      h += '<td width="4%">&nbsp;</td>';
+      var ir = '';
+      for (var r = 0; r < imageRecEls.length; r++) ir = imageRecEls[r].textContent;
+      h += '<td width="48%" valign="top">' + buildMsgBlockInline('mms', mmsText, ir) + '</td>';
+      h += '</tr></table>';
+    } else if (hasSms) {
+      h += buildMsgBlockInline('sms', smsText, null);
+    } else if (hasMms) {
+      var ir2 = '';
+      for (var r2 = 0; r2 < imageRecEls.length; r2++) ir2 = imageRecEls[r2].textContent;
+      h += buildMsgBlockInline('mms', mmsText, ir2);
+    }
+
+    if (noteEl) {
+      h += '<table width="100%" cellpadding="0" cellspacing="0" border="0" style="margin-top:10px;"><tr>';
+      h += '<td width="3" style="background:#e2e8f0;">&nbsp;</td>';
+      h += '<td style="padding:4px 0 4px 10px;font-size:9pt;color:#64748b;">' + noteEl.innerHTML + '</td>';
+      h += '</tr></table>';
+    }
+
+    h += '</td></tr></table>';
+  }
+
+  h += '<br><br>';
+  h += '<p style="text-align:center;font-size:9pt;color:#94a3b8;border-top:1px solid #e2e8f0;padding-top:16px;">Powered by <b>OptSpot</b></p>';
+  h += '</body></html>';
+
+  return h;
+}
+
+function exportForClient() {
+  var btn = document.getElementById('exportBtn');
+  var hint = document.getElementById('exportHint');
+  btn.disabled = true;
+  btn.textContent = 'Signing in...';
+  hint.textContent = '';
+
+  initTokenClient();
+
+  if (googleAccessToken) {
+    createGoogleDoc();
+  } else {
+    tokenClient.requestAccessToken();
+  }
+}
+
+function createGoogleDoc() {
+  var btn = document.getElementById('exportBtn');
+  var hint = document.getElementById('exportHint');
+  btn.textContent = 'Creating doc...';
+
+  var washName = document.getElementById('washName').value || '[Wash Name]';
+  var title = washName.replace(/[^a-zA-Z0-9 ]/g, '') + ' - 90-Day Text Campaign';
+  var htmlContent = buildExportHtml();
+
+  var boundary = '-----multipartboundary' + Date.now();
+  var metadata = JSON.stringify({
+    name: title,
+    mimeType: 'application/vnd.google-apps.document'
+  });
+
+  var body = '';
+  body += '--' + boundary + '\r\n';
+  body += 'Content-Type: application/json; charset=UTF-8\r\n\r\n';
+  body += metadata + '\r\n';
+  body += '--' + boundary + '\r\n';
+  body += 'Content-Type: text/html; charset=UTF-8\r\n\r\n';
+  body += htmlContent + '\r\n';
+  body += '--' + boundary + '--';
+
+  fetch('https://www.googleapis.com/upload/drive/v3/files?uploadType=multipart', {
+    method: 'POST',
+    headers: {
+      'Authorization': 'Bearer ' + googleAccessToken,
+      'Content-Type': 'multipart/related; boundary=' + boundary
+    },
+    body: body
+  })
+  .then(function(res) {
+    if (res.status === 401) {
+      googleAccessToken = null;
+      tokenClient.requestAccessToken();
+      return;
+    }
+    return res.json();
+  })
+  .then(function(data) {
+    if (!data || !data.id) {
+      hint.textContent = 'Export failed. Try again.';
+      btn.disabled = false;
+      btn.textContent = 'Export to Google Docs';
+      return;
+    }
+    window.open('https://docs.google.com/document/d/' + data.id + '/edit', '_blank');
+    btn.disabled = false;
+    btn.textContent = 'Export to Google Docs';
+    hint.textContent = 'Done! Opened in a new tab.';
+    hint.style.color = '#16a34a';
+    setTimeout(function() {
+      hint.textContent = 'Creates a Google Doc in your Drive and opens it';
+      hint.style.color = '';
+    }, 5000);
+  })
+  .catch(function(err) {
+    console.error('Export error:', err);
+    hint.textContent = 'Export failed: ' + err.message;
+    btn.disabled = false;
+    btn.textContent = 'Export to Google Docs';
+  });
+}
+
+function buildMsgBlockInline(type, text, imageRec) {
+  var isSms = type === 'sms';
+  var limit = isSms ? 160 : 500;
+  var count = countSentChars(text);
+  var bg = isSms ? '#f8fafc' : '#faf5ff';
+  var border = isSms ? '#e2e8f0' : '#e9d5ff';
+  var labelColor = isSms ? '#2563eb' : '#7c3aed';
+
+  var h = '<table width="100%" cellpadding="0" cellspacing="0" style="background:' + bg + ';border:1px solid ' + border + ';"><tr><td style="padding:12px 14px;">';
+  h += '<p style="margin:0 0 6px;">';
+  h += '<span style="font-size:8pt;font-weight:bold;letter-spacing:1.5px;color:' + labelColor + ';">' + type.toUpperCase() + '</span>';
+  h += '&nbsp;&nbsp;&nbsp;<span style="font-size:8pt;color:#94a3b8;">' + count + '/' + limit + ' characters</span>';
+  h += '</p>';
+  h += '<p style="font-size:10pt;color:#334155;margin:0;line-height:1.15;">' + esc(text) + '</p>';
+  if (imageRec) {
+    h += '<p style="font-size:8pt;color:#7c3aed;font-style:italic;margin:8px 0 0;padding-top:6px;border-top:1px dashed #e9d5ff;">' + esc(imageRec) + '</p>';
+  }
+  h += '</td></tr></table>';
+  return h;
+}
+
+function esc(str) {
+  return str.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;').replace(/\n/g, '<br>');
+}
+
+document.querySelectorAll('#customizer input[type="text"]').forEach(function(el) {
+  el.addEventListener('input', debouncedRender);
+});
+document.querySelectorAll('#customizer select').forEach(function(el) {
+  el.addEventListener('change', renderMessages);
+});
+
+renderMessages();
+</script>
 
 </body>
 </html>
