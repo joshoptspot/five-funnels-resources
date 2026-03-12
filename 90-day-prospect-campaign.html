@@ -1,0 +1,644 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="icon" type="image/png" href="optspot-logo-mark.png">
+<title>First 90 Days | Prospect Campaign Template | OptSpot Internal</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap');
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: 'Inter', sans-serif; color: #1a1a2e; line-height: 1.7; background: #f8fafc; }
+
+  .doc-header {
+    background: #0f172a;
+    color: #fff;
+    padding: 48px 40px;
+    text-align: center;
+  }
+  .doc-header img { height: 36px; margin-bottom: 20px; display: block; margin-left: auto; margin-right: auto; }
+  .doc-header .internal-badge {
+    display: inline-block;
+    background: rgba(245, 158, 11, 0.2);
+    border: 1px solid rgba(245, 158, 11, 0.4);
+    color: #fbbf24;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    padding: 5px 14px;
+    border-radius: 100px;
+    margin-bottom: 16px;
+  }
+  .doc-header h1 { font-size: 28px; font-weight: 900; margin-bottom: 8px; }
+  .doc-header p { font-size: 15px; color: #94a3b8; max-width: 600px; margin: 0 auto; }
+
+  .page { max-width: 900px; margin: 0 auto; padding: 40px; background: #fff; }
+
+  h2 {
+    font-size: 20px;
+    font-weight: 800;
+    margin: 48px 0 8px;
+    color: #0f172a;
+    padding-bottom: 8px;
+    border-bottom: 2px solid #e2e8f0;
+  }
+  h2:first-of-type { margin-top: 0; }
+  h3 { font-size: 17px; font-weight: 700; margin: 32px 0 6px; color: #0f172a; }
+  p { margin-bottom: 12px; font-size: 15px; }
+  .subtitle { font-size: 14px; color: #64748b; margin-top: -4px; margin-bottom: 20px; }
+
+  .strategy-box {
+    background: #f0f4ff;
+    border: 1px solid #c7d6ff;
+    border-radius: 8px;
+    padding: 24px 28px;
+    margin: 24px 0;
+  }
+  .strategy-box p { font-size: 14px; margin-bottom: 8px; }
+  .strategy-box p:last-child { margin-bottom: 0; }
+
+  .phase {
+    background: #0f172a;
+    color: #fff;
+    padding: 14px 20px;
+    border-radius: 8px;
+    margin: 40px 0 20px;
+  }
+  .phase .phase-label {
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    color: #60a5fa;
+  }
+  .phase .phase-title { font-size: 16px; font-weight: 700; }
+  .phase .phase-desc { font-size: 13px; color: #94a3b8; }
+
+  .drip {
+    border: 1px solid #e2e8f0;
+    border-radius: 10px;
+    padding: 24px;
+    margin: 20px 0;
+  }
+  .drip-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 6px;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+  .drip-day {
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    color: #2563eb;
+  }
+  .drip-purpose {
+    font-size: 12px;
+    color: #64748b;
+    font-weight: 500;
+  }
+  .drip-title {
+    font-size: 16px;
+    font-weight: 700;
+    margin-bottom: 14px;
+    color: #0f172a;
+  }
+
+  .msg-versions {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+    margin-bottom: 10px;
+  }
+  .msg-version {
+    border-radius: 8px;
+    padding: 16px 18px;
+    font-size: 14px;
+    line-height: 1.6;
+    color: #334155;
+  }
+  .msg-version.sms {
+    background: #f8fafc;
+    border: 1px solid #e2e8f0;
+  }
+  .msg-version.mms {
+    background: #faf5ff;
+    border: 1px solid #e9d5ff;
+  }
+  .msg-label {
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    margin-bottom: 8px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .msg-version.sms .msg-label { color: #2563eb; }
+  .msg-version.mms .msg-label { color: #7c3aed; }
+  .msg-label .char-count {
+    font-weight: 500;
+    font-size: 10px;
+    color: #94a3b8;
+  }
+  .msg-text { font-family: 'Inter', sans-serif; }
+  .image-rec {
+    font-size: 11px;
+    color: #7c3aed;
+    margin-top: 10px;
+    padding-top: 8px;
+    border-top: 1px dashed #e9d5ff;
+    font-style: italic;
+  }
+
+  .drip-note {
+    font-size: 13px;
+    color: #64748b;
+    margin-top: 12px;
+    padding-left: 12px;
+    border-left: 3px solid #e2e8f0;
+  }
+
+  .system-msg {
+    background: #fffbeb;
+    border: 1px solid #fde68a;
+  }
+  .system-msg .msg-versions { grid-template-columns: 1fr; }
+
+  .note-box {
+    background: #fffbeb;
+    border-left: 4px solid #f59e0b;
+    padding: 16px 20px;
+    margin: 20px 0;
+    border-radius: 0 8px 8px 0;
+  }
+  .note-box .note-label {
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    color: #b45309;
+    margin-bottom: 4px;
+  }
+  .note-box p { font-size: 13px; margin-bottom: 0; }
+
+  .footer {
+    text-align: center;
+    padding: 40px;
+    background: #f8fafc;
+  }
+  .footer p { font-size: 13px; color: #94a3b8; }
+
+  @media print {
+    body { background: #fff; }
+    .page { padding: 20px; box-shadow: none; }
+    .doc-header { padding: 30px 20px; }
+  }
+  @media (max-width: 768px) {
+    .doc-header { padding: 32px 20px; }
+    .doc-header h1 { font-size: 22px; }
+    .page { padding: 24px 16px; }
+    .drip { padding: 16px; }
+    .msg-versions { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<div class="doc-header">
+  <img src="optspot-logo-white.png" alt="OptSpot">
+  <div class="internal-badge">Internal | Account Template</div>
+  <h1>First 90 Days: Prospect Campaign</h1>
+  <p>Universal drip sequence for new text club opt-ins who entered through a free wash offer. Build the wash habit. Speed up the membership conversion.</p>
+</div>
+
+<div class="page">
+
+<h2>Campaign Overview</h2>
+
+<div class="strategy-box">
+  <p><strong>Entry point:</strong> Customer opted in through a free wash offer (signage, QR code, online form, partner location, or any other free wash call to action).</p>
+  <p><strong>Goal:</strong> Get them in at least 3 more times in the first 45 days. Build the wash habit so membership becomes the obvious next step.</p>
+  <p><strong>Framework:</strong> Curiosity &rarr; Enlightenment &rarr; Commitment. Don't push membership until they're already washing like a member.</p>
+  <p><strong>Offer progression:</strong> Free &rarr; Discount &rarr; Outcome (no discount). Wean them off incentives and toward the habit. Never train them to wait for coupons.</p>
+</div>
+
+<div class="note-box">
+  <div class="note-label">SMS vs MMS</div>
+  <p>Each message below includes an <strong>SMS version</strong> (160-character limit, text only) and an <strong>MMS version</strong> (500-character limit, includes an image). MMS costs more to send but drives higher engagement. The image does the emotional work, so the MMS copy can be more conversational and human. Use one or the other per message, not both. Operator supplies their own images.</p>
+</div>
+
+<div class="note-box">
+  <div class="note-label">Character Limits</div>
+  <p><strong>SMS:</strong> 160 characters max. <strong>MMS:</strong> 500 characters max. Both include the wash name and all merge tags. <strong>~redeem~</strong> = 21 chars. <strong>~share~</strong> = 21 chars. <strong>~date14~</strong> = 10 chars. <strong>~mycoupon~</strong> = 21 chars. Counts below use a 20-character wash name as baseline.</p>
+</div>
+
+<!-- ==================== PHASE 1 ==================== -->
+
+<div class="phase">
+  <div class="phase-label">Phase 1 | Days 0&ndash;14</div>
+  <div class="phase-title">Curiosity</div>
+  <div class="phase-desc">Deliver on the promise. Make a great first impression. Start educating.</div>
+</div>
+
+<!-- Day 0 -->
+<div class="drip">
+  <div class="drip-header">
+    <div class="drip-day">Day 0 | Immediate</div>
+    <div class="drip-purpose">Visit 1 Setup</div>
+  </div>
+  <div class="drip-title">Welcome Text</div>
+  <div class="msg-versions">
+    <div class="msg-version sms">
+      <div class="msg-label">SMS <span class="char-count">~144 chars</span></div>
+      <div class="msg-text">Welcome to [Wash Name]'s text club! Your FREE top wash coupon is on its way. Stay tuned! Rply Stop2Stop,Help4Help,Msg&amp;DataRateMayApply</div>
+    </div>
+    <div class="msg-version mms">
+      <div class="msg-label">MMS <span class="char-count">~230 chars</span></div>
+      <div class="msg-text">Welcome to the [Wash Name] text club! You've got a FREE top wash headed your way in a few days. It's our best wash, the full treatment, and it's on us. Keep an eye on your texts. Rply Stop2Stop,Help4Help,Msg&amp;DataRateMayApply</div>
+      <div class="image-rec">Image: Your wash tunnel or entrance with clean, inviting lighting. First impression of the brand.</div>
+    </div>
+  </div>
+  <div class="drip-note"><strong>Strategy:</strong> Build anticipation. Don't deliver the coupon immediately. The delay creates a reason to open the next text. The welcome message sets the expectation that something valuable is coming.</div>
+</div>
+
+<!-- Day 3 -->
+<div class="drip">
+  <div class="drip-header">
+    <div class="drip-day">Day 3</div>
+    <div class="drip-purpose">Visit 1 | Free Top Wash</div>
+  </div>
+  <div class="drip-title">Free Top Wash Delivery</div>
+  <div class="msg-versions">
+    <div class="msg-version sms">
+      <div class="msg-label">SMS <span class="char-count">~144 chars</span></div>
+      <div class="msg-text">Your FREE top wash at [Wash Name] is here! This is our best wash, the full treatment, on us. ~redeem~ Exp ~date14~</div>
+    </div>
+    <div class="msg-version mms">
+      <div class="msg-label">MMS <span class="char-count">~250 chars</span></div>
+      <div class="msg-text">Your FREE top wash at [Wash Name] is ready! This is our best wash. The full treatment, top to bottom, on us. We want you to see what a real clean feels like. Come through anytime before it expires and enjoy the ride home. ~redeem~ Exp ~date14~</div>
+      <div class="image-rec">Image: A freshly washed car with water beading on the paint, or a car exiting the tunnel looking pristine.</div>
+    </div>
+  </div>
+  <div class="drip-note"><strong>Strategy:</strong> Always give away the top wash. You want their first experience to be your best. Call it "our best wash" so they understand the value of what they're getting. This is the moment that determines whether they come back.</div>
+</div>
+
+<!-- Day 7 System -->
+<div class="drip system-msg">
+  <div class="drip-header">
+    <div class="drip-day">Day 7 | System Auto</div>
+    <div class="drip-purpose">Coupon Reminder</div>
+  </div>
+  <div class="drip-title">Unredeemed Coupon Reminder</div>
+  <div class="msg-versions">
+    <div class="msg-version sms">
+      <div class="msg-label">SMS <span class="char-count">~133 chars</span></div>
+      <div class="msg-text">It looks like you still have a coupon to use at [Wash Name]! Click here for details &amp; come see us soon! ~mycoupon~</div>
+    </div>
+  </div>
+  <div class="drip-note"><strong>System note:</strong> Triggered automatically if the customer hasn't redeemed within 7 days. Sent one time only. SMS only.</div>
+</div>
+
+<!-- Day 10 -->
+<div class="drip">
+  <div class="drip-header">
+    <div class="drip-day">Day 10</div>
+    <div class="drip-purpose">Education</div>
+  </div>
+  <div class="drip-title">Why Regular Washing Matters</div>
+  <div class="msg-versions">
+    <div class="msg-version sms">
+      <div class="msg-label">SMS <span class="char-count">~158 chars</span></div>
+      <div class="msg-text">Brake dust, tree sap &amp; bird droppings eat through your clear coat over time. The longer they sit, the worse the damage. Stop by [Wash Name] before they set in.</div>
+    </div>
+    <div class="msg-version mms">
+      <div class="msg-label">MMS <span class="char-count">~310 chars</span></div>
+      <div class="msg-text">Here's something most people don't realize. Brake dust, tree sap, and bird droppings don't just sit on your paint. They eat into your clear coat over time. The longer they sit, the more damage they do. A quick wash at [Wash Name] takes about 3 minutes and washes all of that off before it has a chance to set in. Your paint will thank you.</div>
+      <div class="image-rec">Image: Close-up of paint damage, bird droppings on a car, or a before/after showing the difference a wash makes.</div>
+    </div>
+  </div>
+  <div class="drip-note"><strong>Strategy:</strong> Start the enlightenment process. This isn't a sales message, it's education. Plant the idea that washing isn't a luxury, it's maintenance. Speak to the problem (paint damage), create urgency ("the longer they sit"), and end with a clear call to action.</div>
+</div>
+
+<!-- ==================== PHASE 2 ==================== -->
+
+<div class="phase">
+  <div class="phase-label">Phase 2 | Days 14&ndash;45</div>
+  <div class="phase-title">Enlightenment</div>
+  <div class="phase-desc">Build the habit. Get them back 3 more times. Educate between visits. Wean off discounts.</div>
+</div>
+
+<!-- Day 21 -->
+<div class="drip">
+  <div class="drip-header">
+    <div class="drip-day">Day 21</div>
+    <div class="drip-purpose">Visit 2 | 50% Off Top Wash</div>
+  </div>
+  <div class="drip-title">Come Back Offer</div>
+  <div class="msg-versions">
+    <div class="msg-version sms">
+      <div class="msg-label">SMS <span class="char-count">~153 chars</span></div>
+      <div class="msg-text">Your car picks up more than you think between washes. Enjoy 50% off our top wash at [Wash Name] this week! ~redeem~ Exp ~date14~</div>
+    </div>
+    <div class="msg-version mms">
+      <div class="msg-label">MMS <span class="char-count">~295 chars</span></div>
+      <div class="msg-text">Your car picks up more than you think between washes. Road film, brake dust, pollen, all kinds of stuff you can't always see. We'd love to get you back in. Here's 50% off our top wash at [Wash Name]. Same great wash you got the first time, just half the price this time. ~redeem~ Exp ~date14~</div>
+      <div class="image-rec">Image: A dirty car vs. clean car side by side, or a close-up of road film/pollen buildup on paint.</div>
+    </div>
+  </div>
+  <div class="drip-note"><strong>Strategy:</strong> This is the only discount in the sequence after the free wash. 50% off is enough to overcome the inertia of "I just went a couple weeks ago," but they're paying now, which matters. Keep them on the top wash so they keep experiencing the best version of what you do. That's what makes membership attractive later.</div>
+</div>
+
+<!-- Day 35 -->
+<div class="drip">
+  <div class="drip-header">
+    <div class="drip-day">Day 35</div>
+    <div class="drip-purpose">Visit 3 | Outcome + Membership Seed</div>
+  </div>
+  <div class="drip-title">Drive a Car You're Proud Of</div>
+  <div class="msg-versions">
+    <div class="msg-version sms">
+      <div class="msg-label">SMS <span class="char-count">~157 chars</span></div>
+      <div class="msg-text">Love that fresh wash feeling? [Wash Name] members wash whenever they want for one flat price. No contracts. See if it's for you: [membership link]</div>
+    </div>
+    <div class="msg-version mms">
+      <div class="msg-label">MMS <span class="char-count">~430 chars</span></div>
+      <div class="msg-text">You know that feeling when you get in a freshly washed car? Windows are clear. Paint is shining. Everything just feels right. You feel better driving it. You feel better pulling up to work, picking up the kids, or just running errands. That feeling is about 3 minutes away at [Wash Name]. No coupon needed. Just come through.
+
+P.S. If you're loving the clean car life, ask us about unlimited membership. Might be a perfect fit. [membership link]</div>
+      <div class="image-rec">Image: A beautiful clean car in golden hour light, someone driving with the windows down, or a shiny car in a parking lot. Aspirational, not salesy.</div>
+    </div>
+  </div>
+  <div class="drip-note"><strong>Strategy:</strong> Two weeks after the last message. No coupon. No discount. The MMS leads with pure outcome, inviting them into the feeling of a clean car, then plants a membership seed in the P.S. while they're feeling good. The SMS has limited space, so it leads with the feeling and bridges directly into the membership mention. This is the first time membership comes up. It's not a pitch. It's a door for the 5% who are already ready. Everyone else just hears "wash whenever you want" and files it away for later.</div>
+</div>
+
+<!-- Day 42 -->
+<div class="drip">
+  <div class="drip-header">
+    <div class="drip-day">Day 42</div>
+    <div class="drip-purpose">Referral</div>
+  </div>
+  <div class="drip-title">Share a Free Wash</div>
+  <div class="msg-versions">
+    <div class="msg-version sms">
+      <div class="msg-label">SMS <span class="char-count">~141 chars</span></div>
+      <div class="msg-text">Know someone who'd love a free wash? Send them one from [Wash Name]. It's on us, and it's our way of saying thanks! ~share~</div>
+    </div>
+    <div class="msg-version mms">
+      <div class="msg-label">MMS <span class="char-count">~280 chars</span></div>
+      <div class="msg-text">Got a friend, coworker, or family member who could use a good wash? Send them a free one from [Wash Name]. It's our way of saying thanks for being part of the crew. Just tap the link below and pick who you want to send it to. They get a free wash, you get to be the hero. ~share~</div>
+      <div class="image-rec">Image: Two clean cars side by side, or a fun lifestyle shot. Something share-worthy.</div>
+    </div>
+  </div>
+  <div class="drip-note"><strong>Strategy:</strong> The referral comes after the habit is forming, not before. At this point they've been in multiple times and they like the wash. Now they're ready to advocate. This grows the list and deepens their own commitment. People who refer others are less likely to drift.</div>
+</div>
+
+<!-- Day 45 -->
+<div class="drip">
+  <div class="drip-header">
+    <div class="drip-day">Day 45</div>
+    <div class="drip-purpose">Data Collection</div>
+  </div>
+  <div class="drip-title">Birthday Club</div>
+  <div class="msg-versions">
+    <div class="msg-version sms">
+      <div class="msg-label">SMS <span class="char-count">~147 chars</span></div>
+      <div class="msg-text">Got a birthday coming up? Reply with your birthday (mm/dd/yyyy) and [Wash Name] will send you a FREE surprise when the big day rolls around!</div>
+    </div>
+    <div class="msg-version mms">
+      <div class="msg-label">MMS <span class="char-count">~250 chars</span></div>
+      <div class="msg-text">Got a birthday coming up? We want to celebrate with you. Reply with your birthday (mm/dd/yyyy) and [Wash Name] will send you a FREE surprise when the big day rolls around. We do this for all our text club members because, honestly, it's fun and you deserve it.</div>
+      <div class="image-rec">Image: A festive car wash photo, balloons, or a birthday-themed graphic with your branding.</div>
+    </div>
+  </div>
+  <div class="drip-note"><strong>Strategy:</strong> Two-way message. Collect birthday data for future personalization. Customers who reply are engaged. This is a positive signal. The birthday wash becomes another touchpoint throughout the year.</div>
+</div>
+
+<!-- Birthday Response -->
+<div class="drip system-msg">
+  <div class="drip-header">
+    <div class="drip-day">Birthday | System Auto</div>
+    <div class="drip-purpose">Birthday Reward</div>
+  </div>
+  <div class="drip-title">Birthday Free Wash</div>
+  <div class="msg-versions">
+    <div class="msg-version sms">
+      <div class="msg-label">SMS <span class="char-count">~133 chars</span></div>
+      <div class="msg-text">Happy Birthday from [Wash Name]! Celebrate with a FREE top wash on us. Have an amazing day! ~redeem~ Exp ~date14~</div>
+    </div>
+  </div>
+  <div class="drip-note"><strong>System note:</strong> Triggered automatically on the customer's birthday based on the date they provided.</div>
+</div>
+
+<!-- ==================== PHASE 3 ==================== -->
+
+<div class="phase">
+  <div class="phase-label">Phase 3 | Days 45&ndash;90</div>
+  <div class="phase-title">Commitment</div>
+  <div class="phase-desc">They're building the habit. Introduce membership as the natural next step.</div>
+</div>
+
+<!-- Day 55 -->
+<div class="drip">
+  <div class="drip-header">
+    <div class="drip-day">Day 55</div>
+    <div class="drip-purpose">Social Proof</div>
+  </div>
+  <div class="drip-title">What Members Know</div>
+  <div class="msg-versions">
+    <div class="msg-version sms">
+      <div class="msg-label">SMS <span class="char-count">~150 chars</span></div>
+      <div class="msg-text">When's the last time you looked at your car and thought "that looks great"? If it's been a while, we're here for you. Stop by [Wash Name] anytime.</div>
+    </div>
+    <div class="msg-version mms">
+      <div class="msg-label">MMS <span class="char-count">~350 chars</span></div>
+      <div class="msg-text">Our members wash once a week to keep their car looking and feeling new. Not because they have to. Because once you get into the habit, you realize how good it feels to always be driving a clean car. It just becomes part of your week. When's the last time you looked at your car and thought "that looks great"? If it's been a while, we're here for you. [Wash Name]</div>
+      <div class="image-rec">Image: A happy customer at the wash, a line of clean cars, or a member testimonial screenshot (with permission).</div>
+    </div>
+  </div>
+  <div class="drip-note"><strong>Strategy:</strong> The SMS version is a simple self-reflection question. The MMS version adds social proof: "our members wash once a week." This plants the idea that weekly washing is normal, not excessive, and sets the frequency expectation that makes membership feel worth it. It bridges the gap between retail and membership by showing what life looks like on the other side.</div>
+</div>
+
+<!-- Day 65 -->
+<div class="drip">
+  <div class="drip-header">
+    <div class="drip-day">Day 65</div>
+    <div class="drip-purpose">Soft Membership Introduction</div>
+  </div>
+  <div class="drip-title">Plant the Seed</div>
+  <div class="msg-versions">
+    <div class="msg-version sms">
+      <div class="msg-label">SMS <span class="char-count">~136 chars</span></div>
+      <div class="msg-text">Tired of thinking about when to wash? [Wash Name] members wash whenever they want. Unlimited, no contracts. Just drive through!</div>
+    </div>
+    <div class="msg-version mms">
+      <div class="msg-label">MMS <span class="char-count">~360 chars</span></div>
+      <div class="msg-text">What if you never had to think about when to wash your car again? That's what our members tell us they love most. They don't plan it. They don't budget for it. They just drive through [Wash Name] whenever they feel like it. Unlimited washes, no contracts, cancel anytime. It's not for everyone, but if you've been coming in regularly, it might make a lot of sense for you.</div>
+      <div class="image-rec">Image: A car driving through the tunnel, or a member sticker/tag on a windshield. Something that shows the ease of membership.</div>
+    </div>
+  </div>
+  <div class="drip-note"><strong>Strategy:</strong> First mention of membership, and it's not a pitch, it's a vision. "Tired of thinking about it" speaks to the hassle. "Just drive through" paints the picture of what life looks like as a member. The MMS version adds a personal touch with "that's what our members tell us." No link yet. No pressure. Just awareness.</div>
+</div>
+
+<!-- Day 75 -->
+<div class="drip">
+  <div class="drip-header">
+    <div class="drip-day">Day 75</div>
+    <div class="drip-purpose">Membership Value</div>
+  </div>
+  <div class="drip-title">The Math Makes Sense</div>
+  <div class="msg-versions">
+    <div class="msg-version sms">
+      <div class="msg-label">SMS <span class="char-count">~152 chars</span></div>
+      <div class="msg-text">Go unlimited at [Wash Name]! Wash all month for about the price of 2 washes. No contracts, cancel anytime. Check it out: [membership link]</div>
+    </div>
+    <div class="msg-version mms">
+      <div class="msg-label">MMS <span class="char-count">~380 chars</span></div>
+      <div class="msg-text">Here's the math. A single top wash at [Wash Name] costs about $[X]. An unlimited membership is $[X]/mo. That means if you wash just twice, the membership has already paid for itself. Everything after that is free. Wash 5 times, 10 times, every single day if you want. No contracts. Cancel anytime. If you're already washing regularly, this is a no-brainer. Check it out: [membership link]</div>
+      <div class="image-rec">Image: A simple graphic showing the price comparison, or a clean car with "Unlimited Member" text overlay.</div>
+    </div>
+  </div>
+  <div class="drip-note"><strong>Strategy:</strong> Now we make the case with simple math. The MMS version lets you plug in real prices so the customer can see exactly how fast the membership pays for itself. "No contracts, cancel anytime" removes the risk. This is the first message with a membership link. Replace [membership link] with the customer's actual enrollment URL. Replace $[X] with real prices.</div>
+</div>
+
+<!-- Day 90 -->
+<div class="drip">
+  <div class="drip-header">
+    <div class="drip-day">Day 90</div>
+    <div class="drip-purpose">Membership Conversion</div>
+  </div>
+  <div class="drip-title">The Natural Next Step</div>
+  <div class="msg-versions">
+    <div class="msg-version sms">
+      <div class="msg-label">SMS <span class="char-count">~148 chars</span></div>
+      <div class="msg-text">You already love a clean car. Why not make it easy? Go unlimited at [Wash Name] and wash whenever you want. No contracts. [membership link]</div>
+    </div>
+    <div class="msg-version mms">
+      <div class="msg-label">MMS <span class="char-count">~350 chars</span></div>
+      <div class="msg-text">You've been taking care of your car and it shows. If you're ready to stop thinking about it and just have a clean car all the time, unlimited membership at [Wash Name] might be the move. Wash whenever you want, as often as you want. No contracts, cancel anytime. A lot of our members say they wish they'd done it sooner. [membership link]</div>
+      <div class="image-rec">Image: A stunning clean car, or a member testimonial quote overlaid on a photo. The aspirational finish line.</div>
+    </div>
+  </div>
+  <div class="drip-note"><strong>Strategy:</strong> Final message in the 90-day sequence. Affirm their identity ("You've been taking care of your car") and position membership as the effortless next step. They're not being sold. They're being invited to keep doing what they're already doing, just without thinking about it. "A lot of our members say they wish they'd done it sooner" adds social proof at the moment of decision.</div>
+</div>
+
+<!-- ==================== POST-90 DAY ==================== -->
+
+<h2>Post&ndash;90 Day</h2>
+
+<div class="drip system-msg">
+  <div class="drip-header">
+    <div class="drip-day">Day 260</div>
+    <div class="drip-purpose">List Hygiene</div>
+  </div>
+  <div class="drip-title">Cull Text</div>
+  <div class="msg-versions">
+    <div class="msg-version sms">
+      <div class="msg-label">SMS <span class="char-count">~137 chars</span></div>
+      <div class="msg-text">[Wash Name] wants to make sure you're good with getting our messages. If you've moved or don't want these anymore, just reply STOP.</div>
+    </div>
+  </div>
+  <div class="drip-note"><strong>System note:</strong> Standard list hygiene message. Removes unengaged contacts and keeps your list healthy. Customers who don't reply STOP remain in the database for monthly campaigns.</div>
+</div>
+
+<!-- ==================== SYSTEM MESSAGES ==================== -->
+
+<h2>System Messages</h2>
+<p class="subtitle">These messages are triggered by customer actions, not by the drip timeline.</p>
+
+<div class="drip system-msg">
+  <div class="drip-header">
+    <div class="drip-day">Online Double Opt-In</div>
+    <div class="drip-purpose">Compliance</div>
+  </div>
+  <div class="drip-title">Online Opt-In Confirmation</div>
+  <div class="msg-versions">
+    <div class="msg-version sms">
+      <div class="msg-label">SMS <span class="char-count">~135 chars</span></div>
+      <div class="msg-text">Reply YES to confirm your opt-in and receive your offer, recurring messages &amp; alerts from [Wash Name]. Consent not req'd to buy.</div>
+    </div>
+  </div>
+  <div class="drip-note"><strong>System note:</strong> Required for any opt-in from an online form (website, Facebook, etc.). Customer must reply YES before entering the campaign. SMS only.</div>
+</div>
+
+<div class="drip system-msg">
+  <div class="drip-header">
+    <div class="drip-day">After YES Reply</div>
+    <div class="drip-purpose">Online Free Wash Delivery</div>
+  </div>
+  <div class="drip-title">Online Opt-In Free Wash</div>
+  <div class="msg-versions">
+    <div class="msg-version sms">
+      <div class="msg-label">SMS <span class="char-count">~154 chars</span></div>
+      <div class="msg-text">[Wash Name] Text Club rewards our VIPs! Click to claim your FREE top wash. Exp ~date14~. ~redeem~ Rply STOP2Cancel HELP4Help Msg&amp;DataRateMayApply</div>
+    </div>
+  </div>
+  <div class="drip-note"><strong>System note:</strong> Delivered immediately after YES reply. Online opt-ins get their free wash right away since they already waited through the double opt-in process.</div>
+</div>
+
+<div class="drip system-msg">
+  <div class="drip-header">
+    <div class="drip-day">Duplicate Opt-In</div>
+    <div class="drip-purpose">Already Subscribed</div>
+  </div>
+  <div class="drip-title">Already Opted In</div>
+  <div class="msg-versions">
+    <div class="msg-version sms">
+      <div class="msg-label">SMS <span class="char-count">~130 chars</span></div>
+      <div class="msg-text">You've already joined the [Wash Name] Text Club &amp; received your FREE wash offer! Watch for more great offers coming your way!</div>
+    </div>
+  </div>
+  <div class="drip-note"><strong>System note:</strong> Triggered when a customer tries to opt in to the same campaign again.</div>
+</div>
+
+<!-- ==================== STRATEGY NOTES ==================== -->
+
+<h2>Strategy Notes for Account Managers</h2>
+
+<div class="strategy-box">
+  <p><strong>The offer progression matters.</strong> Free &rarr; 50% off &rarr; no discount (outcome) &rarr; referral. This weans the customer off incentives and toward the habit. If you give a discount on every message, you train them to wait for the next coupon instead of building the wash habit. By visit 3, the message is about how they feel driving a clean car, not about saving money.</p>
+</div>
+
+<div class="strategy-box">
+  <p><strong>Don't rush membership, but plant the seed.</strong> The first soft mention of membership is Day 35, two weeks after the last message and five weeks into the relationship. It's not a pitch. It's a door for the 5% who are already ready. The real membership push starts at Day 65, over two months in. That's intentional. You can't convert someone who isn't washing regularly. The first 45 days build the habit and give early adopters a path. The next 45 days show the rest that membership makes the habit effortless.</p>
+</div>
+
+<div class="strategy-box">
+  <p><strong>Two-way messages are your highest-value touchpoints.</strong> The post-redemption survey (sent 5-10 min after they use their free wash) and Day 45 (birthday) both ask for a reply. Customers who reply to texts are significantly more engaged than customers who just read them. Every reply turns a broadcast into a conversation. Set up email alerts so operators see and respond to these replies.</p>
+</div>
+
+<div class="strategy-box">
+  <p><strong>SMS vs MMS is a per-client decision.</strong> Not every operator wants to pay for MMS. SMS works. It's proven. But for operators who are willing to invest, MMS drives higher engagement because the image does the emotional work. The MMS versions are more conversational, more human, and include social proof that doesn't fit in 160 characters. Let the operator choose based on budget.</p>
+</div>
+
+<div class="strategy-box">
+  <p><strong>MMS images should come from the operator.</strong> Stock photos feel generic. A photo of their actual tunnel, their actual team, or a real car at their wash is always more effective. Help operators build a small library of 10-15 photos they can use across all campaigns.</p>
+</div>
+
+<div class="strategy-box">
+  <p><strong>Character count check.</strong> Always verify the final character count after inserting the customer's actual wash name. A 25-character wash name eats 5 more characters than the baseline. Adjust the message copy as needed. Never exceed 160 for SMS or 500 for MMS.</p>
+</div>
+
+<div class="strategy-box">
+  <p><strong>Replace [membership link] with the customer's actual enrollment URL.</strong> This is typically a short URL like https://crwsh.co/xxxxx (~25 characters). Factor this into your character count for Day 75 and Day 90 messages.</p>
+</div>
+
+<div class="strategy-box">
+  <p><strong>The customer journey: Curiosity &rarr; Enlightenment &rarr; Commitment.</strong> Only about 5% of customers are ready for commitment when they first opt in. The other 95% need to be guided through the journey. This sequence does that systematically. Every message has a purpose and moves them one step closer to the wash habit and ultimately to membership.</p>
+</div>
+
+</div>
+
+<div class="footer">
+  <img src="optspot-logo-mark.png" alt="OptSpot" style="height: 28px; margin-bottom: 12px;">
+  <p><strong>OptSpot Internal</strong> | Prospect Campaign Template</p>
+  <p>The Five Funnels to Freedom&trade;</p>
+</div>
+
+</body>
+</html>
