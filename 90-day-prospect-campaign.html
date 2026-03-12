@@ -1117,45 +1117,82 @@ function buildExportHtml() {
   var fmt = document.getElementById('exportFormat').value;
   var showSms = fmt === 'both' || fmt === 'sms';
   var showMms = fmt === 'both' || fmt === 'mms';
+  var washType = document.getElementById('washType').value;
+  var memberPrice = document.getElementById('memberPrice').value || '30';
+  var memberLink = document.getElementById('memberLink').value || 'https://crwsh.co/xxxxxx';
 
-  var h = '<html><head><meta charset="utf-8"><style>';
-  h += 'body{font-family:Calibri,Arial,sans-serif;color:#1a1a2e;line-height:1.15;margin:0;padding:0;}';
-  h += 'table{border-collapse:collapse;}';
-  h += '</style></head>';
-  h += '<body>';
+  var h = '<html><head><meta charset="utf-8"></head><body style="font-family:Arial,sans-serif;color:#1a1a2e;line-height:1.4;margin:0;padding:0;">';
 
-  // Header
-  h += '<table width="100%" cellpadding="0" cellspacing="0" border="0" style="background:#0f172a;"><tr><td style="padding:32px 36px;text-align:center;">';
-  h += '<p style="font-size:24pt;font-weight:bold;color:#ffffff;margin:0 0 4px;">' + esc(washName) + '</p>';
-  h += '<p style="font-size:11pt;color:#94a3b8;margin:0;">90-Day Text Campaign</p>';
+  // ── COVER HEADER ──
+  h += '<table width="100%" cellpadding="0" cellspacing="0" border="0" style="background-color:#0f172a;">';
+  h += '<tr><td style="padding:40px 40px 12px;text-align:center;">';
+  h += '<p style="font-size:11px;font-weight:bold;letter-spacing:2px;color:#fbbf24;margin:0;">PREPARED FOR</p>';
+  h += '</td></tr>';
+  h += '<tr><td style="padding:0 40px;text-align:center;">';
+  h += '<p style="font-size:28px;font-weight:bold;color:#ffffff;margin:0;">' + esc(washName) + '</p>';
+  h += '</td></tr>';
+  h += '<tr><td style="padding:12px 40px 8px;text-align:center;">';
+  h += '<p style="font-size:13px;color:#94a3b8;margin:0;">90-Day Prospect Text Campaign</p>';
+  h += '</td></tr>';
+  h += '<tr><td style="padding:4px 40px 32px;text-align:center;">';
+  h += '<p style="font-size:11px;color:#64748b;margin:0;">' + esc(washType === 'full' ? 'Full Service' : 'Express Tunnel') + ' &bull; $' + esc(memberPrice) + '/mo membership</p>';
+  h += '</td></tr>';
+  h += '</table>';
+
+  // ── SPACER ──
+  h += '<p style="font-size:6px;margin:0;">&nbsp;</p>';
+
+  // ── CAMPAIGN OVERVIEW ──
+  h += '<table width="100%" cellpadding="0" cellspacing="0" border="0" style="background-color:#f0f4ff;border:1px solid #c7d6ff;">';
+  h += '<tr><td style="padding:20px 24px 6px;">';
+  h += '<p style="font-size:14px;font-weight:bold;color:#1e40af;margin:0 0 10px;">Campaign Overview</p>';
+  h += '</td></tr>';
+  h += '<tr><td style="padding:0 24px;">';
+  h += '<p style="font-size:11px;margin:0 0 6px;color:#334155;"><b>Entry point:</b> Customer opted in through a free wash offer.</p>';
+  h += '</td></tr>';
+  h += '<tr><td style="padding:0 24px;">';
+  h += '<p style="font-size:11px;margin:0 0 6px;color:#334155;"><b>Goal:</b> Get them in at least 3 more times in the first 45 days. Build the wash habit so membership becomes the obvious next step.</p>';
+  h += '</td></tr>';
+  h += '<tr><td style="padding:0 24px;">';
+  h += '<p style="font-size:11px;margin:0 0 6px;color:#334155;"><b>Framework:</b> Curiosity &#8594; Enlightenment &#8594; Commitment.</p>';
+  h += '</td></tr>';
+  h += '<tr><td style="padding:0 24px 16px;">';
+  h += '<p style="font-size:11px;margin:0;color:#334155;"><b>Offer progression:</b> Free &#8594; Discount &#8594; Outcome (no discount). Wean them off incentives and toward the habit.</p>';
+  h += '</td></tr>';
+  h += '</table>';
+
+  h += '<p style="font-size:6px;margin:0;">&nbsp;</p>';
+
+  // ── SMS VS MMS NOTE ──
+  h += '<table width="100%" cellpadding="0" cellspacing="0" border="0">';
+  h += '<tr>';
+  h += '<td width="4" style="background-color:#f59e0b;">&nbsp;</td>';
+  h += '<td style="background-color:#fffbeb;padding:14px 18px;">';
+  h += '<p style="font-size:10px;font-weight:bold;letter-spacing:1px;color:#b45309;margin:0 0 4px;">SMS VS MMS</p>';
+  h += '<p style="font-size:11px;margin:0;color:#92400e;">Each message includes an <b>SMS version</b> (160-char limit, text only) and an <b>MMS version</b> (500-char limit, includes an image). Use one or the other per message, not both. Operator supplies their own images.</p>';
   h += '</td></tr></table>';
 
-  h += '<br>';
-
-  // Overview box
-  h += '<table width="100%" cellpadding="0" cellspacing="0" border="0" style="background:#f0f4ff;border:1px solid #c7d6ff;"><tr><td style="padding:16px 20px;">';
-  h += '<p style="font-size:10pt;margin:0 0 4px;"><b>Entry point:</b> Customer opted in through a free wash offer.</p>';
-  h += '<p style="font-size:10pt;margin:0 0 4px;"><b>Goal:</b> Get them in at least 3 more times in the first 45 days. Build the wash habit so membership becomes the obvious next step.</p>';
-  h += '<p style="font-size:10pt;margin:0 0 4px;"><b>Framework:</b> Curiosity &#8594; Enlightenment &#8594; Commitment.</p>';
-  h += '<p style="font-size:10pt;margin:0;"><b>Offer progression:</b> Free &#8594; Discount &#8594; Outcome (no discount). Wean them off incentives and toward the habit.</p>';
+  // ── TIMELINE VISUAL ──
+  h += '<p style="font-size:6px;margin:0;">&nbsp;</p>';
+  h += '<table width="100%" cellpadding="0" cellspacing="0" border="0" style="background-color:#f8fafc;border:1px solid #e2e8f0;">';
+  h += '<tr><td style="padding:14px 20px 6px;">';
+  h += '<p style="font-size:10px;font-weight:bold;letter-spacing:1px;color:#64748b;margin:0;">MESSAGE TIMELINE</p>';
+  h += '</td></tr>';
+  h += '<tr><td style="padding:4px 20px 14px;">';
+  h += '<p style="font-size:11px;color:#334155;margin:0;">Day 0 &#8594; Day 3 &#8594; Day 7* &#8594; Day 10 &#8594; Day 21 &#8594; Day 35 &#8594; Day 42 &#8594; Day 45* &#8594; Day 55 &#8594; Day 65 &#8594; Day 75 &#8594; Day 90 &#8594; Day 260</p>';
+  h += '<p style="font-size:9px;color:#94a3b8;margin:4px 0 0;">* = system automated &nbsp;&nbsp;|&nbsp;&nbsp;13 messages over 90 days &nbsp;&nbsp;|&nbsp;&nbsp;1 win-back at 260 days</p>';
   h += '</td></tr></table>';
 
-  h += '<br>';
-
-  // SMS vs MMS note
-  h += '<table width="100%" cellpadding="0" cellspacing="0" border="0" style="background:#fffbeb;border-left:4px solid #f59e0b;"><tr><td style="padding:12px 16px;">';
-  h += '<p style="font-size:8pt;font-weight:bold;letter-spacing:1px;color:#b45309;margin:0 0 4px;">SMS VS MMS</p>';
-  h += '<p style="font-size:9pt;margin:0;">Each message includes an <b>SMS version</b> (160-character limit, text only) and an <b>MMS version</b> (500-character limit, includes an image). Use one or the other per message, not both.</p>';
-  h += '</td></tr></table>';
-
+  // ── MESSAGE CARDS ──
   for (var i = 0; i < EXPORT_SEQUENCE.length; i++) {
     var item = EXPORT_SEQUENCE[i];
 
     if (item.phase) {
-      h += '<br>';
-      h += '<table width="100%" cellpadding="0" cellspacing="0" border="0" style="background:#0f172a;"><tr><td style="padding:10px 16px;">';
-      h += '<p style="font-size:8pt;font-weight:bold;letter-spacing:1.5px;color:#60a5fa;margin:0;">' + esc(item.phase).toUpperCase() + '</p>';
-      if (item.phaseDesc) h += '<p style="font-size:9pt;color:#94a3b8;margin:2px 0 0;">' + esc(item.phaseDesc) + '</p>';
+      h += '<p style="font-size:4px;margin:0;">&nbsp;</p>';
+      h += '<table width="100%" cellpadding="0" cellspacing="0" border="0" style="background-color:#0f172a;">';
+      h += '<tr><td style="padding:12px 20px;">';
+      h += '<p style="font-size:10px;font-weight:bold;letter-spacing:2px;color:#60a5fa;margin:0;">' + esc(item.phase).toUpperCase() + '</p>';
+      if (item.phaseDesc) h += '<p style="font-size:11px;color:#94a3b8;margin:4px 0 0;">' + esc(item.phaseDesc) + '</p>';
       h += '</td></tr></table>';
       continue;
     }
@@ -1174,21 +1211,34 @@ function buildExportHtml() {
     var titleEl = dripEl ? dripEl.querySelector('.drip-title') : null;
     var imageRecEls = dripEl ? dripEl.querySelectorAll('.image-rec') : [];
 
-    h += '<br>';
+    h += '<p style="font-size:4px;margin:0;">&nbsp;</p>';
 
-    h += '<table width="100%" cellpadding="0" cellspacing="0" style="border:1px solid #e2e8f0;"><tr><td style="padding:16px 20px;">';
+    // Card outer border
+    var cardBorder = item.system ? 'border:1px solid #fde68a;' : 'border:1px solid #e2e8f0;';
+    h += '<table width="100%" cellpadding="0" cellspacing="0" border="0" style="' + cardBorder + '">';
 
-    h += '<p style="margin:0 0 2px;">';
-    h += '<span style="font-size:9pt;font-weight:bold;letter-spacing:1px;color:#2563eb;">' + esc(item.label).toUpperCase() + '</span>';
-    h += '&nbsp;&nbsp;&nbsp;<span style="font-size:9pt;color:#64748b;">' + esc(item.purpose) + '</span>';
-    if (item.system) h += '&nbsp;&nbsp;<span style="font-size:8pt;font-weight:bold;color:#92400e;background:#fffbeb;border:1px solid #fde68a;padding:1px 6px;">System Auto</span>';
+    // Day label header bar
+    var headerBg = item.system ? 'background-color:#fffbeb;' : 'background-color:#f8fafc;';
+    h += '<tr><td style="' + headerBg + 'padding:10px 20px;border-bottom:1px solid #e2e8f0;">';
+    h += '<p style="margin:0;">';
+    h += '<span style="font-size:11px;font-weight:bold;letter-spacing:1px;color:#2563eb;">' + esc(item.label).toUpperCase() + '</span>';
+    h += '&nbsp;&nbsp;&nbsp;&nbsp;<span style="font-size:11px;color:#64748b;">' + esc(item.purpose) + '</span>';
+    if (item.system) h += '&nbsp;&nbsp;&nbsp;<span style="font-size:9px;font-weight:bold;color:#92400e;background-color:#fef3c7;padding:2px 8px;">SYSTEM AUTO</span>';
     h += '</p>';
+    h += '</td></tr>';
 
+    // Title row
     if (titleEl) {
-      h += '<p style="font-size:12pt;font-weight:bold;color:#0f172a;margin:4px 0 10px;">' + esc(titleEl.textContent) + '</p>';
+      h += '<tr><td style="padding:14px 20px 4px;">';
+      h += '<p style="font-size:15px;font-weight:bold;color:#0f172a;margin:0;">' + esc(titleEl.textContent) + '</p>';
+      h += '</td></tr>';
     }
 
+    // Message content
+    h += '<tr><td style="padding:10px 20px 16px;">';
+
     if (hasSms && hasMms) {
+      // Two-column layout
       h += '<table width="100%" cellpadding="0" cellspacing="0" border="0"><tr>';
       h += '<td width="48%" valign="top">' + buildMsgBlockInline('sms', smsText, null) + '</td>';
       h += '<td width="4%">&nbsp;</td>';
@@ -1204,20 +1254,32 @@ function buildExportHtml() {
       h += buildMsgBlockInline('mms', mmsText, ir2);
     }
 
+    h += '</td></tr>';
+
+    // Strategy note row
     if (noteEl) {
-      h += '<table width="100%" cellpadding="0" cellspacing="0" border="0" style="margin-top:10px;"><tr>';
-      h += '<td width="3" style="background:#e2e8f0;">&nbsp;</td>';
-      h += '<td style="padding:4px 0 4px 10px;font-size:9pt;color:#64748b;">' + noteEl.innerHTML + '</td>';
-      h += '</tr></table>';
+      h += '<tr><td style="padding:0 20px 16px;">';
+      h += '<table width="100%" cellpadding="0" cellspacing="0" border="0">';
+      h += '<tr>';
+      h += '<td width="3" style="background-color:#cbd5e1;">&nbsp;</td>';
+      h += '<td style="padding:8px 12px;background-color:#f8fafc;">';
+      h += '<p style="font-size:10px;color:#64748b;margin:0;">' + noteEl.innerHTML + '</p>';
+      h += '</td></tr></table>';
+      h += '</td></tr>';
     }
 
-    h += '</td></tr></table>';
+    h += '</table>'; // end card
   }
 
-  h += '<br><br>';
-  h += '<p style="text-align:center;font-size:9pt;color:#94a3b8;border-top:1px solid #e2e8f0;padding-top:16px;">Powered by <b>OptSpot</b></p>';
-  h += '</body></html>';
+  // ── FOOTER ──
+  h += '<p style="font-size:8px;margin:0;">&nbsp;</p>';
+  h += '<table width="100%" cellpadding="0" cellspacing="0" border="0" style="border-top:2px solid #e2e8f0;">';
+  h += '<tr><td style="padding:16px 20px;text-align:center;">';
+  h += '<p style="font-size:10px;color:#94a3b8;margin:0 0 2px;">Powered by <b style="color:#64748b;">OptSpot</b></p>';
+  h += '<p style="font-size:9px;color:#cbd5e1;margin:0;">Customized for ' + esc(washName) + ' &bull; ' + esc(memberLink) + '</p>';
+  h += '</td></tr></table>';
 
+  h += '</body></html>';
   return h;
 }
 
@@ -1309,15 +1371,22 @@ function buildMsgBlockInline(type, text, imageRec) {
   var bg = isSms ? '#f8fafc' : '#faf5ff';
   var border = isSms ? '#e2e8f0' : '#e9d5ff';
   var labelColor = isSms ? '#2563eb' : '#7c3aed';
+  var labelBg = isSms ? '#eff6ff' : '#f5f3ff';
+  var countColor = count > limit ? '#dc2626' : '#94a3b8';
 
-  var h = '<table width="100%" cellpadding="0" cellspacing="0" style="background:' + bg + ';border:1px solid ' + border + ';"><tr><td style="padding:12px 14px;">';
-  h += '<p style="margin:0 0 6px;">';
-  h += '<span style="font-size:8pt;font-weight:bold;letter-spacing:1.5px;color:' + labelColor + ';">' + type.toUpperCase() + '</span>';
-  h += '&nbsp;&nbsp;&nbsp;<span style="font-size:8pt;color:#94a3b8;">' + count + '/' + limit + ' characters</span>';
+  var h = '<table width="100%" cellpadding="0" cellspacing="0" border="0" style="background-color:' + bg + ';border:1px solid ' + border + ';">';
+  // Label row
+  h += '<tr><td style="padding:10px 14px 6px;background-color:' + labelBg + ';border-bottom:1px solid ' + border + ';">';
+  h += '<p style="margin:0;">';
+  h += '<span style="font-size:9px;font-weight:bold;letter-spacing:1.5px;color:' + labelColor + ';">' + type.toUpperCase() + '</span>';
+  h += '&nbsp;&nbsp;&nbsp;<span style="font-size:9px;color:' + countColor + ';">' + count + '/' + limit + ' chars</span>';
   h += '</p>';
-  h += '<p style="font-size:10pt;color:#334155;margin:0;line-height:1.15;">' + esc(text) + '</p>';
+  h += '</td></tr>';
+  // Message text row
+  h += '<tr><td style="padding:10px 14px 12px;">';
+  h += '<p style="font-size:11px;color:#334155;margin:0;line-height:1.5;">' + esc(text) + '</p>';
   if (imageRec) {
-    h += '<p style="font-size:8pt;color:#7c3aed;font-style:italic;margin:8px 0 0;padding-top:6px;border-top:1px dashed #e9d5ff;">' + esc(imageRec) + '</p>';
+    h += '<p style="font-size:9px;color:#7c3aed;font-style:italic;margin:8px 0 0;padding-top:6px;border-top:1px dashed #e9d5ff;">' + esc(imageRec) + '</p>';
   }
   h += '</td></tr></table>';
   return h;
