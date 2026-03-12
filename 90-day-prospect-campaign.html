@@ -1322,39 +1322,49 @@ function uploadToGoogleDrive() {
     mimeType: 'application/vnd.google-apps.document'
   });
 
-  var body = '';
-  body += '--' + boundary + '\r\n';
-  body += 'Content-Type: application/json; charset=UTF-8\r\n\r\n';
-  body += metadata + '\r\n';
-  body += '--' + boundary + '\r\n';
-  body += 'Content-Type: text/html; charset=UTF-8\r\n\r\n';
-  body += htmlContent + '\r\n';
-  body += '--' + boundary + '--';
+  var requestBody = '';
+  requestBody += '--' + boundary + '\r\n';
+  requestBody += 'Content-Type: application/json; charset=UTF-8\r\n\r\n';
+  requestBody += metadata + '\r\n';
+  requestBody += '--' + boundary + '\r\n';
+  requestBody += 'Content-Type: text/html; charset=UTF-8\r\n\r\n';
+  requestBody += htmlContent + '\r\n';
+  requestBody += '--' + boundary + '--';
 
-  fetch('https://www.googleapis.com/upload/drive/v3/files?uploadType=multipart', {
-    method: 'POST',
-    headers: {
-      'Authorization': 'Bearer ' + googleAccessToken,
-      'Content-Type': 'multipart/related; boundary=' + boundary
-    },
-    body: body
-  })
-  .then(function(res) {
-    if (res.status === 401) {
+  hint.textContent = 'Uploading (' + Math.round(requestBody.length / 1024) + ' KB)...';
+
+  var xhr = new XMLHttpRequest();
+  xhr.open('POST', 'https://www.googleapis.com/upload/drive/v3/files?uploadType=multipart');
+  xhr.setRequestHeader('Authorization', 'Bearer ' + googleAccessToken);
+  xhr.setRequestHeader('Content-Type', 'multipart/related; boundary=' + boundary);
+  xhr.timeout = 30000;
+
+  xhr.onload = function() {
+    if (xhr.status === 401) {
       googleAccessToken = null;
       btn.textContent = 'Signing in...';
+      hint.textContent = 'Token expired, re-authenticating...';
       tokenClient.requestAccessToken();
-      return null;
+      return;
     }
-    if (!res.ok) {
-      return res.text().then(function(t) { throw new Error('API error ' + res.status + ': ' + t); });
+    if (xhr.status < 200 || xhr.status >= 300) {
+      hint.textContent = 'API error ' + xhr.status + ': ' + xhr.responseText.substring(0, 200);
+      hint.style.color = '#dc2626';
+      btn.disabled = false;
+      btn.textContent = 'Export to Google Docs';
+      return;
     }
-    return res.json();
-  })
-  .then(function(data) {
-    if (data === null) return; // re-auth in progress
-    if (!data || !data.id) {
-      hint.textContent = 'Export failed. Try again.';
+    var data;
+    try { data = JSON.parse(xhr.responseText); } catch(e) {
+      hint.textContent = 'Failed to parse response';
+      hint.style.color = '#dc2626';
+      btn.disabled = false;
+      btn.textContent = 'Export to Google Docs';
+      return;
+    }
+    if (!data.id) {
+      hint.textContent = 'No document ID in response';
+      hint.style.color = '#dc2626';
       btn.disabled = false;
       btn.textContent = 'Export to Google Docs';
       return;
@@ -1362,7 +1372,6 @@ function uploadToGoogleDrive() {
     var docUrl = 'https://docs.google.com/document/d/' + encodeURIComponent(data.id) + '/edit';
     var win = window.open(docUrl, '_blank');
     if (!win) {
-      // Popup blocked — show a clickable link
       hint.textContent = '';
       var link = document.createElement('a');
       link.href = docUrl;
@@ -1380,14 +1389,23 @@ function uploadToGoogleDrive() {
     }
     btn.disabled = false;
     btn.textContent = 'Export to Google Docs';
-  })
-  .catch(function(err) {
-    console.error('Export error:', err);
-    hint.textContent = 'Error: ' + (err.message || String(err));
+  };
+
+  xhr.onerror = function() {
+    hint.textContent = 'Network error. Check your connection and try again.';
     hint.style.color = '#dc2626';
     btn.disabled = false;
     btn.textContent = 'Export to Google Docs';
-  });
+  };
+
+  xhr.ontimeout = function() {
+    hint.textContent = 'Request timed out. Try again.';
+    hint.style.color = '#dc2626';
+    btn.disabled = false;
+    btn.textContent = 'Export to Google Docs';
+  };
+
+  xhr.send(requestBody);
 }
 
 function buildMsgBlockInline(type, text, imageRec) {
