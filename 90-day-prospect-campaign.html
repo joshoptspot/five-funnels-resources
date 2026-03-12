@@ -1125,7 +1125,7 @@ function buildExportHtml() {
   var memberPrice = document.getElementById('membershipPrice').value || '30';
   var memberLink = document.getElementById('membershipLink').value || 'https://crwsh.co/xxxxxx';
 
-  var h = '<html><head><meta charset="utf-8"></head><body style="font-family:Arial,sans-serif;color:#1a1a2e;line-height:1.5;margin:0;padding:0;">';
+  var h = '<html><head><meta charset="utf-8"></head><body style="font-family:Arial,sans-serif;color:#1a1a2e;line-height:1.15;margin:0;padding:0;">';
 
   // ── COVER HEADER ──
   h += '<table width="100%" cellpadding="0" cellspacing="0" border="0" style="background-color:#0f172a;">';
@@ -1155,10 +1155,10 @@ function buildExportHtml() {
   h += '<p style="font-size:16px;font-weight:bold;color:#1e40af;margin:0 0 12px;">Campaign Overview</p>';
   h += '</td></tr>';
   h += '<tr><td style="padding:0 28px 8px;">';
-  h += '<p style="font-size:13px;margin:0 0 8px;color:#334155;line-height:1.6;"><b>Entry point:</b> Customer opted in through a free wash offer.</p>';
-  h += '<p style="font-size:13px;margin:0 0 8px;color:#334155;line-height:1.6;"><b>Goal:</b> Get them in at least 3 more times in the first 45 days. Build the wash habit so membership becomes the obvious next step.</p>';
-  h += '<p style="font-size:13px;margin:0 0 8px;color:#334155;line-height:1.6;"><b>Framework:</b> Curiosity &#8594; Enlightenment &#8594; Commitment.</p>';
-  h += '<p style="font-size:13px;margin:0;color:#334155;line-height:1.6;"><b>Offer progression:</b> Free &#8594; Discount &#8594; Outcome (no discount). Wean them off incentives and toward the habit.</p>';
+  h += '<p style="font-size:13px;margin:0 0 8px;color:#334155;line-height:1.15;"><b>Entry point:</b> Customer opted in through a free wash offer.</p>';
+  h += '<p style="font-size:13px;margin:0 0 8px;color:#334155;line-height:1.15;"><b>Goal:</b> Get them in at least 3 more times in the first 45 days. Build the wash habit so membership becomes the obvious next step.</p>';
+  h += '<p style="font-size:13px;margin:0 0 8px;color:#334155;line-height:1.15;"><b>Framework:</b> Curiosity &#8594; Enlightenment &#8594; Commitment.</p>';
+  h += '<p style="font-size:13px;margin:0;color:#334155;line-height:1.15;"><b>Offer progression:</b> Free &#8594; Discount &#8594; Outcome (no discount). Wean them off incentives and toward the habit.</p>';
   h += '</td></tr>';
   h += '<tr><td style="padding:0 28px 20px;">&nbsp;</td></tr>';
   h += '</table>';
@@ -1171,7 +1171,7 @@ function buildExportHtml() {
   h += '<td width="5" style="background-color:#f59e0b;">&nbsp;</td>';
   h += '<td style="background-color:#fffbeb;padding:18px 22px;">';
   h += '<p style="font-size:11px;font-weight:bold;letter-spacing:1.5px;color:#b45309;margin:0 0 6px;">SMS VS MMS</p>';
-  h += '<p style="font-size:12px;margin:0;color:#92400e;line-height:1.6;">Each message includes an <b>SMS version</b> (160-character limit, text only) and an <b>MMS version</b> (500-character limit, includes an image). Use one or the other per message, not both. Operator supplies their own images.</p>';
+  h += '<p style="font-size:12px;margin:0;color:#92400e;line-height:1.15;">Each message includes an <b>SMS version</b> (160-character limit, text only) and an <b>MMS version</b> (500-character limit, includes an image). Use one or the other per message, not both. Operator supplies their own images.</p>';
   h += '</td></tr></table>';
 
   // ── TIMELINE VISUAL ──
@@ -1181,7 +1181,7 @@ function buildExportHtml() {
   h += '<p style="font-size:11px;font-weight:bold;letter-spacing:1.5px;color:#475569;margin:0;">MESSAGE TIMELINE</p>';
   h += '</td></tr>';
   h += '<tr><td style="padding:4px 24px 18px;">';
-  h += '<p style="font-size:12px;color:#334155;margin:0;line-height:1.8;">Day 0 &#8594; Day 3 &#8594; Day 7* &#8594; Day 10 &#8594; Day 21 &#8594; Day 35 &#8594; Day 42 &#8594; Day 45* &#8594; Day 55 &#8594; Day 65 &#8594; Day 75 &#8594; Day 90 &#8594; Day 260</p>';
+  h += '<p style="font-size:12px;color:#334155;margin:0;line-height:1.15;">Day 0 &#8594; Day 3 &#8594; Day 7* &#8594; Day 10 &#8594; Day 21 &#8594; Day 35 &#8594; Day 42 &#8594; Day 45* &#8594; Day 55 &#8594; Day 65 &#8594; Day 75 &#8594; Day 90 &#8594; Day 260</p>';
   h += '<p style="font-size:10px;color:#94a3b8;margin:6px 0 0;">* = system automated &nbsp;&nbsp;|&nbsp;&nbsp;13 messages over 90 days &nbsp;&nbsp;|&nbsp;&nbsp;1 win-back at 260 days</p>';
   h += '</td></tr></table>';
 
@@ -1265,7 +1265,7 @@ function buildExportHtml() {
       h += '<tr>';
       h += '<td width="4" style="background-color:#2563eb;">&nbsp;</td>';
       h += '<td style="padding:12px 16px;background-color:#f0f4ff;">';
-      h += '<p style="font-size:11px;color:#475569;margin:0;line-height:1.6;">' + noteEl.innerHTML + '</p>';
+      h += '<p style="font-size:11px;color:#475569;margin:0;line-height:1.15;">' + noteEl.innerHTML + '</p>';
       h += '</td></tr></table>';
       h += '</td></tr>';
     }
@@ -1428,7 +1428,7 @@ function buildMsgBlockInline(type, text, imageRec) {
   h += '</td></tr>';
   // Message text row
   h += '<tr><td style="padding:14px 16px 16px;">';
-  h += '<p style="font-size:12px;color:#334155;margin:0;line-height:1.7;">' + esc(text) + '</p>';
+  h += '<p style="font-size:12px;color:#334155;margin:0;line-height:1.15;">' + esc(text) + '</p>';
   if (imageRec) {
     h += '<p style="font-size:10px;color:#7c3aed;font-style:italic;margin:10px 0 0;padding-top:8px;border-top:1px dashed #e9d5ff;">' + esc(imageRec) + '</p>';
   }
