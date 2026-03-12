@@ -1107,7 +1107,8 @@ function initTokenClient() {
         return;
       }
       googleAccessToken = response.access_token;
-      createGoogleDoc();
+      document.getElementById('exportBtn').textContent = 'Creating doc...';
+      uploadToGoogleDrive();
     }
   });
 }
@@ -1291,22 +1292,22 @@ function exportForClient() {
   var btn = document.getElementById('exportBtn');
   var hint = document.getElementById('exportHint');
   btn.disabled = true;
-  btn.textContent = 'Signing in...';
   hint.textContent = '';
 
   initTokenClient();
 
   if (googleAccessToken) {
-    createGoogleDoc();
+    btn.textContent = 'Creating doc...';
+    uploadToGoogleDrive();
   } else {
+    btn.textContent = 'Signing in...';
     tokenClient.requestAccessToken();
   }
 }
 
-function createGoogleDoc() {
+function uploadToGoogleDrive() {
   var btn = document.getElementById('exportBtn');
   var hint = document.getElementById('exportHint');
-  btn.textContent = 'Creating doc...';
 
   var washName = document.getElementById('washName').value || '[Wash Name]';
   var title = washName.replace(/[^a-zA-Z0-9 ]/g, '') + ' - 90-Day Text Campaign';
@@ -1338,27 +1339,44 @@ function createGoogleDoc() {
   .then(function(res) {
     if (res.status === 401) {
       googleAccessToken = null;
+      btn.textContent = 'Signing in...';
       tokenClient.requestAccessToken();
-      return;
+      return null;
+    }
+    if (!res.ok) {
+      return res.text().then(function(t) { throw new Error('API error ' + res.status + ': ' + t); });
     }
     return res.json();
   })
   .then(function(data) {
+    if (data === null) return; // re-auth in progress
     if (!data || !data.id) {
       hint.textContent = 'Export failed. Try again.';
       btn.disabled = false;
       btn.textContent = 'Export to Google Docs';
       return;
     }
-    window.open('https://docs.google.com/document/d/' + data.id + '/edit', '_blank');
+    var docUrl = 'https://docs.google.com/document/d/' + encodeURIComponent(data.id) + '/edit';
+    var win = window.open(docUrl, '_blank');
+    if (!win) {
+      // Popup blocked — show a clickable link
+      hint.textContent = '';
+      var link = document.createElement('a');
+      link.href = docUrl;
+      link.target = '_blank';
+      link.textContent = 'Open your Google Doc';
+      link.style.cssText = 'color:#2563eb;font-weight:bold;';
+      hint.appendChild(link);
+    } else {
+      hint.textContent = 'Done! Opened in a new tab.';
+      hint.style.color = '#16a34a';
+      setTimeout(function() {
+        hint.textContent = 'Creates a Google Doc in your Drive and opens it';
+        hint.style.color = '';
+      }, 5000);
+    }
     btn.disabled = false;
     btn.textContent = 'Export to Google Docs';
-    hint.textContent = 'Done! Opened in a new tab.';
-    hint.style.color = '#16a34a';
-    setTimeout(function() {
-      hint.textContent = 'Creates a Google Doc in your Drive and opens it';
-      hint.style.color = '';
-    }, 5000);
   })
   .catch(function(err) {
     console.error('Export error:', err);
