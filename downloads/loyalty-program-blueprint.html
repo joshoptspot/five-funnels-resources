@@ -1,0 +1,474 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Loyalty Program Blueprint &mdash; The Five Funnels to Freedom&trade;</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: 'Inter', sans-serif; color: #1a1a2e; line-height: 1.7; background: #fff; }
+  .page { max-width: 750px; margin: 0 auto; padding: 60px 40px; }
+  .header { text-align: center; margin-bottom: 50px; border-bottom: 3px solid #1a1a2e; padding-bottom: 40px; }
+  .header .badge { display: inline-block; background: #1a1a2e; color: #fff; font-size: 11px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; padding: 6px 16px; border-radius: 4px; margin-bottom: 16px; }
+  .header h1 { font-size: 32px; font-weight: 800; line-height: 1.2; margin-bottom: 12px; }
+  .header p { font-size: 16px; color: #555; max-width: 580px; margin: 0 auto; }
+  h2 { font-size: 22px; font-weight: 700; margin: 40px 0 16px; color: #1a1a2e; border-left: 4px solid #2563eb; padding-left: 16px; }
+  h3 { font-size: 18px; font-weight: 700; margin: 30px 0 12px; color: #1a1a2e; }
+  h4 { font-size: 15px; font-weight: 700; margin: 20px 0 8px; color: #444; text-transform: uppercase; letter-spacing: 0.5px; }
+  p { margin-bottom: 14px; font-size: 15px; }
+  .intro-box { background: #f0f4ff; border: 1px solid #c7d6ff; border-radius: 8px; padding: 24px 28px; margin: 30px 0; }
+  .intro-box p { margin-bottom: 8px; font-size: 14px; }
+  .intro-box p:last-child { margin-bottom: 0; }
+  .script-block { background: #fafafa; border: 1px solid #e2e2e2; border-radius: 8px; padding: 24px 28px; margin: 20px 0 30px; }
+  .script-block .label { font-size: 11px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; color: #2563eb; margin-bottom: 12px; }
+  .script-block p { font-size: 15px; margin-bottom: 12px; font-style: italic; color: #333; }
+  .script-block p:last-child { margin-bottom: 0; }
+  .tip { background: #fffbeb; border-left: 4px solid #f59e0b; padding: 16px 20px; margin: 20px 0; border-radius: 0 8px 8px 0; }
+  .tip .tip-label { font-size: 11px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; color: #b45309; margin-bottom: 6px; }
+  .tip p { font-size: 14px; margin-bottom: 0; }
+  .checklist { list-style: none; margin: 16px 0 24px; }
+  .checklist li { padding: 8px 0 8px 28px; position: relative; font-size: 15px; }
+  .checklist li::before { content: "\2713"; position: absolute; left: 0; color: #2563eb; font-weight: 700; }
+  .section-divider { border: none; border-top: 2px dashed #e2e2e2; margin: 50px 0; }
+  .footer { text-align: center; margin-top: 50px; padding-top: 30px; border-top: 2px solid #1a1a2e; }
+  .footer p { font-size: 13px; color: #888; }
+  .footer .brand { font-weight: 700; color: #1a1a2e; }
+  .compare-table { width: 100%; border-collapse: collapse; margin: 20px 0 30px; font-size: 14px; }
+  .compare-table th { background: #1a1a2e; color: #fff; padding: 12px 16px; text-align: left; font-weight: 600; font-size: 13px; }
+  .compare-table td { padding: 10px 16px; border-bottom: 1px solid #e2e2e2; }
+  .compare-table tr:nth-child(even) td { background: #f8fafc; }
+  .compare-table .bad { color: #dc2626; font-weight: 600; }
+  .compare-table .good { color: #16a34a; font-weight: 600; }
+  .math-box { background: #f0fdf4; border: 1px solid #bbf7d0; border-radius: 8px; padding: 24px 28px; margin: 20px 0 30px; }
+  .math-box p { font-size: 14px; margin-bottom: 8px; }
+  .math-box p:last-child { margin-bottom: 0; }
+  .math-box .result { font-size: 18px; font-weight: 800; color: #16a34a; }
+  @media print { .page { padding: 30px 20px; } }
+
+  /* NAV BAR */
+  .top-bar {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: #0f172a;
+    padding: 12px 24px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .top-bar a.back-link {
+    color: #94a3b8;
+    text-decoration: none;
+    font-size: 14px;
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    transition: color 0.2s;
+  }
+  .top-bar a.back-link:hover { color: #fff; }
+  .top-bar .pdf-btn {
+    background: #2563eb;
+    color: #fff;
+    border: none;
+    font-family: 'Inter', sans-serif;
+    font-size: 13px;
+    font-weight: 600;
+    padding: 8px 20px;
+    border-radius: 6px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    transition: background 0.2s;
+  }
+  .top-bar .pdf-btn:hover { background: #1d4ed8; }
+  @media print {
+    .top-bar { display: none !important; }
+    .page { padding: 20px !important; }
+    body { background: #fff !important; }
+  }
+  @media (max-width: 768px) {
+    .page { padding: 40px 20px; }
+    .header h1 { font-size: 26px; }
+    h2 { font-size: 19px; }
+    .compare-table { font-size: 12px; }
+    .compare-table th, .compare-table td { padding: 8px 10px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="top-bar">
+  <a href="../index.html" class="back-link"><img src="optspot-logo-white.png" alt="OptSpot" style="height: 22px; margin-right: 12px;"> &larr; Back to All Resources</a>
+  <button class="pdf-btn" onclick="downloadPDF()">&#128196; Download as PDF</button>
+</div>
+
+<div class="page">
+
+<div class="header">
+  <div class="badge">Exclusive Book Resource</div>
+  <h1>The Loyalty Program Blueprint</h1>
+  <p>How to build a simple loyalty program that increases visit frequency, feeds your text club, and turns invisible retail customers into predictable revenue.</p>
+</div>
+
+<div class="intro-box">
+  <p><strong>Why this matters:</strong> Right now, most of your retail customers are invisible. They drive through your tunnel, pay, and leave. You have no idea who they are, how often they come, or whether they're drifting away. A loyalty program changes that &mdash; but only if it's built the right way.</p>
+  <p>This blueprint gives you the exact structure, messaging, and strategy to build a loyalty program that rewards showing up, connects to your text club, and gives you the behavioral data to know exactly when a retail customer is ready to become a member.</p>
+</div>
+
+<!-- ===== SECTION 1: THE PROBLEM ===== -->
+<h2>1. Why Most Loyalty Programs Fail</h2>
+
+<p>Here's what happens at car washes all over the country. An operator builds a loyalty program with the best intentions &mdash; and makes it way too complicated.</p>
+
+<div class="script-block">
+  <div class="label">The Complicated Loyalty Trap</div>
+  <p>Buy the top wash, get five points. Buy the middle wash, get three points. Buy the basic wash, get one point. Collect twenty-five points and earn a free basic wash. Or save up fifty points and earn a free premium wash.</p>
+</div>
+
+<p>The customer pulls up to the pay station. They see the loyalty sign. And the first thing they think is not "oh great, I can earn a free wash." The first thing they think is <strong>"How does this work?"</strong> And the second thing they think is <strong>"I don't have time for this."</strong></p>
+
+<p>You just lost them. Not because the offer was bad. Because the offer was confusing.</p>
+
+<div class="tip">
+  <div class="tip-label">The 10-Year-Old Test</div>
+  <p>Look at your loyalty sign, flyer, or screen. Ask yourself: could a ten-year-old explain how it works? If the answer is no, it's too complicated. A loyalty program should never make someone do math while they're trying to get their car washed. If your loyalty program requires a calculator, something went wrong.</p>
+</div>
+
+<table class="compare-table">
+  <tr>
+    <th>Complicated Loyalty</th>
+    <th>Simple Loyalty</th>
+  </tr>
+  <tr>
+    <td class="bad">Rewards spending (dollar amounts)</td>
+    <td class="good">Rewards showing up (visit frequency)</td>
+  </tr>
+  <tr>
+    <td class="bad">Multiple tiers and point scales</td>
+    <td class="good">One clear rule everyone understands</td>
+  </tr>
+  <tr>
+    <td class="bad">Requires a conversion chart on the wall</td>
+    <td class="good">Customer always knows where they stand</td>
+  </tr>
+  <tr>
+    <td class="bad">Looks smart on the whiteboard</td>
+    <td class="good">Works at the pay station</td>
+  </tr>
+  <tr>
+    <td class="bad">Confuses customers &mdash; nobody participates</td>
+    <td class="good">Drives behavior &mdash; customers come back</td>
+  </tr>
+</table>
+
+<hr class="section-divider">
+
+<!-- ===== SECTION 2: THE CORE PRINCIPLE ===== -->
+<h2>2. The Core Principle: Reward Showing Up, Not Spending</h2>
+
+<p>Your loyalty program should not reward spending. It should reward showing up.</p>
+
+<p>Because showing up is what builds the wash habit. And the wash habit is what builds the member.</p>
+
+<p>When you design your loyalty program around frequency instead of dollars spent, everything changes:</p>
+
+<ul class="checklist">
+  <li>Customers know exactly where they stand ("Two more washes and I get a free one")</li>
+  <li>Every visit builds momentum toward a visible finish line</li>
+  <li>You're training the behavior you actually want &mdash; frequency</li>
+  <li>You're building data on every customer's wash habits</li>
+</ul>
+
+<p>A retail customer who washes once every couple of months is worth maybe $50&ndash;$60 a year to you. A retail customer who washes twice a month is worth $300 a year. Same customer. Same car. The difference is frequency &mdash; and frequency is a habit you can build.</p>
+
+<hr class="section-divider">
+
+<!-- ===== SECTION 3: THE SEVEN-WORD PROGRAM ===== -->
+<h2>3. The Seven-Word Loyalty Program</h2>
+
+<div class="script-block">
+  <div class="label">Your Entire Loyalty Program</div>
+  <p>Wash four times, get your fifth free.</p>
+</div>
+
+<p>That's it. No tiers. No point calculations. No conversion charts. The customer knows exactly where they stand, and every wash brings them closer to a reward they can see.</p>
+
+<p>Clarity drives behavior. Complexity kills it.</p>
+
+<h3>Why This Structure Works</h3>
+
+<ul class="checklist">
+  <li><strong>It's easy to explain.</strong> Your CSAs can say it in one sentence. Your signage can say it in seven words. Your customers remember it without trying.</li>
+  <li><strong>It gives customers a finish line.</strong> "I'm two washes away" is a powerful motivator. "I have 14 points and need 25" is not.</li>
+  <li><strong>It rewards the right behavior.</strong> You're not incentivizing someone to buy a more expensive wash. You're incentivizing them to come back. That's what builds the habit.</li>
+  <li><strong>It feeds your text club.</strong> When loyalty runs through your text club, every enrollment gives you a phone number and every visit gives you data.</li>
+</ul>
+
+<div class="tip">
+  <div class="tip-label">Make It Part of the Transaction</div>
+  <p>Customers aren't coming to your wash looking for promotions. They have a dirty car and want you to solve that problem. If loyalty is a sign they can miss, they'll miss it. Make it part of the transaction by prompting for their phone number at the pay station. When it's part of the process, at least 40% of retail washers will give you their phone number. That's compared to 5&ndash;10% with signage alone.</p>
+</div>
+
+<hr class="section-divider">
+
+<!-- ===== SECTION 4: CONNECT TO TEXT CLUB ===== -->
+<h2>4. Run Loyalty Through Your Text Club</h2>
+
+<p>This is the step most operators miss. Your loyalty program is not a standalone feature. It's the front door to your text club &mdash; and your text club is the backbone of every funnel in the Five Funnels to Freedom&trade;.</p>
+
+<h3>How It Works</h3>
+
+<ol style="margin: 16px 0 24px; padding-left: 24px; font-size: 15px; line-height: 2;">
+  <li>Customer enters their phone number at the pay station to earn loyalty points</li>
+  <li>They receive a welcome text and join your text club automatically</li>
+  <li>Every wash gets tracked &mdash; points accumulate with each visit</li>
+  <li>When they earn their free wash, they get a text with a link to redeem</li>
+  <li>In between, you nurture them through the customer journey: Curiosity &rarr; Enlightenment &rarr; Commitment</li>
+</ol>
+
+<p>Without loyalty running through your text club, your retail customers are strangers. You don't know who they are. You don't know how often they come. You can't reach them when they drift.</p>
+
+<p>With loyalty running through your text club, every visit becomes a data point. You know who's building a habit. You know who's drifting. And you know exactly who's ready for a membership conversation.</p>
+
+<h3>Welcome Sequence</h3>
+
+<div class="script-block">
+  <div class="label">Text 1 &mdash; Immediately After Enrollment</div>
+  <p>[Your Wash Name]: Welcome to our rewards program! Wash 4 times, get your 5th FREE. We just tracked your first visit &mdash; 3 more to go! Reply STOP to opt out.</p>
+</div>
+
+<div class="script-block">
+  <div class="label">Text 2 &mdash; 3 Days Later</div>
+  <p>[Your Wash Name]: Quick tip &mdash; your membership in our rewards club means every wash counts toward a free one. No app needed, no card to carry. We track it all for you.</p>
+</div>
+
+<div class="script-block">
+  <div class="label">Text 3 &mdash; 7 Days Later</div>
+  <p>[Your Wash Name]: Your car picks up more than you think between washes &mdash; brake dust, pollen, road film. A quick wash keeps your paint protected and your ride looking sharp.</p>
+</div>
+
+<hr class="section-divider">
+
+<!-- ===== SECTION 5: BEHAVIORAL DATA ===== -->
+<h2>5. Use Behavioral Data to Send the Right Message</h2>
+
+<p>This is where loyalty becomes your most powerful marketing tool. When every visit is tracked through your text club, you stop guessing and start making decisions based on real behavior.</p>
+
+<h3>The Inactivity Nudge</h3>
+<p>A customer hasn't washed in 21 days. Your system sees that and sends them a targeted message.</p>
+
+<div class="script-block">
+  <div class="label">21-Day Inactivity Nudge</div>
+  <p>[Your Wash Name]: Hey, it's been a few weeks! You're 2 washes away from your free one. Come see us this week and you'll be that much closer.</p>
+</div>
+
+<div class="script-block">
+  <div class="label">30-Day Inactivity Nudge (With Offer)</div>
+  <p>[Your Wash Name]: We miss you! It's been about a month since your last wash. Come back this week and get $3 off any wash. You're still earning toward your free one!</p>
+</div>
+
+<p>That's not a mass blast to your entire list. That's a targeted message to one person based on their actual behavior. It works because you're reminding them how close they are to a reward they already started earning.</p>
+
+<h3>The Membership-Ready Signal</h3>
+<p>A customer is washing three times a month. They're already acting like a member &mdash; they just haven't signed up yet. Your system sees that pattern and sends them a membership offer.</p>
+
+<div class="script-block">
+  <div class="label">High-Frequency Membership Offer</div>
+  <p>[Your Wash Name]: You've been washing with us a lot lately &mdash; and we love it! Did you know unlimited washes start at $[X]/mo? You'd never have to think about it. Check it out: [LINK]</p>
+</div>
+
+<div class="tip">
+  <div class="tip-label">Why This Beats Mass Blasting</div>
+  <p>Most people say the money is in the list. That's true. But the real money is in what you <em>know</em> about the people on your list. A phone number is a start. Knowing how often they wash, when they last visited, and whether their frequency is going up or down? That's a competitive advantage most operators don't even know exists.</p>
+</div>
+
+<h3>Smart Messaging by Customer Behavior</h3>
+
+<table class="compare-table">
+  <tr>
+    <th>Customer Behavior</th>
+    <th>Message Strategy</th>
+  </tr>
+  <tr>
+    <td>Enrolled but hasn't returned (7+ days)</td>
+    <td>Reminder of loyalty progress + education about the wash</td>
+  </tr>
+  <tr>
+    <td>Inactive for 21+ days</td>
+    <td>Nudge with loyalty progress ("You're X washes away")</td>
+  </tr>
+  <tr>
+    <td>Inactive for 30+ days</td>
+    <td>Nudge with a small incentive ($3 off) to restart the habit</td>
+  </tr>
+  <tr>
+    <td>Washing 2&ndash;3 times per month</td>
+    <td>Targeted membership offer &mdash; they're already acting like a member</td>
+  </tr>
+  <tr>
+    <td>Earned a free wash</td>
+    <td>Congratulations + new cycle begins ("You're back to 0 &mdash; let's go again!")</td>
+  </tr>
+  <tr>
+    <td>Redeemed free wash</td>
+    <td>Thank them + start new earning cycle + continue nurturing</td>
+  </tr>
+</table>
+
+<hr class="section-divider">
+
+<!-- ===== SECTION 6: MEMBER LOYALTY ===== -->
+<h2>6. Loyalty for Existing Members</h2>
+
+<p>Loyalty isn't just for retail customers. You can use the same principles to reward your existing members and reduce churn.</p>
+
+<h3>Member Loyalty Ideas</h3>
+
+<ul class="checklist">
+  <li><strong>Anniversary rewards:</strong> At 6 months or 12 months, send a text with a small gift &mdash; a free air freshener, a premium towel, or a thank-you message</li>
+  <li><strong>Visit-based perks:</strong> On their 5th wash of the month, send a text for a free air freshener or detail spray. Make it feel like a bonus, not a handout</li>
+  <li><strong>Inactivity alerts:</strong> If a member hasn't washed in 30 days, send a nudge. Members who stop washing eventually cancel because they feel it's "not worth it." Re-engage them before they get there</li>
+  <li><strong>Exclusive member content:</strong> Send tips on car care, how to use the mat cleaners, or what your different wash packages actually do. Many customers don't know &mdash; educate them and they'll use more of your services</li>
+</ul>
+
+<div class="script-block">
+  <div class="label">Member Anniversary (6 Months)</div>
+  <p>[Your Wash Name]: 6 months as a member &mdash; you're a regular! Stop by this week and grab a free air freshener on us. Just show this text at the counter. Thanks for being part of the crew.</p>
+</div>
+
+<div class="script-block">
+  <div class="label">Member Inactivity (30 Days)</div>
+  <p>[Your Wash Name]: We haven't seen you in a while! Your unlimited membership means every wash is covered &mdash; rain, pollen, road trips, all of it. Swing by this week and put it to work.</p>
+</div>
+
+<hr class="section-divider">
+
+<!-- ===== SECTION 7: THE MATH ===== -->
+<h2>7. The Revenue Math</h2>
+
+<p>Here's what happens when you make loyalty part of the transaction instead of hoping customers notice a sign.</p>
+
+<div class="math-box">
+  <p><strong>Assumptions:</strong></p>
+  <p>200 retail washers per day &times; 365 days = 73,000 visits/year</p>
+  <p>Average retail customer washes ~4 times per year = <strong>~20,000 unique retail customers</strong></p>
+  <p>&nbsp;</p>
+  <p><strong>Without loyalty (hope strategy):</strong> 0 phone numbers collected. No way to re-engage.</p>
+  <p><strong>With signage only (~9% opt-in):</strong> ~1,800 phone numbers &times; 1 extra visit &times; $15 = <strong>$27,000/year</strong></p>
+  <p><strong>With loyalty at the pay station (~40% opt-in):</strong> ~8,000 phone numbers &times; 1 extra visit &times; $15 = <strong class="result">$120,000/year</strong></p>
+  <p>&nbsp;</p>
+  <p>That's <strong>$93,000 more per year</strong> than signage alone &mdash; and that's just from one extra visit per customer. It doesn't include flash sales, weather-based campaigns, membership conversions, gift card revenue, or any other engagement your text club makes possible.</p>
+</div>
+
+<div class="tip">
+  <div class="tip-label">Real Data</div>
+  <p>One operator averaged ~6,700 opt-ins per month before launching loyalty. The month they launched loyalty at the pay station, they jumped to 16,000 &mdash; more than double. The list is powerful. Loyalty is how you build it fast.</p>
+</div>
+
+<hr class="section-divider">
+
+<!-- ===== SECTION 8: IMPLEMENTATION ===== -->
+<h2>8. Implementation Checklist</h2>
+
+<h3>Week 1: Simplify</h3>
+<ul class="checklist">
+  <li>Define your loyalty program in seven words or fewer ("Wash 4 times, get your 5th free")</li>
+  <li>Remove any existing tiers, point scales, or conversion charts</li>
+  <li>Apply the 10-year-old test to all loyalty signage and screens</li>
+  <li>Brief your CSAs on the new program &mdash; they should explain it in one sentence</li>
+</ul>
+
+<h3>Week 2: Connect</h3>
+<ul class="checklist">
+  <li>Set up loyalty to run through your text club (phone number capture at the pay station)</li>
+  <li>Build your welcome sequence (see messages above)</li>
+  <li>Ensure every loyalty enrollment automatically adds the customer to your text club</li>
+  <li>Test the full flow: enroll &rarr; welcome text &rarr; point tracking &rarr; reward notification</li>
+</ul>
+
+<h3>Week 3: Engage</h3>
+<ul class="checklist">
+  <li>Set up inactivity nudges (21-day and 30-day triggers)</li>
+  <li>Set up the membership-ready message for customers washing 2&ndash;3 times per month</li>
+  <li>Set up reward earned/redeemed messages</li>
+  <li>Train CSAs to make loyalty part of the transaction: "Can I get your phone number to track your loyalty?"</li>
+</ul>
+
+<h3>Week 4: Optimize</h3>
+<ul class="checklist">
+  <li>Review opt-in rates &mdash; target 40%+ of retail washers</li>
+  <li>Review redemption data &mdash; are customers completing the cycle?</li>
+  <li>Adjust messaging based on what's working</li>
+  <li>Set up member loyalty rewards (anniversary, visit-based perks)</li>
+</ul>
+
+<hr class="section-divider">
+
+<!-- ===== SECTION 9: CSA SCRIPTS ===== -->
+<h2>9. CSA Scripts for Loyalty Enrollment</h2>
+
+<p>If you have customer service attendants at the pay station or on-site, these scripts turn loyalty into part of every transaction.</p>
+
+<div class="script-block">
+  <div class="label">The Standard Ask</div>
+  <p>"Can I get your phone number to track your loyalty? Every four washes you get your fifth one free."</p>
+</div>
+
+<div class="script-block">
+  <div class="label">The Returning Customer</div>
+  <p>"Do we have your phone number? I want to make sure you're getting credit toward your free wash."</p>
+</div>
+
+<div class="script-block">
+  <div class="label">When They Hesitate</div>
+  <p>"Totally up to you. We just track your washes and text you when you've earned a free one. No spam, no emails &mdash; just free washes."</p>
+</div>
+
+<div class="script-block">
+  <div class="label">When They Ask How It Works</div>
+  <p>"Super simple. Every time you wash, we track it by your phone number. After four washes, we text you a link for a free one. That's it."</p>
+</div>
+
+<div class="tip">
+  <div class="tip-label">The Psychology Shift</div>
+  <p>At first, you have to ask customers for their phone number. But once they start earning points, they'll ask <em>you</em>. They'll pull up and say, "Do you have my number? I want my points." That's when you know the program is working. Stop asking for their number &mdash; let them ask you to save it for them.</p>
+</div>
+
+<hr class="section-divider">
+
+<div class="intro-box">
+  <p><strong>Remember:</strong> Your loyalty program should not reward spending. It should reward showing up. Because showing up builds the habit. The habit builds the member. And the member builds the business. Simplify it this week. Connect it to your text club. And start seeing your retail customers for the first time.</p>
+</div>
+
+<div class="footer">
+  <img src="optspot-logo.png" alt="OptSpot" style="height: 28px; margin-bottom: 12px;">
+  <p>The Five Funnels to Freedom&trade;</p>
+  <p>optspot.com/fivefunnelsbook</p>
+</div>
+
+</div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.2/html2pdf.bundle.min.js"></script>
+<script>
+function downloadPDF() {
+  var btn = document.querySelector('.pdf-btn');
+  btn.textContent = 'Generating PDF\u2026';
+  btn.disabled = true;
+  var el = document.querySelector('.page');
+  html2pdf().set({
+    margin: [10, 10, 10, 10],
+    filename: 'Loyalty-Program-Blueprint.pdf',
+    image: { type: 'jpeg', quality: 0.98 },
+    html2canvas: { scale: 2, useCORS: true },
+    jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' },
+    pagebreak: { mode: ['avoid-all', 'css', 'legacy'] }
+  }).from(el).save().then(function() {
+    btn.textContent = '\uD83D\uDCC4 Download as PDF';
+    btn.disabled = false;
+  });
+}
+</script>
+</body>
+</html>
