@@ -1100,14 +1100,17 @@ function initTokenClient() {
     client_id: GOOGLE_CLIENT_ID,
     scope: 'https://www.googleapis.com/auth/drive.file',
     callback: function(response) {
+      var hint = document.getElementById('exportHint');
+      var btn = document.getElementById('exportBtn');
       if (response.error) {
-        document.getElementById('exportHint').textContent = 'Sign-in failed. Try again.';
-        document.getElementById('exportBtn').disabled = false;
-        document.getElementById('exportBtn').textContent = 'Export to Google Docs';
+        hint.textContent = 'Sign-in error: ' + response.error + ' - ' + (response.error_description || '');
+        btn.disabled = false;
+        btn.textContent = 'Export to Google Docs';
         return;
       }
       googleAccessToken = response.access_token;
-      document.getElementById('exportBtn').textContent = 'Creating doc...';
+      btn.textContent = 'Creating doc...';
+      hint.textContent = 'Uploading to Google Drive...';
       uploadToGoogleDrive();
     }
   });
@@ -1380,7 +1383,8 @@ function uploadToGoogleDrive() {
   })
   .catch(function(err) {
     console.error('Export error:', err);
-    hint.textContent = 'Export failed: ' + err.message;
+    hint.textContent = 'Error: ' + (err.message || String(err));
+    hint.style.color = '#dc2626';
     btn.disabled = false;
     btn.textContent = 'Export to Google Docs';
   });
