@@ -1121,66 +1121,64 @@ function buildExportHtml() {
   var memberPrice = document.getElementById('memberPrice').value || '30';
   var memberLink = document.getElementById('memberLink').value || 'https://crwsh.co/xxxxxx';
 
-  var h = '<html><head><meta charset="utf-8"></head><body style="font-family:Arial,sans-serif;color:#1a1a2e;line-height:1.4;margin:0;padding:0;">';
+  var h = '<html><head><meta charset="utf-8"></head><body style="font-family:Arial,sans-serif;color:#1a1a2e;line-height:1.5;margin:0;padding:0;">';
 
   // ── COVER HEADER ──
   h += '<table width="100%" cellpadding="0" cellspacing="0" border="0" style="background-color:#0f172a;">';
-  h += '<tr><td style="padding:40px 40px 12px;text-align:center;">';
-  h += '<p style="font-size:11px;font-weight:bold;letter-spacing:2px;color:#fbbf24;margin:0;">PREPARED FOR</p>';
+  h += '<tr><td style="padding:50px 48px 14px;text-align:center;">';
+  h += '<p style="font-size:11px;font-weight:bold;letter-spacing:3px;color:#fbbf24;margin:0;">PREPARED FOR</p>';
   h += '</td></tr>';
-  h += '<tr><td style="padding:0 40px;text-align:center;">';
-  h += '<p style="font-size:28px;font-weight:bold;color:#ffffff;margin:0;">' + esc(washName) + '</p>';
+  h += '<tr><td style="padding:0 48px;text-align:center;">';
+  h += '<p style="font-size:32px;font-weight:bold;color:#ffffff;margin:0;">' + esc(washName) + '</p>';
   h += '</td></tr>';
-  h += '<tr><td style="padding:12px 40px 8px;text-align:center;">';
-  h += '<p style="font-size:13px;color:#94a3b8;margin:0;">90-Day Prospect Text Campaign</p>';
+  h += '<tr><td style="padding:16px 48px 6px;text-align:center;">';
+  h += '<table cellpadding="0" cellspacing="0" border="0" style="margin:0 auto;"><tr>';
+  h += '<td style="background-color:#1e293b;padding:6px 16px;">';
+  h += '<p style="font-size:12px;font-weight:bold;letter-spacing:1px;color:#60a5fa;margin:0;">90-DAY PROSPECT TEXT CAMPAIGN</p>';
+  h += '</td></tr></table>';
   h += '</td></tr>';
-  h += '<tr><td style="padding:4px 40px 32px;text-align:center;">';
-  h += '<p style="font-size:11px;color:#64748b;margin:0;">' + esc(washType === 'full' ? 'Full Service' : 'Express Tunnel') + ' &bull; $' + esc(memberPrice) + '/mo membership</p>';
+  h += '<tr><td style="padding:14px 48px 44px;text-align:center;">';
+  h += '<p style="font-size:12px;color:#94a3b8;margin:0;">' + esc(washType === 'full' ? 'Full Service' : 'Express Tunnel') + ' &nbsp;&bull;&nbsp; $' + esc(memberPrice) + '/mo Membership &nbsp;&bull;&nbsp; Powered by OptSpot</p>';
   h += '</td></tr>';
   h += '</table>';
 
   // ── SPACER ──
-  h += '<p style="font-size:6px;margin:0;">&nbsp;</p>';
+  h += '<p style="font-size:14px;margin:0;">&nbsp;</p>';
 
   // ── CAMPAIGN OVERVIEW ──
-  h += '<table width="100%" cellpadding="0" cellspacing="0" border="0" style="background-color:#f0f4ff;border:1px solid #c7d6ff;">';
-  h += '<tr><td style="padding:20px 24px 6px;">';
-  h += '<p style="font-size:14px;font-weight:bold;color:#1e40af;margin:0 0 10px;">Campaign Overview</p>';
+  h += '<table width="100%" cellpadding="0" cellspacing="0" border="0" style="background-color:#f0f4ff;border:2px solid #c7d6ff;">';
+  h += '<tr><td style="padding:24px 28px 8px;">';
+  h += '<p style="font-size:16px;font-weight:bold;color:#1e40af;margin:0 0 12px;">Campaign Overview</p>';
   h += '</td></tr>';
-  h += '<tr><td style="padding:0 24px;">';
-  h += '<p style="font-size:11px;margin:0 0 6px;color:#334155;"><b>Entry point:</b> Customer opted in through a free wash offer.</p>';
+  h += '<tr><td style="padding:0 28px 8px;">';
+  h += '<p style="font-size:13px;margin:0 0 8px;color:#334155;line-height:1.6;"><b>Entry point:</b> Customer opted in through a free wash offer.</p>';
+  h += '<p style="font-size:13px;margin:0 0 8px;color:#334155;line-height:1.6;"><b>Goal:</b> Get them in at least 3 more times in the first 45 days. Build the wash habit so membership becomes the obvious next step.</p>';
+  h += '<p style="font-size:13px;margin:0 0 8px;color:#334155;line-height:1.6;"><b>Framework:</b> Curiosity &#8594; Enlightenment &#8594; Commitment.</p>';
+  h += '<p style="font-size:13px;margin:0;color:#334155;line-height:1.6;"><b>Offer progression:</b> Free &#8594; Discount &#8594; Outcome (no discount). Wean them off incentives and toward the habit.</p>';
   h += '</td></tr>';
-  h += '<tr><td style="padding:0 24px;">';
-  h += '<p style="font-size:11px;margin:0 0 6px;color:#334155;"><b>Goal:</b> Get them in at least 3 more times in the first 45 days. Build the wash habit so membership becomes the obvious next step.</p>';
-  h += '</td></tr>';
-  h += '<tr><td style="padding:0 24px;">';
-  h += '<p style="font-size:11px;margin:0 0 6px;color:#334155;"><b>Framework:</b> Curiosity &#8594; Enlightenment &#8594; Commitment.</p>';
-  h += '</td></tr>';
-  h += '<tr><td style="padding:0 24px 16px;">';
-  h += '<p style="font-size:11px;margin:0;color:#334155;"><b>Offer progression:</b> Free &#8594; Discount &#8594; Outcome (no discount). Wean them off incentives and toward the habit.</p>';
-  h += '</td></tr>';
+  h += '<tr><td style="padding:0 28px 20px;">&nbsp;</td></tr>';
   h += '</table>';
 
-  h += '<p style="font-size:6px;margin:0;">&nbsp;</p>';
+  h += '<p style="font-size:10px;margin:0;">&nbsp;</p>';
 
   // ── SMS VS MMS NOTE ──
   h += '<table width="100%" cellpadding="0" cellspacing="0" border="0">';
   h += '<tr>';
-  h += '<td width="4" style="background-color:#f59e0b;">&nbsp;</td>';
-  h += '<td style="background-color:#fffbeb;padding:14px 18px;">';
-  h += '<p style="font-size:10px;font-weight:bold;letter-spacing:1px;color:#b45309;margin:0 0 4px;">SMS VS MMS</p>';
-  h += '<p style="font-size:11px;margin:0;color:#92400e;">Each message includes an <b>SMS version</b> (160-char limit, text only) and an <b>MMS version</b> (500-char limit, includes an image). Use one or the other per message, not both. Operator supplies their own images.</p>';
+  h += '<td width="5" style="background-color:#f59e0b;">&nbsp;</td>';
+  h += '<td style="background-color:#fffbeb;padding:18px 22px;">';
+  h += '<p style="font-size:11px;font-weight:bold;letter-spacing:1.5px;color:#b45309;margin:0 0 6px;">SMS VS MMS</p>';
+  h += '<p style="font-size:12px;margin:0;color:#92400e;line-height:1.6;">Each message includes an <b>SMS version</b> (160-character limit, text only) and an <b>MMS version</b> (500-character limit, includes an image). Use one or the other per message, not both. Operator supplies their own images.</p>';
   h += '</td></tr></table>';
 
   // ── TIMELINE VISUAL ──
-  h += '<p style="font-size:6px;margin:0;">&nbsp;</p>';
-  h += '<table width="100%" cellpadding="0" cellspacing="0" border="0" style="background-color:#f8fafc;border:1px solid #e2e8f0;">';
-  h += '<tr><td style="padding:14px 20px 6px;">';
-  h += '<p style="font-size:10px;font-weight:bold;letter-spacing:1px;color:#64748b;margin:0;">MESSAGE TIMELINE</p>';
+  h += '<p style="font-size:10px;margin:0;">&nbsp;</p>';
+  h += '<table width="100%" cellpadding="0" cellspacing="0" border="0" style="background-color:#f8fafc;border:2px solid #e2e8f0;">';
+  h += '<tr><td style="padding:18px 24px 8px;">';
+  h += '<p style="font-size:11px;font-weight:bold;letter-spacing:1.5px;color:#475569;margin:0;">MESSAGE TIMELINE</p>';
   h += '</td></tr>';
-  h += '<tr><td style="padding:4px 20px 14px;">';
-  h += '<p style="font-size:11px;color:#334155;margin:0;">Day 0 &#8594; Day 3 &#8594; Day 7* &#8594; Day 10 &#8594; Day 21 &#8594; Day 35 &#8594; Day 42 &#8594; Day 45* &#8594; Day 55 &#8594; Day 65 &#8594; Day 75 &#8594; Day 90 &#8594; Day 260</p>';
-  h += '<p style="font-size:9px;color:#94a3b8;margin:4px 0 0;">* = system automated &nbsp;&nbsp;|&nbsp;&nbsp;13 messages over 90 days &nbsp;&nbsp;|&nbsp;&nbsp;1 win-back at 260 days</p>';
+  h += '<tr><td style="padding:4px 24px 18px;">';
+  h += '<p style="font-size:12px;color:#334155;margin:0;line-height:1.8;">Day 0 &#8594; Day 3 &#8594; Day 7* &#8594; Day 10 &#8594; Day 21 &#8594; Day 35 &#8594; Day 42 &#8594; Day 45* &#8594; Day 55 &#8594; Day 65 &#8594; Day 75 &#8594; Day 90 &#8594; Day 260</p>';
+  h += '<p style="font-size:10px;color:#94a3b8;margin:6px 0 0;">* = system automated &nbsp;&nbsp;|&nbsp;&nbsp;13 messages over 90 days &nbsp;&nbsp;|&nbsp;&nbsp;1 win-back at 260 days</p>';
   h += '</td></tr></table>';
 
   // ── MESSAGE CARDS ──
@@ -1188,11 +1186,11 @@ function buildExportHtml() {
     var item = EXPORT_SEQUENCE[i];
 
     if (item.phase) {
-      h += '<p style="font-size:4px;margin:0;">&nbsp;</p>';
+      h += '<p style="font-size:12px;margin:0;">&nbsp;</p>';
       h += '<table width="100%" cellpadding="0" cellspacing="0" border="0" style="background-color:#0f172a;">';
-      h += '<tr><td style="padding:12px 20px;">';
-      h += '<p style="font-size:10px;font-weight:bold;letter-spacing:2px;color:#60a5fa;margin:0;">' + esc(item.phase).toUpperCase() + '</p>';
-      if (item.phaseDesc) h += '<p style="font-size:11px;color:#94a3b8;margin:4px 0 0;">' + esc(item.phaseDesc) + '</p>';
+      h += '<tr><td style="padding:18px 28px;">';
+      h += '<p style="font-size:12px;font-weight:bold;letter-spacing:2.5px;color:#60a5fa;margin:0;">' + esc(item.phase).toUpperCase() + '</p>';
+      if (item.phaseDesc) h += '<p style="font-size:13px;color:#94a3b8;margin:6px 0 0;">' + esc(item.phaseDesc) + '</p>';
       h += '</td></tr></table>';
       continue;
     }
@@ -1211,34 +1209,34 @@ function buildExportHtml() {
     var titleEl = dripEl ? dripEl.querySelector('.drip-title') : null;
     var imageRecEls = dripEl ? dripEl.querySelectorAll('.image-rec') : [];
 
-    h += '<p style="font-size:4px;margin:0;">&nbsp;</p>';
+    h += '<p style="font-size:8px;margin:0;">&nbsp;</p>';
 
     // Card outer border
-    var cardBorder = item.system ? 'border:1px solid #fde68a;' : 'border:1px solid #e2e8f0;';
+    var cardBorder = item.system ? 'border:2px solid #fde68a;' : 'border:2px solid #e2e8f0;';
     h += '<table width="100%" cellpadding="0" cellspacing="0" border="0" style="' + cardBorder + '">';
 
     // Day label header bar
-    var headerBg = item.system ? 'background-color:#fffbeb;' : 'background-color:#f8fafc;';
-    h += '<tr><td style="' + headerBg + 'padding:10px 20px;border-bottom:1px solid #e2e8f0;">';
+    var headerBg = item.system ? 'background-color:#fffbeb;' : 'background-color:#f1f5f9;';
+    var headerBorder = item.system ? 'border-bottom:2px solid #fde68a;' : 'border-bottom:2px solid #e2e8f0;';
+    h += '<tr><td style="' + headerBg + 'padding:14px 24px;' + headerBorder + '">';
     h += '<p style="margin:0;">';
-    h += '<span style="font-size:11px;font-weight:bold;letter-spacing:1px;color:#2563eb;">' + esc(item.label).toUpperCase() + '</span>';
-    h += '&nbsp;&nbsp;&nbsp;&nbsp;<span style="font-size:11px;color:#64748b;">' + esc(item.purpose) + '</span>';
-    if (item.system) h += '&nbsp;&nbsp;&nbsp;<span style="font-size:9px;font-weight:bold;color:#92400e;background-color:#fef3c7;padding:2px 8px;">SYSTEM AUTO</span>';
+    h += '<span style="font-size:12px;font-weight:bold;letter-spacing:1px;color:#2563eb;">' + esc(item.label).toUpperCase() + '</span>';
+    h += '&nbsp;&nbsp;&nbsp;&nbsp;<span style="font-size:12px;color:#64748b;">' + esc(item.purpose) + '</span>';
+    if (item.system) h += '&nbsp;&nbsp;&nbsp;<span style="font-size:10px;font-weight:bold;color:#92400e;background-color:#fef3c7;padding:3px 10px;">SYSTEM AUTO</span>';
     h += '</p>';
     h += '</td></tr>';
 
     // Title row
     if (titleEl) {
-      h += '<tr><td style="padding:14px 20px 4px;">';
-      h += '<p style="font-size:15px;font-weight:bold;color:#0f172a;margin:0;">' + esc(titleEl.textContent) + '</p>';
+      h += '<tr><td style="padding:18px 24px 6px;">';
+      h += '<p style="font-size:17px;font-weight:bold;color:#0f172a;margin:0;">' + esc(titleEl.textContent) + '</p>';
       h += '</td></tr>';
     }
 
     // Message content
-    h += '<tr><td style="padding:10px 20px 16px;">';
+    h += '<tr><td style="padding:14px 24px 20px;">';
 
     if (hasSms && hasMms) {
-      // Two-column layout
       h += '<table width="100%" cellpadding="0" cellspacing="0" border="0"><tr>';
       h += '<td width="48%" valign="top">' + buildMsgBlockInline('sms', smsText, null) + '</td>';
       h += '<td width="4%">&nbsp;</td>';
@@ -1258,12 +1256,12 @@ function buildExportHtml() {
 
     // Strategy note row
     if (noteEl) {
-      h += '<tr><td style="padding:0 20px 16px;">';
+      h += '<tr><td style="padding:0 24px 20px;">';
       h += '<table width="100%" cellpadding="0" cellspacing="0" border="0">';
       h += '<tr>';
-      h += '<td width="3" style="background-color:#cbd5e1;">&nbsp;</td>';
-      h += '<td style="padding:8px 12px;background-color:#f8fafc;">';
-      h += '<p style="font-size:10px;color:#64748b;margin:0;">' + noteEl.innerHTML + '</p>';
+      h += '<td width="4" style="background-color:#2563eb;">&nbsp;</td>';
+      h += '<td style="padding:12px 16px;background-color:#f0f4ff;">';
+      h += '<p style="font-size:11px;color:#475569;margin:0;line-height:1.6;">' + noteEl.innerHTML + '</p>';
       h += '</td></tr></table>';
       h += '</td></tr>';
     }
@@ -1272,12 +1270,18 @@ function buildExportHtml() {
   }
 
   // ── FOOTER ──
-  h += '<p style="font-size:8px;margin:0;">&nbsp;</p>';
-  h += '<table width="100%" cellpadding="0" cellspacing="0" border="0" style="border-top:2px solid #e2e8f0;">';
-  h += '<tr><td style="padding:16px 20px;text-align:center;">';
-  h += '<p style="font-size:10px;color:#94a3b8;margin:0 0 2px;">Powered by <b style="color:#64748b;">OptSpot</b></p>';
-  h += '<p style="font-size:9px;color:#cbd5e1;margin:0;">Customized for ' + esc(washName) + ' &bull; ' + esc(memberLink) + '</p>';
-  h += '</td></tr></table>';
+  h += '<p style="font-size:16px;margin:0;">&nbsp;</p>';
+  h += '<table width="100%" cellpadding="0" cellspacing="0" border="0" style="background-color:#0f172a;">';
+  h += '<tr><td style="padding:28px 28px 10px;text-align:center;">';
+  h += '<p style="font-size:12px;color:#94a3b8;margin:0;">Powered by <b style="color:#60a5fa;">OptSpot</b></p>';
+  h += '</td></tr>';
+  h += '<tr><td style="padding:0 28px 8px;text-align:center;">';
+  h += '<p style="font-size:11px;color:#64748b;margin:0;">Customized for ' + esc(washName) + '</p>';
+  h += '</td></tr>';
+  h += '<tr><td style="padding:0 28px 24px;text-align:center;">';
+  h += '<p style="font-size:10px;color:#475569;margin:0;">' + esc(memberLink) + '</p>';
+  h += '</td></tr>';
+  h += '</table>';
 
   h += '</body></html>';
   return h;
@@ -1374,19 +1378,19 @@ function buildMsgBlockInline(type, text, imageRec) {
   var labelBg = isSms ? '#eff6ff' : '#f5f3ff';
   var countColor = count > limit ? '#dc2626' : '#94a3b8';
 
-  var h = '<table width="100%" cellpadding="0" cellspacing="0" border="0" style="background-color:' + bg + ';border:1px solid ' + border + ';">';
+  var h = '<table width="100%" cellpadding="0" cellspacing="0" border="0" style="background-color:' + bg + ';border:2px solid ' + border + ';">';
   // Label row
-  h += '<tr><td style="padding:10px 14px 6px;background-color:' + labelBg + ';border-bottom:1px solid ' + border + ';">';
+  h += '<tr><td style="padding:10px 16px;background-color:' + labelBg + ';border-bottom:2px solid ' + border + ';">';
   h += '<p style="margin:0;">';
-  h += '<span style="font-size:9px;font-weight:bold;letter-spacing:1.5px;color:' + labelColor + ';">' + type.toUpperCase() + '</span>';
-  h += '&nbsp;&nbsp;&nbsp;<span style="font-size:9px;color:' + countColor + ';">' + count + '/' + limit + ' chars</span>';
+  h += '<span style="font-size:10px;font-weight:bold;letter-spacing:1.5px;color:' + labelColor + ';">' + type.toUpperCase() + '</span>';
+  h += '&nbsp;&nbsp;&nbsp;<span style="font-size:10px;color:' + countColor + ';">' + count + '/' + limit + ' chars</span>';
   h += '</p>';
   h += '</td></tr>';
   // Message text row
-  h += '<tr><td style="padding:10px 14px 12px;">';
-  h += '<p style="font-size:11px;color:#334155;margin:0;line-height:1.5;">' + esc(text) + '</p>';
+  h += '<tr><td style="padding:14px 16px 16px;">';
+  h += '<p style="font-size:12px;color:#334155;margin:0;line-height:1.7;">' + esc(text) + '</p>';
   if (imageRec) {
-    h += '<p style="font-size:9px;color:#7c3aed;font-style:italic;margin:8px 0 0;padding-top:6px;border-top:1px dashed #e9d5ff;">' + esc(imageRec) + '</p>';
+    h += '<p style="font-size:10px;color:#7c3aed;font-style:italic;margin:10px 0 0;padding-top:8px;border-top:1px dashed #e9d5ff;">' + esc(imageRec) + '</p>';
   }
   h += '</td></tr></table>';
   return h;
