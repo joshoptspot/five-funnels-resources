@@ -1,0 +1,4 @@
+name = "optspot-rewrite-worker"
+main = "src/index.js"
+compatibility_date = "2024-01-01"
+account_id = "bf4d2bcd23b1283a4f69919f909dfb16"

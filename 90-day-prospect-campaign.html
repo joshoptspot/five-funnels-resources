@@ -226,6 +226,76 @@
   .btn-export:disabled { background: #334155; color: #64748b; cursor: not-allowed; }
   .export-hint { font-size: 12px; color: #64748b; }
 
+  /* Message actions */
+  .msg-actions {
+    display: flex;
+    gap: 6px;
+    margin-top: 10px;
+    opacity: 0;
+    transition: opacity 0.2s;
+  }
+  .msg-version:hover .msg-actions { opacity: 1; }
+  .msg-actions button {
+    background: none;
+    border: 1px solid #e2e8f0;
+    border-radius: 6px;
+    padding: 4px 10px;
+    font-size: 11px;
+    font-weight: 600;
+    font-family: 'Inter', sans-serif;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    transition: all 0.2s;
+    color: #64748b;
+  }
+  .msg-actions button:hover { border-color: #94a3b8; color: #334155; background: #f8fafc; }
+  .msg-actions .btn-rewrite { color: #7c3aed; border-color: #ddd6fe; }
+  .msg-actions .btn-rewrite:hover { background: #faf5ff; border-color: #c4b5fd; color: #6d28d9; }
+  .msg-actions .btn-rewrite:disabled { opacity: 0.5; cursor: wait; }
+  .msg-actions .btn-undo { color: #f59e0b; border-color: #fde68a; }
+  .msg-actions .btn-undo:hover { background: #fffbeb; border-color: #fcd34d; color: #d97706; }
+
+  .msg-text[contenteditable="true"] {
+    outline: none;
+    border: 1px solid #3b82f6;
+    border-radius: 6px;
+    padding: 8px;
+    margin: -1px;
+    background: #fff;
+  }
+  .msg-text.edited-badge::after {
+    content: 'edited';
+    display: inline-block;
+    font-size: 9px;
+    font-weight: 700;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    color: #f59e0b;
+    background: #fffbeb;
+    border: 1px solid #fde68a;
+    padding: 1px 6px;
+    border-radius: 100px;
+    margin-left: 8px;
+    vertical-align: middle;
+  }
+  .msg-text.ai-badge::after {
+    content: 'AI rewrite';
+    display: inline-block;
+    font-size: 9px;
+    font-weight: 700;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    color: #7c3aed;
+    background: #faf5ff;
+    border: 1px solid #ddd6fe;
+    padding: 1px 6px;
+    border-radius: 100px;
+    margin-left: 8px;
+    vertical-align: middle;
+  }
+
   @media print {
     body { background: #fff; }
     .page { padding: 20px; box-shadow: none; }
@@ -964,6 +1034,9 @@ function countSentChars(text) {
     .length;
 }
 
+var editedMessages = {};
+var originalMessages = {};
+
 function renderMessages() {
   var washName = document.getElementById('washName').value || '[Wash Name]';
   var topWash = document.getElementById('topWash').value || 'top wash';
@@ -1010,7 +1083,21 @@ function renderMessages() {
       text = shortenText(text, limit);
 
       var msgTextEl = mv.querySelector('.msg-text');
-      if (msgTextEl) msgTextEl.textContent = text;
+      var editKey = dayKey + '_' + type;
+      if (msgTextEl) {
+        if (editedMessages[editKey]) {
+          // User has edited or AI-rewritten this message — don't overwrite
+          text = editedMessages[editKey];
+          msgTextEl.textContent = text;
+        } else {
+          msgTextEl.textContent = text;
+        }
+        // Remove edit/ai badges and re-apply if needed
+        msgTextEl.classList.remove('edited-badge', 'ai-badge');
+        if (editedMessages[editKey]) {
+          msgTextEl.classList.add(editedMessages[editKey + '_source'] === 'ai' ? 'ai-badge' : 'edited-badge');
+        }
+      }
 
       var charEl = mv.querySelector('.char-count');
       if (charEl) {
@@ -1052,13 +1139,16 @@ var EXPORT_SEQUENCE = [
   { day: 'day90', label: 'Day 90', purpose: 'Membership Conversion', system: false },
   { phase: 'Post-90 Day', phaseDesc: '' },
   { day: 'day260', label: 'Day 260', purpose: 'List Hygiene (Auto)', system: true, smsOnly: true },
-  { phase: 'System Messages', phaseDesc: 'Triggered by customer actions, not by the drip timeline.' },
-  { day: 'doi_system', label: 'Online Double Opt-In', purpose: 'Compliance', system: true, smsOnly: true },
-  { day: 'afteryes_system', label: 'After YES Reply', purpose: 'Free Wash Delivery', system: true, smsOnly: true },
-  { day: 'duplicate_system', label: 'Duplicate Opt-In', purpose: 'Already Subscribed', system: true, smsOnly: true }
+  { day: 'doi_system', label: 'Online Double Opt-In', purpose: 'Compliance', system: true, smsOnly: true, skipExport: true },
+  { day: 'afteryes_system', label: 'After YES Reply', purpose: 'Free Wash Delivery', system: true, smsOnly: true, skipExport: true },
+  { day: 'duplicate_system', label: 'Duplicate Opt-In', purpose: 'Already Subscribed', system: true, smsOnly: true, skipExport: true }
 ];
 
 function getRenderedText(dayKey, type) {
+  // If this message was edited/rewritten, return the edited version
+  var editKey = dayKey + '_' + type;
+  if (editedMessages[editKey]) return editedMessages[editKey];
+
   var washName = document.getElementById('washName').value || '[Wash Name]';
   var topWash = document.getElementById('topWash').value || 'top wash';
   var washType = document.getElementById('washType').value;
@@ -1121,81 +1211,31 @@ function buildExportHtml() {
   var fmt = document.getElementById('exportFormat').value;
   var showSms = fmt === 'both' || fmt === 'sms';
   var showMms = fmt === 'both' || fmt === 'mms';
-  var washType = document.getElementById('washType').value;
-  var memberPrice = document.getElementById('membershipPrice').value || '30';
+  var topWash = document.getElementById('topWash').value || 'top wash';
   var memberLink = document.getElementById('membershipLink').value || 'https://crwsh.co/xxxxxx';
 
-  var h = '<html><head><meta charset="utf-8"></head><body style="font-family:Arial,sans-serif;color:#1a1a2e;line-height:1.15;margin:0;padding:0;">';
+  var s = 'font-family:Arial,sans-serif;';
+  var h = '<html><head><meta charset="utf-8"></head><body style="' + s + 'color:#222;line-height:1.5;margin:40px;padding:0;">';
 
-  // ── COVER HEADER ──
-  h += '<table width="100%" cellpadding="0" cellspacing="0" border="0" style="background-color:#0f172a;">';
-  h += '<tr><td style="padding:50px 48px 14px;text-align:center;">';
-  h += '<p style="font-size:11px;font-weight:bold;letter-spacing:3px;color:#fbbf24;margin:0;">PREPARED FOR</p>';
-  h += '</td></tr>';
-  h += '<tr><td style="padding:0 48px;text-align:center;">';
-  h += '<p style="font-size:32px;font-weight:bold;color:#ffffff;margin:0;">' + esc(washName) + '</p>';
-  h += '</td></tr>';
-  h += '<tr><td style="padding:16px 48px 6px;text-align:center;">';
-  h += '<table cellpadding="0" cellspacing="0" border="0" style="margin:0 auto;"><tr>';
-  h += '<td style="background-color:#1e293b;padding:6px 16px;">';
-  h += '<p style="font-size:12px;font-weight:bold;letter-spacing:1px;color:#60a5fa;margin:0;">90-DAY PROSPECT TEXT CAMPAIGN</p>';
-  h += '</td></tr></table>';
-  h += '</td></tr>';
-  h += '<tr><td style="padding:14px 48px 44px;text-align:center;">';
-  h += '<p style="font-size:12px;color:#94a3b8;margin:0;">' + esc(washType === 'full' ? 'Full Service' : 'Express Tunnel') + ' &nbsp;&bull;&nbsp; $' + esc(memberPrice) + '/mo Membership &nbsp;&bull;&nbsp; Powered by OptSpot</p>';
-  h += '</td></tr>';
-  h += '</table>';
+  // ── TITLE ──
+  h += '<h1 style="' + s + 'font-size:26px;text-align:center;margin:0 0 4px;">' + esc(washName) + '</h1>';
+  h += '<p style="' + s + 'text-align:center;font-size:12px;color:#666;margin:0 0 6px;">' + esc(memberLink) + '</p>';
+  h += '<hr style="border:none;border-top:2px solid #222;margin:20px 0;">';
 
-  // ── SPACER ──
-  h += '<p style="font-size:14px;margin:0;">&nbsp;</p>';
+  // ── CAMPAIGN HEADER ──
+  h += '<h2 style="' + s + 'font-size:16px;text-transform:uppercase;letter-spacing:2px;color:#222;margin:24px 0 8px;">PROSPECT MARKETING CAMPAIGN</h2>';
+  h += '<p style="' + s + 'font-size:13px;color:#444;margin:0 0 6px;">This is the main campaign that customers will go into after texting a keyword from your onsite signage, online opt-ins and any other type of marketing you will be doing to draw in new customers to your site.</p>';
+  h += '<p style="' + s + 'font-size:13px;color:#444;margin:0 0 20px;">(Note, any coupons sent out during this time, by default, will have a 14 day expiration date. If you want a different date, please let us know.)</p>';
 
-  // ── CAMPAIGN OVERVIEW ──
-  h += '<table width="100%" cellpadding="0" cellspacing="0" border="0" style="background-color:#f0f4ff;border:2px solid #c7d6ff;">';
-  h += '<tr><td style="padding:24px 28px 8px;">';
-  h += '<p style="font-size:16px;font-weight:bold;color:#1e40af;margin:0 0 12px;">Campaign Overview</p>';
-  h += '</td></tr>';
-  h += '<tr><td style="padding:0 28px 8px;">';
-  h += '<p style="font-size:13px;margin:0 0 8px;color:#334155;line-height:1.15;"><b>Entry point:</b> Customer opted in through a free wash offer.</p>';
-  h += '<p style="font-size:13px;margin:0 0 8px;color:#334155;line-height:1.15;"><b>Goal:</b> Get them in at least 3 more times in the first 45 days. Build the wash habit so membership becomes the obvious next step.</p>';
-  h += '<p style="font-size:13px;margin:0 0 8px;color:#334155;line-height:1.15;"><b>Framework:</b> Curiosity &#8594; Enlightenment &#8594; Commitment.</p>';
-  h += '<p style="font-size:13px;margin:0;color:#334155;line-height:1.15;"><b>Offer progression:</b> Free &#8594; Discount &#8594; Outcome (no discount). Wean them off incentives and toward the habit.</p>';
-  h += '</td></tr>';
-  h += '<tr><td style="padding:0 28px 20px;">&nbsp;</td></tr>';
-  h += '</table>';
-
-  h += '<p style="font-size:10px;margin:0;">&nbsp;</p>';
-
-  // ── SMS VS MMS NOTE ──
-  h += '<table width="100%" cellpadding="0" cellspacing="0" border="0">';
-  h += '<tr>';
-  h += '<td width="5" style="background-color:#f59e0b;">&nbsp;</td>';
-  h += '<td style="background-color:#fffbeb;padding:18px 22px;">';
-  h += '<p style="font-size:11px;font-weight:bold;letter-spacing:1.5px;color:#b45309;margin:0 0 6px;">SMS VS MMS</p>';
-  h += '<p style="font-size:12px;margin:0;color:#92400e;line-height:1.15;">Each message includes an <b>SMS version</b> (160-character limit, text only) and an <b>MMS version</b> (500-character limit, includes an image). Use one or the other per message, not both. Operator supplies their own images.</p>';
-  h += '</td></tr></table>';
-
-  // ── TIMELINE VISUAL ──
-  h += '<p style="font-size:10px;margin:0;">&nbsp;</p>';
-  h += '<table width="100%" cellpadding="0" cellspacing="0" border="0" style="background-color:#f8fafc;border:2px solid #e2e8f0;">';
-  h += '<tr><td style="padding:18px 24px 8px;">';
-  h += '<p style="font-size:11px;font-weight:bold;letter-spacing:1.5px;color:#475569;margin:0;">MESSAGE TIMELINE</p>';
-  h += '</td></tr>';
-  h += '<tr><td style="padding:4px 24px 18px;">';
-  h += '<p style="font-size:12px;color:#334155;margin:0;line-height:1.15;">Day 0 &#8594; Day 3 &#8594; Day 7* &#8594; Day 10 &#8594; Day 21 &#8594; Day 35 &#8594; Day 42 &#8594; Day 45* &#8594; Day 55 &#8594; Day 65 &#8594; Day 75 &#8594; Day 90 &#8594; Day 260</p>';
-  h += '<p style="font-size:10px;color:#94a3b8;margin:6px 0 0;">* = system automated &nbsp;&nbsp;|&nbsp;&nbsp;13 messages over 90 days &nbsp;&nbsp;|&nbsp;&nbsp;1 win-back at 260 days</p>';
-  h += '</td></tr></table>';
-
-  // ── MESSAGE CARDS ──
+  // ── MESSAGES ──
   for (var i = 0; i < EXPORT_SEQUENCE.length; i++) {
     var item = EXPORT_SEQUENCE[i];
 
+    if (item.skipExport) continue;
     if (item.phase) {
-      h += '<p style="font-size:12px;margin:0;">&nbsp;</p>';
-      h += '<table width="100%" cellpadding="0" cellspacing="0" border="0" style="background-color:#0f172a;">';
-      h += '<tr><td style="padding:18px 28px;">';
-      h += '<p style="font-size:12px;font-weight:bold;letter-spacing:2.5px;color:#60a5fa;margin:0;">' + esc(item.phase).toUpperCase() + '</p>';
-      if (item.phaseDesc) h += '<p style="font-size:13px;color:#94a3b8;margin:6px 0 0;">' + esc(item.phaseDesc) + '</p>';
-      h += '</td></tr></table>';
+      h += '<hr style="border:none;border-top:1px solid #ccc;margin:28px 0 20px;">';
+      h += '<h3 style="' + s + 'font-size:14px;text-transform:uppercase;letter-spacing:1.5px;color:#222;margin:0 0 4px;">' + esc(item.phase) + '</h3>';
+      if (item.phaseDesc) h += '<p style="' + s + 'font-size:12px;color:#666;margin:0 0 16px;">' + esc(item.phaseDesc) + '</p>';
       continue;
     }
 
@@ -1209,83 +1249,53 @@ function buildExportHtml() {
     }
 
     var dripEl = document.querySelector('.drip[data-day="' + item.day + '"]');
-    var noteEl = dripEl ? dripEl.querySelector('.drip-note') : null;
     var titleEl = dripEl ? dripEl.querySelector('.drip-title') : null;
     var imageRecEls = dripEl ? dripEl.querySelectorAll('.image-rec') : [];
 
-    h += '<p style="font-size:8px;margin:0;">&nbsp;</p>';
+    // Day label + title
+    var label = item.label + ' Drip - ' + (titleEl ? titleEl.textContent : item.purpose);
+    if (item.system) label = item.label + ' - ' + item.purpose;
+    h += '<p style="' + s + 'font-size:13px;font-weight:bold;color:#222;margin:18px 0 4px;">' + esc(label) + '</p>';
 
-    // Card outer border
-    var cardBorder = item.system ? 'border:2px solid #fde68a;' : 'border:2px solid #e2e8f0;';
-    h += '<table width="100%" cellpadding="0" cellspacing="0" border="0" style="' + cardBorder + '">';
-
-    // Day label header bar
-    var headerBg = item.system ? 'background-color:#fffbeb;' : 'background-color:#f1f5f9;';
-    var headerBorder = item.system ? 'border-bottom:2px solid #fde68a;' : 'border-bottom:2px solid #e2e8f0;';
-    h += '<tr><td style="' + headerBg + 'padding:14px 24px;' + headerBorder + '">';
-    h += '<p style="margin:0;">';
-    h += '<span style="font-size:12px;font-weight:bold;letter-spacing:1px;color:#2563eb;">' + esc(item.label).toUpperCase() + '</span>';
-    h += '&nbsp;&nbsp;&nbsp;&nbsp;<span style="font-size:12px;color:#64748b;">' + esc(item.purpose) + '</span>';
-    if (item.system) h += '&nbsp;&nbsp;&nbsp;<span style="font-size:10px;font-weight:bold;color:#92400e;background-color:#fef3c7;padding:3px 10px;">SYSTEM AUTO</span>';
-    h += '</p>';
-    h += '</td></tr>';
-
-    // Title row
-    if (titleEl) {
-      h += '<tr><td style="padding:18px 24px 6px;">';
-      h += '<p style="font-size:17px;font-weight:bold;color:#0f172a;margin:0;">' + esc(titleEl.textContent) + '</p>';
-      h += '</td></tr>';
+    if (hasSms) {
+      if (hasMms) h += '<p style="' + s + 'font-size:10px;font-weight:bold;text-transform:uppercase;letter-spacing:1px;color:#888;margin:4px 0 2px;">SMS</p>';
+      h += '<p style="' + s + 'font-size:13px;color:#333;margin:0 0 8px;">' + esc(smsText) + '</p>';
     }
 
-    // Message content
-    h += '<tr><td style="padding:14px 24px 20px;">';
-
-    if (hasSms && hasMms) {
-      h += '<table width="100%" cellpadding="0" cellspacing="0" border="0"><tr>';
-      h += '<td width="48%" valign="top">' + buildMsgBlockInline('sms', smsText, null) + '</td>';
-      h += '<td width="4%">&nbsp;</td>';
+    if (hasMms) {
+      h += '<p style="' + s + 'font-size:10px;font-weight:bold;text-transform:uppercase;letter-spacing:1px;color:#888;margin:4px 0 2px;">MMS</p>';
+      h += '<p style="' + s + 'font-size:13px;color:#333;margin:0 0 4px;">' + esc(mmsText) + '</p>';
       var ir = '';
       for (var r = 0; r < imageRecEls.length; r++) ir = imageRecEls[r].textContent;
-      h += '<td width="48%" valign="top">' + buildMsgBlockInline('mms', mmsText, ir) + '</td>';
-      h += '</tr></table>';
-    } else if (hasSms) {
-      h += buildMsgBlockInline('sms', smsText, null);
-    } else if (hasMms) {
-      var ir2 = '';
-      for (var r2 = 0; r2 < imageRecEls.length; r2++) ir2 = imageRecEls[r2].textContent;
-      h += buildMsgBlockInline('mms', mmsText, ir2);
+      if (ir) h += '<p style="' + s + 'font-size:11px;color:#7c3aed;font-style:italic;margin:0 0 8px;">' + esc(ir) + '</p>';
     }
-
-    h += '</td></tr>';
-
-    // Strategy note row
-    if (noteEl) {
-      h += '<tr><td style="padding:0 24px 20px;">';
-      h += '<table width="100%" cellpadding="0" cellspacing="0" border="0">';
-      h += '<tr>';
-      h += '<td width="4" style="background-color:#2563eb;">&nbsp;</td>';
-      h += '<td style="padding:12px 16px;background-color:#f0f4ff;">';
-      h += '<p style="font-size:11px;color:#475569;margin:0;line-height:1.15;">' + noteEl.innerHTML + '</p>';
-      h += '</td></tr></table>';
-      h += '</td></tr>';
-    }
-
-    h += '</table>'; // end card
   }
 
+  // ── MISCELLANEOUS MESSAGES ──
+  h += '<hr style="border:none;border-top:1px solid #ccc;margin:28px 0 20px;">';
+  h += '<h3 style="' + s + 'font-size:14px;text-transform:uppercase;letter-spacing:1.5px;color:#222;margin:0 0 16px;">MISCELLANEOUS MESSAGES</h3>';
+
+  h += '<p style="' + s + 'font-size:13px;font-weight:bold;color:#222;margin:12px 0 4px;">ONLINE OPT-INS</p>';
+  h += '<p style="' + s + 'font-size:12px;color:#444;margin:0 0 8px;">If a customer opts-in from any online form from things like websites, Facebook, etc, they will need to \'double-opt-in\'. This means they will receive a text to confirm their opt-in, that looks similar to this:</p>';
+  var doiText = getRenderedText('doi_system', 'sms');
+  if (doiText) h += '<p style="' + s + 'font-size:13px;color:#333;margin:0 0 12px;">' + esc(doiText) + '</p>';
+
+  h += '<p style="' + s + 'font-size:12px;font-weight:bold;color:#444;margin:12px 0 4px;">IF A CUSTOMER REPLIES YES, THEN THEY WILL GET THE FOLLOWING MESSAGE.</p>';
+  var yesText = getRenderedText('afteryes_system', 'sms');
+  if (yesText) h += '<p style="' + s + 'font-size:13px;color:#333;margin:0 0 12px;">' + esc(yesText) + '</p>';
+
+  h += '<p style="' + s + 'font-size:12px;font-weight:bold;color:#444;margin:12px 0 4px;">IF A CUSTOMER HAS A COUPON AND THEY HAVE NOT REDEEMED IT WITHIN 7 DAYS, THIS MESSAGE WILL BE SENT ONE TIME TO REMIND THEM.</p>';
+  var reminderText = getRenderedText('day7_system', 'sms');
+  if (reminderText) h += '<p style="' + s + 'font-size:13px;color:#333;margin:0 0 12px;">' + esc(reminderText) + '</p>';
+
+  h += '<p style="' + s + 'font-size:12px;font-weight:bold;color:#444;margin:12px 0 4px;">IF A CUSTOMER HAS ALREADY OPTED IN TO THE SAME CAMPAIGN AND THEY TRY AGAIN THEY GET THIS MESSAGE</p>';
+  var dupText = getRenderedText('duplicate_system', 'sms');
+  if (dupText) h += '<p style="' + s + 'font-size:13px;color:#333;margin:0 0 12px;">' + esc(dupText) + '</p>';
+
   // ── FOOTER ──
-  h += '<p style="font-size:16px;margin:0;">&nbsp;</p>';
-  h += '<table width="100%" cellpadding="0" cellspacing="0" border="0" style="background-color:#0f172a;">';
-  h += '<tr><td style="padding:28px 28px 10px;text-align:center;">';
-  h += '<p style="font-size:12px;color:#94a3b8;margin:0;">Powered by <b style="color:#60a5fa;">OptSpot</b></p>';
-  h += '</td></tr>';
-  h += '<tr><td style="padding:0 28px 8px;text-align:center;">';
-  h += '<p style="font-size:11px;color:#64748b;margin:0;">Customized for ' + esc(washName) + '</p>';
-  h += '</td></tr>';
-  h += '<tr><td style="padding:0 28px 24px;text-align:center;">';
-  h += '<p style="font-size:10px;color:#475569;margin:0;">' + esc(memberLink) + '</p>';
-  h += '</td></tr>';
-  h += '</table>';
+  h += '<hr style="border:none;border-top:2px solid #222;margin:32px 0 16px;">';
+  h += '<p style="' + s + 'font-size:12px;text-align:center;color:#888;margin:0;">END OF PROSPECT MARKETING CAMPAIGN</p>';
+  h += '<p style="' + s + 'font-size:11px;text-align:center;color:#aaa;margin:8px 0 0;">Powered by OptSpot &bull; optspot.com</p>';
 
   h += '</body></html>';
   return h;
@@ -1408,33 +1418,6 @@ function uploadToGoogleDrive() {
   xhr.send(requestBody);
 }
 
-function buildMsgBlockInline(type, text, imageRec) {
-  var isSms = type === 'sms';
-  var limit = isSms ? 160 : 500;
-  var count = countSentChars(text);
-  var bg = isSms ? '#f8fafc' : '#faf5ff';
-  var border = isSms ? '#e2e8f0' : '#e9d5ff';
-  var labelColor = isSms ? '#2563eb' : '#7c3aed';
-  var labelBg = isSms ? '#eff6ff' : '#f5f3ff';
-  var countColor = count > limit ? '#dc2626' : '#94a3b8';
-
-  var h = '<table width="100%" cellpadding="0" cellspacing="0" border="0" style="background-color:' + bg + ';border:2px solid ' + border + ';">';
-  // Label row
-  h += '<tr><td style="padding:10px 16px;background-color:' + labelBg + ';border-bottom:2px solid ' + border + ';">';
-  h += '<p style="margin:0;">';
-  h += '<span style="font-size:10px;font-weight:bold;letter-spacing:1.5px;color:' + labelColor + ';">' + type.toUpperCase() + '</span>';
-  h += '&nbsp;&nbsp;&nbsp;<span style="font-size:10px;color:' + countColor + ';">' + count + '/' + limit + ' chars</span>';
-  h += '</p>';
-  h += '</td></tr>';
-  // Message text row
-  h += '<tr><td style="padding:14px 16px 16px;">';
-  h += '<p style="font-size:12px;color:#334155;margin:0;line-height:1.15;">' + esc(text) + '</p>';
-  if (imageRec) {
-    h += '<p style="font-size:10px;color:#7c3aed;font-style:italic;margin:10px 0 0;padding-top:8px;border-top:1px dashed #e9d5ff;">' + esc(imageRec) + '</p>';
-  }
-  h += '</td></tr></table>';
-  return h;
-}
 
 function esc(str) {
   return str.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;').replace(/\n/g, '<br>');
@@ -1448,6 +1431,217 @@ document.querySelectorAll('#customizer select').forEach(function(el) {
 });
 
 renderMessages();
+
+// === AI REWRITE & INLINE EDIT FEATURE ===
+
+var REWRITE_WORKER_URL = 'https://optspot-rewrite-worker.josh-bf4.workers.dev';
+
+// Inject action buttons into every msg-version
+function injectActionButtons() {
+  document.querySelectorAll('.msg-version').forEach(function(mv) {
+    if (mv.querySelector('.msg-actions')) return; // already injected
+    var drip = mv.closest('.drip[data-day]');
+    if (!drip) return;
+    var dayKey = drip.dataset.day;
+    var type = mv.classList.contains('sms') ? 'sms' : 'mms';
+    var editKey = dayKey + '_' + type;
+
+    var bar = document.createElement('div');
+    bar.className = 'msg-actions';
+
+    // Edit button
+    var editBtn = document.createElement('button');
+    editBtn.className = 'btn-edit';
+    editBtn.textContent = '\u270E Edit';
+    editBtn.onclick = function() { startEditing(mv, editKey); };
+    bar.appendChild(editBtn);
+
+    // Rewrite button
+    var rewriteBtn = document.createElement('button');
+    rewriteBtn.className = 'btn-rewrite';
+    rewriteBtn.textContent = '\u2728 Rewrite';
+    rewriteBtn.onclick = function() { rewriteMessage(mv, editKey, type, dayKey); };
+    bar.appendChild(rewriteBtn);
+
+    // Undo button (hidden by default)
+    var undoBtn = document.createElement('button');
+    undoBtn.className = 'btn-undo';
+    undoBtn.textContent = '\u21BA Undo';
+    undoBtn.style.display = 'none';
+    undoBtn.onclick = function() { undoEdit(mv, editKey); };
+    bar.appendChild(undoBtn);
+
+    mv.appendChild(bar);
+  });
+}
+
+function startEditing(mv, editKey) {
+  var msgText = mv.querySelector('.msg-text');
+  if (!msgText) return;
+
+  // Save original if not already saved
+  if (!originalMessages[editKey]) {
+    originalMessages[editKey] = msgText.textContent;
+  }
+
+  msgText.contentEditable = 'true';
+  msgText.focus();
+
+  // Place cursor at end
+  var range = document.createRange();
+  range.selectNodeContents(msgText);
+  range.collapse(false);
+  var sel = window.getSelection();
+  sel.removeAllRanges();
+  sel.addRange(range);
+
+  // Save on blur
+  function onBlur() {
+    msgText.contentEditable = 'false';
+    var newText = msgText.textContent.trim();
+    if (newText !== originalMessages[editKey]) {
+      editedMessages[editKey] = newText;
+      editedMessages[editKey + '_source'] = 'manual';
+      msgText.classList.remove('ai-badge');
+      msgText.classList.add('edited-badge');
+      showUndoButton(mv, true);
+      updateCharCount(mv, newText);
+    }
+    msgText.removeEventListener('blur', onBlur);
+    msgText.removeEventListener('keydown', onKeydown);
+  }
+
+  function onKeydown(e) {
+    if (e.key === 'Escape') {
+      msgText.contentEditable = 'false';
+      // Revert to last saved state
+      msgText.textContent = editedMessages[editKey] || originalMessages[editKey];
+      msgText.removeEventListener('blur', onBlur);
+      msgText.removeEventListener('keydown', onKeydown);
+    }
+    // Prevent Enter from adding line breaks in SMS
+    if (e.key === 'Enter' && !e.shiftKey) {
+      e.preventDefault();
+      msgText.blur();
+    }
+  }
+
+  msgText.addEventListener('blur', onBlur);
+  msgText.addEventListener('keydown', onKeydown);
+}
+
+function updateCharCount(mv, text) {
+  var type = mv.classList.contains('sms') ? 'sms' : 'mms';
+  var limit = type === 'sms' ? 160 : 500;
+  var count = countSentChars(text);
+  var charEl = mv.querySelector('.char-count');
+  if (charEl) {
+    charEl.textContent = count + '/' + limit;
+    charEl.className = 'char-count';
+    if (count > limit) charEl.classList.add('char-over');
+    else if (count > limit - 10) charEl.classList.add('char-warn');
+    else charEl.classList.add('char-ok');
+  }
+}
+
+function showUndoButton(mv, show) {
+  var undoBtn = mv.querySelector('.btn-undo');
+  if (undoBtn) undoBtn.style.display = show ? 'flex' : 'none';
+}
+
+async function rewriteMessage(mv, editKey, type, dayKey) {
+  var msgText = mv.querySelector('.msg-text');
+  if (!msgText) return;
+  var currentText = msgText.textContent;
+  var limit = type === 'sms' ? 160 : 500;
+
+  // Save original if not already saved
+  if (!originalMessages[editKey]) {
+    originalMessages[editKey] = currentText;
+  }
+
+  // Get context from the drip card
+  var drip = mv.closest('.drip[data-day]');
+  var dayLabel = '';
+  var purpose = '';
+  var title = '';
+  var strategy = '';
+  if (drip) {
+    var dayEl = drip.querySelector('.drip-day');
+    if (dayEl) dayLabel = dayEl.textContent;
+    var purposeEl = drip.querySelector('.drip-purpose');
+    if (purposeEl) purpose = purposeEl.textContent;
+    var titleEl = drip.querySelector('.drip-title');
+    if (titleEl) title = titleEl.textContent;
+    var noteEl = drip.querySelector('.drip-note');
+    if (noteEl) strategy = noteEl.textContent;
+  }
+
+  var washName = document.getElementById('washName').value || '[Wash Name]';
+  var voice = document.getElementById('brandVoice').value;
+
+  // Show loading state
+  var rewriteBtn = mv.querySelector('.btn-rewrite');
+  var origBtnHtml = rewriteBtn.innerHTML;
+  rewriteBtn.innerHTML = '&#8987; Writing...';
+  rewriteBtn.disabled = true;
+
+  try {
+    var response = await fetch(REWRITE_WORKER_URL, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        currentText: currentText,
+        type: type,
+        dayLabel: dayLabel,
+        purpose: purpose,
+        title: title,
+        strategy: strategy,
+        washName: washName,
+        voice: voice,
+        charLimit: limit
+      })
+    });
+
+    if (!response.ok) {
+      var errData = await response.json().catch(function() { return {}; });
+      throw new Error(errData.error || 'Rewrite request failed (' + response.status + ')');
+    }
+
+    var data = await response.json();
+    var newText = data.text;
+
+    editedMessages[editKey] = newText;
+    editedMessages[editKey + '_source'] = 'ai';
+    msgText.textContent = newText;
+    msgText.classList.remove('edited-badge');
+    msgText.classList.add('ai-badge');
+    showUndoButton(mv, true);
+    updateCharCount(mv, newText);
+
+  } catch (err) {
+    alert('Rewrite failed: ' + err.message);
+  } finally {
+    rewriteBtn.innerHTML = origBtnHtml;
+    rewriteBtn.disabled = false;
+  }
+}
+
+function undoEdit(mv, editKey) {
+  var msgText = mv.querySelector('.msg-text');
+  if (!msgText || !originalMessages[editKey]) return;
+
+  delete editedMessages[editKey];
+  delete editedMessages[editKey + '_source'];
+  msgText.textContent = originalMessages[editKey];
+  msgText.classList.remove('edited-badge', 'ai-badge');
+  showUndoButton(mv, false);
+  updateCharCount(mv, originalMessages[editKey]);
+  delete originalMessages[editKey];
+}
+
+// Inject buttons on load
+injectActionButtons();
 </script>
 
 </body>
